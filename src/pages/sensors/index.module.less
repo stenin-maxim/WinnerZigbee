@@ -1,3 +1,62 @@
-.body {
-    color: red;
+@colorSteelBlue: #4682B4;
+@colorBackground: #f2f4f6;
+@colorWhite: #FFFFFF;
+
+.title {
+    font-size: 13px;
+    padding-left: 10px;
+}
+
+.wrapSensors {
+    background: @colorWhite;
+    margin: 10px;
+    min-height: 70px;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+.border {
+    padding-bottom: 7px;
+    margin-bottom: 7px;
+    border-bottom: 2px solid @colorBackground;
+}
+
+.countSensors {
+    padding-left: 7px;
+    color: @colorSteelBlue;
+}
+
+.sensor {
+    .wrapSensors();
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .name {
+        padding: 0 10px;
+        position: relative;
+        bottom: 4px;
+    }
+}
+
+.signalBattery {
+    display: flex;
+    justify-content: flex-end;
+    right: 15px;
+    top: 0px;
+}
+
+.signal, .battery {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 3px;
+    width: 40px;
+}
+
+.signalText, .batteryText {
+    &:after {
+        content: "%";
+    }
 }
