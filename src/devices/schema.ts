@@ -123,5 +123,89 @@ export const defaultSchema = [
       "type": "value"
     },
     "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "radio_search",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 105,
+    "mode": "rw",
+    "name": "Radio search",
+    "property": {
+      "type": "bool"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "radio_sensor_1",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 106,
+    "mode": "rw",
+    "name": "Radio sensor 1",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "radio_sensor_2",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 107,
+    "mode": "rw",
+    "name": "Radio sensor 2",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "radio_sensor_3",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 108,
+    "mode": "rw",
+    "name": "Radio sensor 3",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "wired_sensor_1",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 109,
+    "mode": "rw",
+    "name": "Wired sensor 1",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
   }
 ]
