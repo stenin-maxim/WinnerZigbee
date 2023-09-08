@@ -90,7 +90,11 @@ export function Home() {
     return (
         <View className={styles.view}>
             <TopBar />
-            <Image src="https://gidrolock.ru/upload/ITinit/844/logo_white.svg" className={styles.logo}/>
+            <View className={styles.logo}>
+                <Text className={styles.logoTextLeft}>GIDROL</Text>
+                <Icon type="icon-a-dropfill" size="25" color="white"></Icon>
+                <Text className={styles.logoTextRight}>CK</Text>
+            </View>
             <View className={styles.batteryAlarm}>
                 <View className={styles.battery}>
                     <Text className={styles.batteryText}>Заряд батареи</Text>
