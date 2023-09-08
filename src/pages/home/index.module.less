@@ -1,0 +1,199 @@
+.view {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
+}
+
+@colorSteelBlue: #4682B4;
+@colorLogo: #018BFF;
+@colorDeepSkyBlue: #00BFFF;
+
+.logo {
+    height: 70px;
+    width: 100%;
+    background-color: #018BFF;
+    padding: 14px
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    background-color: transparent;
+    justify-content: center;
+    width: 80px;
+    padding: 0px;
+    color: @colorLogo;
+}
+
+.textButton {
+    font-size: 13px;
+}
+
+.navButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blockFooter {
+    flex: 0 0 auto;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.batteryAlarm {
+    display: flex;
+    margin: 10px;
+}
+
+.battery {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 160px;
+    .batteryText {
+        font-size: 12px;
+    }
+}
+
+.alarmBlock {
+    background-color: rgba(255, 255, 255, 1);
+    padding: 10px;
+    border-radius: 10px;
+    height: 60px;
+    margin-left: 7px;
+    position: relative;
+    width: 100%;
+}
+
+.alarmText {
+    color: red;
+    align-items: flex-start;
+}
+
+.notifyText {
+    color: @colorLogo;
+    font-size: 12px;
+    position: absolute;
+    right: 10px;
+    top: 35px;
+}
+
+.leakBlock {
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 10px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.textSensor {
+    position: relative;
+    bottom: 3px;
+    left: 3px;
+}
+
+.scroll {
+    height: 250px;
+}
+
+.warning {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.warningText {
+    color: red;
+    font-size: 13px;
+}
+
+.blockCraneCondition {
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 15px;
+    padding: 10px 0 0;
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.openClose {
+    text-align: center;
+    font-size: 13px;
+}
+
+.waves {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    margin: 7px 20px 10px;
+    border-radius: 300px;
+    box-shadow: 0px 0px 5px #a0e9ff;
+    background-color: rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+}
+
+.wave1, .wave2, .wave3, .wave4 {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+}
+
+.wave1, .wave3 {
+    left: -7%;
+    top: 50%;
+    border-radius: 45%;
+}
+
+.wave2, .wave4 {
+    left: -80%;
+    top: 50%;
+    border-radius: 45%;
+}
+
+.wave1 {
+    background-color: #a0e9ff;
+    animation: wave 6s linear infinite;
+}
+
+.wave2 {
+    background-color: #57d0ff;
+    animation: wave 5s linear infinite;
+}
+
+.wave3 {
+    background-color: #57d0ff;
+}
+
+.wave4 {
+    background-color: @colorDeepSkyBlue;
+}
+
+@keyframes wave {
+    100% {
+       transform: rotate(360deg);
+    }
+}
+
+
+
+
