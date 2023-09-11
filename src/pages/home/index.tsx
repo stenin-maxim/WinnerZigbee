@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, Icon, Text, Switch, Image } from '@ray-js/ray';
+import { View, Button, Icon, Text } from '@ray-js/ray';
 import { TopBar } from '@/components';
 import { navigateTo } from 'ray';
 import styles from './index.module.less';
