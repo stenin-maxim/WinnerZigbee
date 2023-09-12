@@ -10,9 +10,10 @@ export default () => {
     const [value, setValue] = React.useState("");
     const [sensorId, setSensorId] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
+    let radioSearch: number = 15;
     let countWiredSensors: number = 0;
     let countRadioSensors: number = 0;
-    
+
     let wiredSensors = useProps((props) => {
         let wiredSensors = [];
 
@@ -24,7 +25,7 @@ export default () => {
         }
 
         if (props.wired_sensor_2 !== null && props.wired_sensor_2 !== '') {
-            let json = JSON.parse(props.wired_sensor_1);
+            let json = JSON.parse(props.wired_sensor_2);
             json.id = device.dpSchema.wired_sensor_2.id;
 
             wiredSensors.push(json);
@@ -90,6 +91,29 @@ export default () => {
         )
     }
 
+    function signalColorIcon(signal: number)
+    {
+        if (signal >= 30) {
+            return (
+                <React.Fragment>
+                    <Icon type="icon-wifi" color="#00BFFF" size="26"/>
+                </React.Fragment>
+            )
+        } else if (signal < 30 && signal > 0) {
+            return (
+                <React.Fragment>
+                    <Icon type="icon-wifi" color="red" size="26"/>
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <React.Fragment>
+                    <Icon type="icon-wifi" color="black" size="26"/>
+                </React.Fragment>
+            )
+        }
+    }
+    
     function showRadioSensors(): object
     {
         return (
@@ -115,7 +139,7 @@ export default () => {
                             </View>
                             <View className={styles.signalBattery}>
                                 <View className={styles.signal}>
-                                    <Icon type="icon-wifi" color="black" size="26"/>
+                                    {signalColorIcon(item.s)}
                                     <Text className={styles.signalText}>{ item.s }</Text>
                                 </View>
                                 <View className={styles.battery}>
@@ -130,7 +154,30 @@ export default () => {
         )
     }
 
-    function editNameSensor(value, sensorId) {
+    function deleteSensor(sensorId: number | string)
+    {
+        let deleteSensor = '{"d":""}';
+
+        switch (sensorId) {
+            case 104:
+                actions.wired_sensor_1.set(deleteSensor);
+                break;
+            case 105:
+                actions.wired_sensor_2.set(deleteSensor);
+                break;
+            case 106:
+                actions.radio_sensor_1.set(deleteSensor);
+                break;
+            case 107:
+                actions.radio_sensor_2.set(deleteSensor);
+                break;
+            case 108:
+                actions.radio_sensor_3.set(deleteSensor);
+                break;
+        }
+    }
+
+    function editNameSensor(value: string, sensorId: number | string) {
         let obj = {};
         obj.n = value;
         switch (sensorId) {
@@ -141,36 +188,39 @@ export default () => {
                 actions.wired_sensor_2.set(JSON.stringify(obj));
                 break;
             case 106:
-                actions.radio_sensor_1.set(value);
+                actions.radio_sensor_1.set(JSON.stringify(obj));
                 break;
             case 107:
-                actions.radio_sensor_2.set(value);
+                actions.radio_sensor_2.set(JSON.stringify(obj));
                 break;
             case 108:
-                actions.radio_sensor_3.set(value);
+                actions.radio_sensor_3.set(JSON.stringify(obj));
                 break;
         }
     }
 
     return (
         <View>
-            <Text className={styles.title}>Количество добавленных:</Text>
-            <View className={styles.wrapSensors}>
-                <View className={styles.border}>
-                    <Text>Проводных датчиков:</Text>
+            <View>
+                <Text className={styles.title}>Кол-во проводных датчиков: 
                     <Text className={styles.countSensors}>{ countWiredSensors }</Text>
-                </View>
-                <View>
-                    <Text>Беспроводных датчиков:</Text>
-                    <Text className={styles.countSensors}>{ countRadioSensors }</Text>
-                </View>
+                </Text>
             </View>
-
             { countWiredSensors ? showWiredSensors() : '' }
+            
+            <View>
+                <Text className={styles.title}>Кол-во беспроводных датчиков: 
+                    <Text className={styles.countSensors}>{ countRadioSensors }</Text>
+                </Text>
+            </View>
             { countRadioSensors ? showRadioSensors() : '' }
 
-            <Button onClick={() => {
-            }}>Добавить</Button>
+            <View className={styles.blockFooter}>
+                <Button
+                    style={{ padding: '15px !important' }} 
+                    onClick={() => actions.radio_search.set(radioSearch)}>Добавить
+                </Button>
+            </View>
 
             <PageContainer show={isShow} position='bottom' onClickOverlay={toggleIsShow} round="true">
                 <View>
@@ -182,12 +232,12 @@ export default () => {
                             <View>
                                 <Text>ID датчика:</Text><Text className={styles.sensorId}>{sensorId}</Text>
                             </View>
-                            {/* <View className={styles.buttonDelete} onClick={() => { deleteShow(true); }}>
+                            <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); }}>
                                 <Icon type="icon-a-minussquarefill" color="red" size="32"></Icon>
                                 <Text>Удалить</Text>
-                            </View> */}
+                            </View>
                         </View>
-                        <View className={styles.input}>
+                        <View className={styles.inputText}>
                             <Text className={styles.textModalWindow}>Имя датчика:</Text>
                             <Input
                                 className={styles.inputModalWindow}
@@ -200,12 +250,16 @@ export default () => {
                             </Input>
                         </View>
                     </View>
-                    <Button
-                        onClick={() => {
-                            toggleIsShow();
-                            editNameSensor(value, sensorId);
-                        }}>ОК
-                    </Button>
+                    <View>
+                        <Button
+                            className={styles.buttonModalWindow}
+                            style={{ padding: '15px !important' }}
+                            onClick={() => {
+                                toggleIsShow();
+                                editNameSensor(value, sensorId);
+                            }}>ОК
+                        </Button>
+                    </View>
                 </View>
             </PageContainer>
         </View>
