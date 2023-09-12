@@ -110,7 +110,12 @@ export const defaultSchema = [
     "mode": "rw",
     "name": "Radio search",
     "property": {
-      "type": "bool"
+      "unit": "",
+      "min": 0,
+      "max": 250,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
