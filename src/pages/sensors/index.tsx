@@ -5,33 +5,18 @@ import { useProps, useDevice, useActions } from '@ray-js/panel-sdk';
 
 export default () => {
     const actions = useActions();
-    const device = useDevice();
+    const device = useDevice().dpSchema;
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const [sensorId, setSensorId] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
     let radioSearch: number = 15;
-    let countWiredSensors: number = 0;
-    let countRadioSensors: number = 0;
 
     let wiredSensors = useProps((props) => {
         let wiredSensors = [];
 
-        if (props.wired_sensor_1 !== null && props.wired_sensor_1 !== '') {
-            let json = JSON.parse(props.wired_sensor_1);
-            json.id = device.dpSchema.wired_sensor_1.id;
-
-            wiredSensors.push(json);
-        }
-
-        if (props.wired_sensor_2 !== null && props.wired_sensor_2 !== '') {
-            let json = JSON.parse(props.wired_sensor_2);
-            json.id = device.dpSchema.wired_sensor_2.id;
-
-            wiredSensors.push(json);
-        }
-
-        countWiredSensors = wiredSensors.length;
+        sensor(props.wired_sensor_1, wiredSensors, device.wired_sensor_1.id);
+        sensor(props.wired_sensor_2, wiredSensors, device.wired_sensor_2.id);
 
         return wiredSensors;
     });
@@ -39,22 +24,29 @@ export default () => {
     let radioSensors = useProps((props) => {
         let radioSensors = [];
 
-        if (props.radio_sensor_1 !== null && props.radio_sensor_1 !== '') {
-            radioSensors.push(JSON.parse(props.radio_sensor_1));
-        }
-
-        if (props.radio_sensor_2 !== null && props.radio_sensor_2 !== '') {
-            radioSensors.push(JSON.parse(props.radio_sensor_2));
-        }
-
-        if (props.radio_sensor_3 !== null && props.radio_sensor_3 !== '') {
-            radioSensors.push(JSON.parse(props.radio_sensor_3));
-        }
-
-        countRadioSensors = radioSensors.length;
+        sensor(props.radio_sensor_1, radioSensors, device.radio_sensor_1.id);
+        sensor(props.radio_sensor_2, radioSensors, device.radio_sensor_2.id);
+        sensor(props.radio_sensor_3, radioSensors, device.radio_sensor_3.id);
+        sensor(props.radio_sensor_4, radioSensors, device.radio_sensor_4.id);
+        sensor(props.radio_sensor_5, radioSensors, device.radio_sensor_5.id);
+        sensor(props.radio_sensor_6, radioSensors, device.radio_sensor_6.id);
 
         return radioSensors;
     });
+    let countWiredSensors: number = wiredSensors.length;
+    let countRadioSensors: number = radioSensors.length;
+
+    function sensor(sensor: string, arrSensors: string[], id: number)
+    {
+        if (sensor !== null && sensor !== '') {
+            let json = JSON.parse(sensor);
+            json.id = id;
+
+            arrSensors.push(json);
+        }
+
+        return arrSensors;
+    }
 
     function handleInput(event: any) {
         setValue(event.value);
@@ -113,7 +105,24 @@ export default () => {
             )
         }
     }
-    
+
+    function batterySensorColorIcon(battery: number)
+    {
+        if (battery === 100) {
+            return (
+                <React.Fragment>
+                    <Icon type="icon-a-boltfill" color="green" size="26"/>
+                </React.Fragment>
+            )
+        } else {
+            return (
+                <React.Fragment>
+                    <Icon type="icon-a-boltfill" color="black" size="26"/>
+                </React.Fragment>
+            )
+        }
+    }
+
     function showRadioSensors(): object
     {
         return (
@@ -126,6 +135,7 @@ export default () => {
                         onClick={() => {
                             toggleIsShow();
                             setValue(item.n);
+                            setSensorId(item.id);
                         }}
                         >
                             <View>
@@ -143,7 +153,7 @@ export default () => {
                                     <Text className={styles.signalText}>{ item.s }</Text>
                                 </View>
                                 <View className={styles.battery}>
-                                    <Icon type="icon-a-boltfill" color="black" size="26"/>
+                                    {batterySensorColorIcon(item.b)}
                                     <Text className={styles.batteryText}>{ item.b }</Text>
                                 </View>
                             </View>
@@ -174,12 +184,19 @@ export default () => {
             case 108:
                 actions.radio_sensor_3.set(deleteSensor);
                 break;
+            case 109:
+                actions.radio_sensor_4.set(deleteSensor);
+                break;
+            case 110:
+                actions.radio_sensor_5.set(deleteSensor);
+                break;
         }
     }
 
     function editNameSensor(value: string, sensorId: number | string) {
         let obj = {};
         obj.n = value;
+
         switch (sensorId) {
             case 104:
                 actions.wired_sensor_1.set(JSON.stringify(obj));
@@ -195,6 +212,12 @@ export default () => {
                 break;
             case 108:
                 actions.radio_sensor_3.set(JSON.stringify(obj));
+                break;
+            case 109:
+                actions.radio_sensor_4.set(JSON.stringify(obj));
+                break;
+            case 110:
+                actions.radio_sensor_5.set(JSON.stringify(obj));
                 break;
         }
     }
@@ -232,7 +255,7 @@ export default () => {
                             <View>
                                 <Text>ID датчика:</Text><Text className={styles.sensorId}>{sensorId}</Text>
                             </View>
-                            <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); }}>
+                            <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow();}}>
                                 <Icon type="icon-a-minussquarefill" color="red" size="32"></Icon>
                                 <Text>Удалить</Text>
                             </View>
