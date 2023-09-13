@@ -51,37 +51,6 @@ export default () => {
     function handleInput(event: any) {
         setValue(event.value);
     }
-    
-    function showWiredSensors(): object
-    {
-        return (
-            wiredSensors.map((item, index) => {
-                return (
-                    <React.Fragment key={index}>
-                        <View
-                        className={styles.sensor}
-                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
-                        onClick={() => {
-                            toggleIsShow();
-                            setValue(item.n);
-                            setSensorId(item.id);
-                        }}
-                        >
-                            <View>       
-                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
-                                    <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
-                                </View>
-                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
-                                    <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
-                                </View>
-                                <Text className={styles.name}>{ item.n }</Text>
-                            </View>
-                        </View>
-                    </React.Fragment>
-                )
-            })
-        )
-    }
 
     function signalColorIcon(signal: number)
     {
@@ -131,7 +100,7 @@ export default () => {
                     <React.Fragment key={index}>
                         <View
                         className={styles.sensor}
-                        style={{ border: item.leak ? '1px solid #FF0000' : '1px solid white' }}
+                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
                         onClick={() => {
                             toggleIsShow();
                             setValue(item.n);
@@ -139,10 +108,10 @@ export default () => {
                         }}
                         >
                             <View>
-                                <View style={{ display: item.leak ? 'inline-block' : 'none' }}>
+                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
                                     <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
                                 </View>
-                                <View style={{ display: item.leak ? 'none' : 'inline-block' }}>
+                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
                                     <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
                                 </View>
                                 <Text className={styles.name}>{ item.n }</Text>
@@ -156,6 +125,37 @@ export default () => {
                                     {batterySensorColorIcon(item.b)}
                                     <Text className={styles.batteryText}>{ item.b }</Text>
                                 </View>
+                            </View>
+                        </View>
+                    </React.Fragment>
+                )
+            })
+        )
+    }
+
+    function showWiredSensors(): object
+    {
+        return (
+            wiredSensors.map((item, index) => {
+                return (
+                    <React.Fragment key={index}>
+                        <View
+                        className={styles.sensor}
+                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
+                        onClick={() => {
+                            toggleIsShow();
+                            setValue(item.n);
+                            setSensorId(item.id);
+                        }}
+                        >
+                            <View>       
+                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
+                                    <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
+                                </View>
+                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
+                                    <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
+                                </View>
+                                <Text className={styles.name}>{ item.n }</Text>
                             </View>
                         </View>
                     </React.Fragment>
@@ -190,6 +190,9 @@ export default () => {
             case 110:
                 actions.radio_sensor_5.set(deleteSensor);
                 break;
+            case 111:
+                actions.radio_sensor_6.set(deleteSensor);
+                break;
         }
     }
 
@@ -218,6 +221,9 @@ export default () => {
                 break;
             case 110:
                 actions.radio_sensor_5.set(JSON.stringify(obj));
+                break;
+            case 111:
+                actions.radio_sensor_6.set(JSON.stringify(obj));
                 break;
         }
     }
@@ -255,7 +261,7 @@ export default () => {
                             <View>
                                 <Text>ID датчика:</Text><Text className={styles.sensorId}>{sensorId}</Text>
                             </View>
-                            <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow();}}>
+                            <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow(); }}>
                                 <Icon type="icon-a-minussquarefill" color="red" size="32"></Icon>
                                 <Text>Удалить</Text>
                             </View>
