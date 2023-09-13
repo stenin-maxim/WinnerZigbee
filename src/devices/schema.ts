@@ -275,11 +275,11 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_senosr_8",
+    "code": "radio_sensor_8",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 113,
     "mode": "rw",
     "name": "Radio sensor 8",
