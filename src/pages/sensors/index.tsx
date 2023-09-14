@@ -178,10 +178,10 @@ export default () => {
 
     function editNameSensor(value: string, sensorId: number | string): void
     {
-        let str;
-        let obj = {};
+        let str: string;
+        let obj: any = {};
 
-        obj.n = value;
+        obj.n = value.replace('\"', '\'');
         str = JSON.stringify(obj);
 
         dpIds(sensorId, str);
