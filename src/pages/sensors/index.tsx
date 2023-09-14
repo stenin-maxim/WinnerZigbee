@@ -30,6 +30,14 @@ export default () => {
         sensor(props.radio_sensor_4, radioSensors, device.radio_sensor_4.id);
         sensor(props.radio_sensor_5, radioSensors, device.radio_sensor_5.id);
         sensor(props.radio_sensor_6, radioSensors, device.radio_sensor_6.id);
+        sensor(props.radio_sensor_7, radioSensors, device.radio_sensor_7.id);
+        sensor(props.radio_sensor_8, radioSensors, device.radio_sensor_8.id);
+        sensor(props.radio_sensor_9, radioSensors, device.radio_sensor_9.id);
+        sensor(props.radio_sensor_10, radioSensors, device.radio_sensor_10.id);
+        sensor(props.radio_sensor_11, radioSensors, device.radio_sensor_11.id);
+        sensor(props.radio_sensor_12, radioSensors, device.radio_sensor_12.id);
+        sensor(props.radio_sensor_13, radioSensors, device.radio_sensor_13.id);
+        sensor(props.radio_sensor_14, radioSensors, device.radio_sensor_14.id);
 
         return radioSensors;
     });
@@ -92,6 +100,37 @@ export default () => {
         }
     }
 
+    function showWiredSensors(): object
+    {
+        return (
+            wiredSensors.map((item, index) => {
+                return (
+                    <React.Fragment key={index}>
+                        <View
+                        className={styles.sensor}
+                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
+                        onClick={() => {
+                            toggleIsShow();
+                            setValue(item.n);
+                            setSensorId(item.id);
+                        }}
+                        >
+                            <View>       
+                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
+                                    <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
+                                </View>
+                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
+                                    <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
+                                </View>
+                                <Text className={styles.name}>{ item.n }</Text>
+                            </View>
+                        </View>
+                    </React.Fragment>
+                )
+            })
+        )
+    }
+
     function showRadioSensors(): object
     {
         return (
@@ -133,97 +172,73 @@ export default () => {
         )
     }
 
-    function showWiredSensors(): object
-    {
-        return (
-            wiredSensors.map((item, index) => {
-                return (
-                    <React.Fragment key={index}>
-                        <View
-                        className={styles.sensor}
-                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
-                        onClick={() => {
-                            toggleIsShow();
-                            setValue(item.n);
-                            setSensorId(item.id);
-                        }}
-                        >
-                            <View>       
-                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
-                                    <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
-                                </View>
-                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
-                                    <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
-                                </View>
-                                <Text className={styles.name}>{ item.n }</Text>
-                            </View>
-                        </View>
-                    </React.Fragment>
-                )
-            })
-        )
-    }
-
     function deleteSensor(sensorId: number | string)
     {
-        let deleteSensor = '{"d":""}';
+        let str = '{"d":""}';
 
-        switch (sensorId) {
-            case 104:
-                actions.wired_sensor_1.set(deleteSensor);
-                break;
-            case 105:
-                actions.wired_sensor_2.set(deleteSensor);
-                break;
-            case 106:
-                actions.radio_sensor_1.set(deleteSensor);
-                break;
-            case 107:
-                actions.radio_sensor_2.set(deleteSensor);
-                break;
-            case 108:
-                actions.radio_sensor_3.set(deleteSensor);
-                break;
-            case 109:
-                actions.radio_sensor_4.set(deleteSensor);
-                break;
-            case 110:
-                actions.radio_sensor_5.set(deleteSensor);
-                break;
-            case 111:
-                actions.radio_sensor_6.set(deleteSensor);
-                break;
-        }
+        dpIds(sensorId, str);
     }
 
     function editNameSensor(value: string, sensorId: number | string) {
+        let str;
         let obj = {};
-        obj.n = value;
 
-        switch (sensorId) {
+        obj.n = value;
+        str = JSON.stringify(obj);
+
+        dpIds(sensorId, str);
+    }
+
+    function dpIds(dpId: number | string, obj: string) 
+    {
+        switch (dpId) {
             case 104:
-                actions.wired_sensor_1.set(JSON.stringify(obj));
+                actions.wired_sensor_1.set(obj);
                 break;
             case 105:
-                actions.wired_sensor_2.set(JSON.stringify(obj));
+                actions.wired_sensor_2.set(obj);
                 break;
             case 106:
-                actions.radio_sensor_1.set(JSON.stringify(obj));
+                actions.radio_sensor_1.set(obj);
                 break;
             case 107:
-                actions.radio_sensor_2.set(JSON.stringify(obj));
+                actions.radio_sensor_2.set(obj);
                 break;
             case 108:
-                actions.radio_sensor_3.set(JSON.stringify(obj));
+                actions.radio_sensor_3.set(obj);
                 break;
             case 109:
-                actions.radio_sensor_4.set(JSON.stringify(obj));
+                actions.radio_sensor_4.set(obj);
                 break;
             case 110:
-                actions.radio_sensor_5.set(JSON.stringify(obj));
+                actions.radio_sensor_5.set(obj);
                 break;
             case 111:
-                actions.radio_sensor_6.set(JSON.stringify(obj));
+                actions.radio_sensor_6.set(obj);
+                break;
+            case 112:
+                actions.radio_sensor_7.set(obj);
+                break;
+            case 113:
+                actions.radio_sensor_8.set(obj);
+                break;
+            case 114:
+                actions.radio_sensor_9.set(obj);
+                break;
+            case 115:
+                actions.radio_sensor_10.set(obj);
+                break;
+            case 116:
+                actions.radio_sensor_11.set(obj);
+                break;
+            case 117:
+                actions.radio_sensor_12.set(obj);
+                break;
+            case 118:
+                actions.radio_sensor_13.set(obj);
+                break;
+            case 119:
+                actions.radio_sensor_14.set(obj);
                 break;
         }
     }
@@ -235,14 +250,18 @@ export default () => {
                     <Text className={styles.countSensors}>{ countWiredSensors }</Text>
                 </Text>
             </View>
-            { countWiredSensors ? showWiredSensors() : '' }
+            <View>
+                { countWiredSensors ? showWiredSensors() : '' }
+            </View>
             
             <View>
                 <Text className={styles.title}>Кол-во беспроводных датчиков: 
                     <Text className={styles.countSensors}>{ countRadioSensors }</Text>
                 </Text>
             </View>
-            { countRadioSensors ? showRadioSensors() : '' }
+            <View>
+                { countRadioSensors ? showRadioSensors() : '' }
+            </View>
 
             <View className={styles.blockFooter}>
                 <Button
