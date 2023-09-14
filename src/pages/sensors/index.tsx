@@ -11,17 +11,21 @@ export default () => {
     const [sensorId, setSensorId] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
     let radioSearch: number = 15;
+    let countWiredSensors: number;
+    let countRadioSensors: number;
 
-    let wiredSensors = useProps((props) => {
+    let wiredSensors: object[] = useProps((props) => {
         let wiredSensors = [];
 
         sensor(props.wired_sensor_1, wiredSensors, device.wired_sensor_1.id);
         sensor(props.wired_sensor_2, wiredSensors, device.wired_sensor_2.id);
 
+        countWiredSensors = wiredSensors.length;
+
         return wiredSensors;
     });
 
-    let radioSensors = useProps((props) => {
+    let radioSensors: object[] = useProps((props) => {
         let radioSensors = [];
 
         sensor(props.radio_sensor_1, radioSensors, device.radio_sensor_1.id);
@@ -39,12 +43,12 @@ export default () => {
         sensor(props.radio_sensor_13, radioSensors, device.radio_sensor_13.id);
         sensor(props.radio_sensor_14, radioSensors, device.radio_sensor_14.id);
 
+        countRadioSensors = radioSensors.length;
+
         return radioSensors;
     });
-    let countWiredSensors: number = wiredSensors.length;
-    let countRadioSensors: number = radioSensors.length;
 
-    function sensor(sensor: string, arrSensors: string[], id: number)
+    function sensor(sensor: string, arrSensors: string[], id: number): object
     {
         if (sensor !== null && sensor !== '') {
             let json = JSON.parse(sensor);
@@ -56,54 +60,47 @@ export default () => {
         return arrSensors;
     }
 
-    function handleInput(event: any) {
+    function handleInput(event: any): void
+    {
         setValue(event.value);
     }
 
-    function signalColorIcon(signal: number)
+    function signalColorIcon(signal: number): object
     {
+        let color: string = 'black';
+
         if (signal >= 30) {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-wifi" color="#00BFFF" size="26"/>
-                </React.Fragment>
-            )
+            color = '#00BFFF';
         } else if (signal < 30 && signal > 0) {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-wifi" color="red" size="26"/>
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-wifi" color="black" size="26"/>
-                </React.Fragment>
-            )
-        }
+            color = 'red';
+        } 
+
+        return (
+            <React.Fragment>
+                <Icon type="icon-wifi" color={color} size="26"/>
+            </React.Fragment>
+        )
     }
 
-    function batterySensorColorIcon(battery: number)
+    function batterySensorColorIcon(battery: number): object
     {
+        let color: string = 'black';
+
         if (battery === 100) {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-a-boltfill" color="green" size="26"/>
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-a-boltfill" color="black" size="26"/>
-                </React.Fragment>
-            )
-        }
+            color = 'green';
+        } 
+
+        return (
+            <React.Fragment>
+                <Icon type="icon-a-boltfill" color={color} size="26"/>
+            </React.Fragment>
+        )
     }
 
     function showWiredSensors(): object
     {
         return (
-            wiredSensors.map((item, index) => {
+            wiredSensors.map((item: any, index: number) => {
                 return (
                     <React.Fragment key={index}>
                         <View
@@ -134,7 +131,7 @@ export default () => {
     function showRadioSensors(): object
     {
         return (
-            radioSensors.map((item, index) => {
+            radioSensors.map((item: any, index: number) => {
                 return (
                     <React.Fragment key={index}>
                         <View
@@ -172,14 +169,15 @@ export default () => {
         )
     }
 
-    function deleteSensor(sensorId: number | string)
+    function deleteSensor(sensorId: number | string): void
     {
         let str = '{"d":""}';
 
         dpIds(sensorId, str);
     }
 
-    function editNameSensor(value: string, sensorId: number | string) {
+    function editNameSensor(value: string, sensorId: number | string): void
+    {
         let str;
         let obj = {};
 
@@ -189,56 +187,56 @@ export default () => {
         dpIds(sensorId, str);
     }
 
-    function dpIds(dpId: number | string, obj: string) 
+    function dpIds(dpId: number | string, str: string): void
     {
         switch (dpId) {
             case 104:
-                actions.wired_sensor_1.set(obj);
+                actions.wired_sensor_1.set(str);
                 break;
             case 105:
-                actions.wired_sensor_2.set(obj);
+                actions.wired_sensor_2.set(str);
                 break;
             case 106:
-                actions.radio_sensor_1.set(obj);
+                actions.radio_sensor_1.set(str);
                 break;
             case 107:
-                actions.radio_sensor_2.set(obj);
+                actions.radio_sensor_2.set(str);
                 break;
             case 108:
-                actions.radio_sensor_3.set(obj);
+                actions.radio_sensor_3.set(str);
                 break;
             case 109:
-                actions.radio_sensor_4.set(obj);
+                actions.radio_sensor_4.set(str);
                 break;
             case 110:
-                actions.radio_sensor_5.set(obj);
+                actions.radio_sensor_5.set(str);
                 break;
             case 111:
-                actions.radio_sensor_6.set(obj);
+                actions.radio_sensor_6.set(str);
                 break;
             case 112:
-                actions.radio_sensor_7.set(obj);
+                actions.radio_sensor_7.set(str);
                 break;
             case 113:
-                actions.radio_sensor_8.set(obj);
+                actions.radio_sensor_8.set(str);
                 break;
             case 114:
-                actions.radio_sensor_9.set(obj);
+                actions.radio_sensor_9.set(str);
                 break;
             case 115:
-                actions.radio_sensor_10.set(obj);
+                actions.radio_sensor_10.set(str);
                 break;
             case 116:
-                actions.radio_sensor_11.set(obj);
+                actions.radio_sensor_11.set(str);
                 break;
             case 117:
-                actions.radio_sensor_12.set(obj);
+                actions.radio_sensor_12.set(str);
                 break;
             case 118:
-                actions.radio_sensor_13.set(obj);
+                actions.radio_sensor_13.set(str);
                 break;
             case 119:
-                actions.radio_sensor_14.set(obj);
+                actions.radio_sensor_14.set(str);
                 break;
         }
     }
@@ -282,7 +280,7 @@ export default () => {
                             </View>
                             <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow(); }}>
                                 <Icon type="icon-a-minussquarefill" color="red" size="32"></Icon>
-                                <Text>Удалить</Text>
+                                <Text>Удалить датчик</Text>
                             </View>
                         </View>
                         <View className={styles.inputText}>
