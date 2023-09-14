@@ -13,35 +13,22 @@ export function Home() {
 
     function colorBattery(): object
     {
-        if (battery >= 50) {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-a-boltfill" size="35" color='green'></Icon>
-                    <Text>{battery}%</Text>
-                </React.Fragment>
-            )
-        } else if (battery >= 20 && battery < 50) {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-a-boltfill" size="35" color='orange'></Icon>
-                    <Text >{battery}%</Text>
-                </React.Fragment>
-            )
-        } else if (battery > 0 && battery < 20) {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-a-boltfill" size="35" color='red'></Icon>
-                    <Text >{battery}%</Text>
-                </React.Fragment>
-            )
-        } else {
-            return (
-                <React.Fragment>
-                    <Icon type="icon-a-boltfill" size="35" color='black'></Icon>
-                    <Text>{battery}%</Text>
-                </React.Fragment>
-            );
-        }
+        let color = 'black';
+
+        if (battery >= '50') {
+            color = 'green';
+        } else if (battery >= '20' && battery < '50') {
+            color = 'orange';
+        } else if (battery > '0' && battery < '20') {
+            color = 'red';
+        } 
+
+        return (
+            <React.Fragment>
+                <Icon type="icon-a-boltfill" size="35" color={color}></Icon>
+                <Text>{battery}%</Text>
+            </React.Fragment>
+        )
     }
 
     function alarmBlock(): object|boolean
