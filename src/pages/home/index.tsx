@@ -25,7 +25,7 @@ export function Home() {
 
         return (
             <React.Fragment>
-                <Icon type="icon-a-boltfill" size="35" color={color}></Icon>
+                <Icon type="icon-a-boltfill" size={35} color={color}></Icon>
                 <Text>{battery}%</Text>
             </React.Fragment>
         )
@@ -79,7 +79,7 @@ export function Home() {
             <TopBar />
             <View className={styles.logo}>
                 <Text className={styles.logoTextLeft}>GIDROL</Text>
-                <Icon type="icon-a-dropfill" size="25" color="white"></Icon>
+                <Icon type="icon-a-dropfill" size={25} color="white"></Icon>
                 <Text className={styles.logoTextRight}>CK</Text>
             </View>
             <View className={styles.batteryAlarm}>
@@ -100,14 +100,14 @@ export function Home() {
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
                     >
-                        <Icon type="icon-a-dotradiowavesleftandright" size="35"/>
+                        <Icon type="icon-a-dotradiowavesleftandright" size={35}/>
                         <Text className={styles.textButton}>Датчики</Text>
                     </Button>
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/settings/index'})}
                     >
-                        <Icon type="icon-checkmark-3" size="35"/>
+                        <Icon type="icon-checkmark-3" size={35}/>
                         <Text className={styles.textButton}>Настройки</Text>
                     </Button>
                 </View>

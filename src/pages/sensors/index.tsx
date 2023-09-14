@@ -77,7 +77,7 @@ export default () => {
 
         return (
             <React.Fragment>
-                <Icon type="icon-wifi" color={color} size="26"/>
+                <Icon type="icon-wifi" color={color} size={26}/>
             </React.Fragment>
         )
     }
@@ -92,7 +92,7 @@ export default () => {
 
         return (
             <React.Fragment>
-                <Icon type="icon-a-boltfill" color={color} size="26"/>
+                <Icon type="icon-a-boltfill" color={color} size={26}/>
             </React.Fragment>
         )
     }
@@ -114,10 +114,10 @@ export default () => {
                         >
                             <View>       
                                 <View style={{ display: item.l ? 'inline-block' : 'none' }}>
-                                    <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
+                                    <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
                                 </View>
                                 <View style={{ display: item.l ? 'none' : 'inline-block' }}>
-                                    <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
+                                    <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
                                 </View>
                                 <Text className={styles.name}>{ item.n }</Text>
                             </View>
@@ -145,10 +145,10 @@ export default () => {
                         >
                             <View>
                                 <View style={{ display: item.l ? 'inline-block' : 'none' }}>
-                                    <Icon type="icon-warning" color="#FF0000" size="26"></Icon>
+                                    <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
                                 </View>
                                 <View style={{ display: item.l ? 'none' : 'inline-block' }}>
-                                    <Icon type="icon-a-sunminfill" color="black" size="26"></Icon>
+                                    <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
                                 </View>
                                 <Text className={styles.name}>{ item.n }</Text>
                             </View>
@@ -263,12 +263,12 @@ export default () => {
 
             <View className={styles.blockFooter}>
                 <Button
-                    style={{ padding: '15px !important' }} 
+                    style={{ padding: '15px !important' }}
                     onClick={() => actions.radio_search.set(radioSearch)}>Добавить
                 </Button>
             </View>
 
-            <PageContainer show={isShow} position='bottom' onClickOverlay={toggleIsShow} round="true">
+            <PageContainer show={isShow} position='bottom' onClickOverlay={toggleIsShow} round={true}>
                 <View>
                     <View className={styles.headerModalWindow}>                                
                         Настройка <Text>{value}</Text>
@@ -279,7 +279,7 @@ export default () => {
                                 <Text>ID датчика:</Text><Text className={styles.sensorId}>{sensorId}</Text>
                             </View>
                             <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow(); }}>
-                                <Icon type="icon-a-minussquarefill" color="red" size="32"></Icon>
+                                <Icon type="icon-a-minussquarefill" color="red" size={32}></Icon>
                                 <Text>Удалить датчик</Text>
                             </View>
                         </View>
@@ -288,7 +288,7 @@ export default () => {
                             <Input
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"
-                                maxLength="16"
+                                maxLength={16}
                                 type="string"
                                 value={value}
                                 onInput={handleInput}
