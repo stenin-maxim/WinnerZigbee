@@ -1,12 +1,10 @@
 import React from 'react';
 import 'ray';
 import '@/i18n';
-import './app.less';
-import { SdmProvider } from '@ray-js/panel-sdk';
-import { initPanelEnvironment } from '@ray-js/ray';
+import { kit, SdmProvider } from '@ray-js/panel-sdk';
 import { devices } from '@/devices';
-import composeLayout from './composeLayout';
 
+const { initPanelEnvironment } = kit;
 interface Props {
   children: React.ReactNode;
 }
@@ -14,7 +12,11 @@ interface Props {
 initPanelEnvironment({ useDefaultOffline: true });
 class App extends React.Component<Props> {
   componentDidMount() {
-    console.log('=== App did mount');
+    console.log('=== App  did mount');
+  }
+
+  onLaunch() {
+    console.info('=== App onLaunch');
   }
 
   render() {
@@ -22,4 +24,4 @@ class App extends React.Component<Props> {
   }
 }
 
-export default composeLayout(App);
+export default App;

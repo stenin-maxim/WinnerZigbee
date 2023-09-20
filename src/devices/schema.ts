@@ -91,7 +91,7 @@ export const defaultSchema = [
     "property": {
       "unit": "",
       "min": 0,
-      "max": 100,
+      "max": 2147483647,
       "scale": 0,
       "step": 1,
       "type": "value"

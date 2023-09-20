@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
-import { TopBar } from '@/components';
 import { navigateTo } from 'ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
@@ -76,7 +75,6 @@ export function Home() {
 
     return (
         <View className={styles.view}>
-            <TopBar />
             <View className={styles.logo}>
                 <Text className={styles.logoTextLeft}>GIDROL</Text>
                 <Icon type="icon-a-dropfill" size={25} color="white"></Icon>

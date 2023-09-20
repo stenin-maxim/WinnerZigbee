@@ -1,21 +1,37 @@
-export const JsonUtil = {
-  parseJSON(str) {
-    let rst;
-    if (str && {}.toString.call(str) === '[object String]') {
-      try {
-        rst = JSON.parse(str);
-      } catch (e) {
-        try {
-          // eslint-disable-next-line
-          rst = eval(`(${str})`);
-        } catch (e2) {
-          rst = str;
-        }
-      }
-    } else {
-      rst = typeof str === 'undefined' ? {} : str;
-    }
+/**
+ * 可以考虑 JS API 暴露
+ */
+import _ from 'lodash';
 
-    return rst;
-  },
+export const getDpIdMapByDevInfo = (
+  devInfo: DevInfo
+): Record<string, DevInfo['schema'][number]> => {
+  const dpIdMap = _.mapKeys(devInfo.schema, schemaInfo => schemaInfo.id);
+  return dpIdMap;
+};
+
+export const mapDpsMapToDpStateMap = (dpsMap: Record<string, any>, devInfo: DevInfo) => {
+  const dpIdMap = getDpIdMapByDevInfo(devInfo);
+  const dpStateMap = _.mapKeys(dpsMap, (__, dpId) => dpIdMap[dpId].code);
+  return dpStateMap;
+};
+
+/**
+ *
+ * @param devInfo
+ * @returns dpState 对象
+ * ```
+ * {
+ *   switch: true,
+ *   ...
+ * }
+ * ```
+ */
+export const getDpStateMapByDevInfo = (devInfo: DevInfo): Record<string, any> => {
+  const { dps, schema } = devInfo;
+  const dpStateMap = {};
+  _.forEach(schema, schemaInfo => {
+    dpStateMap[schemaInfo.code] = dps[schemaInfo.id];
+  });
+  return dpStateMap;
 };

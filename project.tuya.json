@@ -1,17 +1,13 @@
 {
-  "name": "通用SDM模板",
-  "type": "panel-app",
-  "ownerType": "tuya-official",
+  "projectname": "通用面板模板",
   "i18n": false,
   "description": "",
   "miniprogramRoot": "./dist/tuya",
   "dependencies": {
-    "BaseKit": "3.0.0",
-    "MiniKit": "3.0.1",
-    "DeviceKit": "3.4.0",
-    "BizKit": "3.3.1"
+    "BaseKit": "2.1.2",
+    "MiniKit": "3.1.0",
+    "TYKit": "2.0.6",
+    "DeviceKit": "2.3.3"
   },
-  "baseversion": "2.12.2",
-  "projectname": "WinnerZigbee",
-  "devMode": "ray"
+  "baseversion": "2.13.0"
 }
