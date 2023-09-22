@@ -6,58 +6,68 @@ import { useProps, useDevice, useActions } from '@ray-js/panel-sdk';
 export default () => {
     const actions = useActions();
     const device = useDevice().dpSchema;
+    //                    ________--------________--------
+    const registrMask = 0b00000000000000010000000000000000;
+    //                    ________--------________--------
+    const onlineMask  = 0b00000000000000100000000000000000;
+    //                    ________--------________--------
+    const leakMask    = 0b00000000000001000000000000000000;
+    //                  __--__--
+    const cmdSearch = 0x0100000F; // поиск датчика 0F = 15 секунд
+    const cmdDelete = 0x02000000; // удаление датчика с текущим dpid
+    const cmdRequestNameSensor = 0x02000000; // запрос имени датчика
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
-    const [sensorId, setSensorId] = React.useState("");
+    const [sensorId, setSensorId] = React.useState();
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
-    let radioSearch: number = 15;
-    let countWiredSensors: number;
-    let countRadioSensors: number;
+    let countSensors: number = 0;
 
-    let wiredSensors: object[] = useProps((props) => {
-        let wiredSensors = [];
+    let sensors: object[] = useProps((props: any) => {
+        let sensors = [];
 
-        sensor(props.wired_sensor_1, wiredSensors, device.wired_sensor_1.id);
-        sensor(props.wired_sensor_2, wiredSensors, device.wired_sensor_2.id);
-
-        countWiredSensors = wiredSensors.length;
-
-        return wiredSensors;
-    });
-
-    let radioSensors: object[] = useProps((props) => {
-        let radioSensors = [];
-
-        sensor(props.radio_sensor_1, radioSensors, device.radio_sensor_1.id);
-        sensor(props.radio_sensor_2, radioSensors, device.radio_sensor_2.id);
-        sensor(props.radio_sensor_3, radioSensors, device.radio_sensor_3.id);
-        sensor(props.radio_sensor_4, radioSensors, device.radio_sensor_4.id);
-        sensor(props.radio_sensor_5, radioSensors, device.radio_sensor_5.id);
-        sensor(props.radio_sensor_6, radioSensors, device.radio_sensor_6.id);
-        sensor(props.radio_sensor_7, radioSensors, device.radio_sensor_7.id);
-        sensor(props.radio_sensor_8, radioSensors, device.radio_sensor_8.id);
-        sensor(props.radio_sensor_9, radioSensors, device.radio_sensor_9.id);
-        sensor(props.radio_sensor_10, radioSensors, device.radio_sensor_10.id);
-        sensor(props.radio_sensor_11, radioSensors, device.radio_sensor_11.id);
-        sensor(props.radio_sensor_12, radioSensors, device.radio_sensor_12.id);
-        sensor(props.radio_sensor_13, radioSensors, device.radio_sensor_13.id);
-        sensor(props.radio_sensor_14, radioSensors, device.radio_sensor_14.id);
-
-        countRadioSensors = radioSensors.length;
-
-        return radioSensors;
-    });
-
-    function sensor(sensor: string, arrSensors: string[], id: number): object
-    {
-        if (sensor !== null && sensor !== '') {
-            let json = JSON.parse(sensor);
-            json.id = id;
-
-            arrSensors.push(json);
+        if (Boolean(props.sensor_1 & registrMask)) {
+            sensors.push(paramSensor(Number(props.sensor_1), String(props.sensor_name_1), Number(device.sensor_1.id)));
+        }
+        
+        if (Boolean(props.sensor_2 & registrMask)) {
+            sensors.push(paramSensor(Number(props.sensor_2), String(props.sensor_name_2), Number(device.sensor_2.id)));
         }
 
-        return arrSensors;
+        if (Boolean(props.sensor_3 & registrMask)) {
+            sensors.push(paramSensor(Number(props.sensor_3), String(props.sensor_name_3), Number(device.sensor_3.id)));
+        }
+
+        if (Boolean(props.sensor_4 & registrMask)) {
+            sensors.push(paramSensor(Number(props.sensor_4), String(props.sensor_name_4), Number(device.sensor_4.id)));
+        }
+
+        if (Boolean(props.sensor_5 & registrMask)) {
+            sensors.push(paramSensor(Number(props.sensor_5), String(props.sensor_name_5), Number(device.sensor_5.id)));
+        }
+        // sensors.push(paramSensor(Number(props.sensor_1), String(props.sensor_name_1)));
+        // sensors.push(paramSensor(Number(props.sensor_2), String(props.sensor_name_2)));
+        // sensors.push(paramSensor(Number(props.sensor_3), String(props.sensor_name_3)));
+        // sensors.push(paramSensor(Number(props.sensor_4), String(props.sensor_name_4)));
+        // sensors.push(paramSensor(Number(props.sensor_5), String(props.sensor_name_5)));
+
+        sensors.forEach((item) => item.registr ? ++countSensors : false);
+
+        return sensors;
+    });
+
+    function paramSensor(sensor: number, sensorName: string, sensorId: number): object
+    {
+        let sensorObj: any = {};
+
+        sensorObj.id = sensorId;
+        sensorObj.registr = Boolean(sensor & registrMask);
+        sensorObj.online = Boolean(sensor & onlineMask);
+        sensorObj.leak = Boolean(sensor & leakMask);
+        sensorObj.battery = Number(sensor & 0xFF);
+        sensorObj.signal = Number((sensor >> 8) & 0xFF);
+        sensorObj.name = sensorName;
+
+        return sensorObj;
     }
 
     function handleInput(event: any): void
@@ -97,69 +107,82 @@ export default () => {
         )
     }
 
-    function showWiredSensors(): object
+    function deleteSensor(sensorId: number): void
     {
-        return (
-            wiredSensors.map((item: any, index: number) => {
-                return (
-                    <React.Fragment key={index}>
-                        <View
-                        className={styles.sensor}
-                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
-                        onClick={() => {
-                            toggleIsShow();
-                            setValue(item.n);
-                            setSensorId(item.id);
-                        }}
-                        >
-                            <View>       
-                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
-                                    <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
-                                </View>
-                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
-                                    <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
-                                </View>
-                                <Text className={styles.name}>{ item.n }</Text>
-                            </View>
-                        </View>
-                    </React.Fragment>
-                )
-            })
-        )
+        let cmdDeleteArgument = cmdDelete + sensorId;
+
+        switch (sensorId) {
+            case 107:
+                actions.sensor_1.set(cmdDeleteArgument);
+                break;
+            case 109:
+                actions.sensor_2.set(cmdDeleteArgument);
+                break;
+            case 111:
+                actions.sensor_3.set(cmdDeleteArgument);
+                break;
+            case 113:
+                actions.sensor_4.set(cmdDeleteArgument);
+                break;
+            case 115:
+                actions.sensor_5.set(cmdDeleteArgument);
+                break;
+        }
     }
 
-    function showRadioSensors(): object
+    function editNameSensor(sensorId: number, value: string): void
+    {
+        switch (sensorId) {
+            case 108:
+                actions.sensor_name_1.set(value);
+                break;
+            case 109:
+                actions.sensor_name_2.set(value);
+                break;
+            case 111:
+                actions.sensor_name_3.set(value);
+                break;
+            case 113:
+                actions.sensor_name_4.set(value);
+                break;
+            case 115:
+                actions.sensor_name_5.set(value);
+                break;
+        }
+    }
+
+    function showSensors(): object
     {
         return (
-            radioSensors.map((item: any, index: number) => {
+            sensors.map((item: any, index: number) => {
                 return (
                     <React.Fragment key={index}>
                         <View
                         className={styles.sensor}
-                        style={{ border: item.l ? '1px solid #FF0000' : '1px solid white' }}
+                        style={{ border: item.leak ? '1px solid #FF0000' : '1px solid white' }}
                         onClick={() => {
                             toggleIsShow();
-                            setValue(item.n);
+                            setValue(item.name);
                             setSensorId(item.id);
                         }}
                         >
                             <View>
-                                <View style={{ display: item.l ? 'inline-block' : 'none' }}>
+                                <View style={{ display: item.leak ? 'inline-block' : 'none' }}>
                                     <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
                                 </View>
-                                <View style={{ display: item.l ? 'none' : 'inline-block' }}>
+                                <View style={{ display: item.leak ? 'none' : 'inline-block' }}>
                                     <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
                                 </View>
-                                <Text className={styles.name}>{ item.n }</Text>
+                                <Text className={styles.name}>{ item.name }</Text>
                             </View>
                             <View className={styles.signalBattery}>
                                 <View className={styles.signal}>
-                                    {signalColorIcon(item.s)}
-                                    <Text className={styles.signalText}>{ item.s }</Text>
+                                    {signalColorIcon(item.signal)}
+                                    <Text className={styles.signalText}>{ item.signal }</Text>
                                 </View>
                                 <View className={styles.battery}>
-                                    {batterySensorColorIcon(item.b)}
-                                    <Text className={styles.batteryText}>{ item.b }</Text>
+                                    {batterySensorColorIcon(item.battery)}
+                                    <Text className={styles.batteryText}>{ item.battery }</Text>
                                 </View>
                             </View>
                         </View>
@@ -167,107 +190,24 @@ export default () => {
                 )
             })
         )
-    }
-
-    function deleteSensor(sensorId: number | string): void
-    {
-        let str = '{"d":""}';
-
-        dpIds(sensorId, str);
-    }
-
-    function editNameSensor(value: string, sensorId: number | string): void
-    {
-        let str: string;
-        let obj: any = {};
-
-        obj.n = value.replace('\"', '\'');
-        str = JSON.stringify(obj);
-
-        dpIds(sensorId, str);
-    }
-
-    function dpIds(dpId: number | string, str: string): void
-    {
-        switch (dpId) {
-            case 104:
-                actions.wired_sensor_1.set(str);
-                break;
-            case 105:
-                actions.wired_sensor_2.set(str);
-                break;
-            case 106:
-                actions.radio_sensor_1.set(str);
-                break;
-            case 107:
-                actions.radio_sensor_2.set(str);
-                break;
-            case 108:
-                actions.radio_sensor_3.set(str);
-                break;
-            case 109:
-                actions.radio_sensor_4.set(str);
-                break;
-            case 110:
-                actions.radio_sensor_5.set(str);
-                break;
-            case 111:
-                actions.radio_sensor_6.set(str);
-                break;
-            case 112:
-                actions.radio_sensor_7.set(str);
-                break;
-            case 113:
-                actions.radio_sensor_8.set(str);
-                break;
-            case 114:
-                actions.radio_sensor_9.set(str);
-                break;
-            case 115:
-                actions.radio_sensor_10.set(str);
-                break;
-            case 116:
-                actions.radio_sensor_11.set(str);
-                break;
-            case 117:
-                actions.radio_sensor_12.set(str);
-                break;
-            case 118:
-                actions.radio_sensor_13.set(str);
-                break;
-            case 119:
-                actions.radio_sensor_14.set(str);
-                break;
-        }
     }
 
     return (
         <View>
             <View>
-                <Text className={styles.title}>Кол-во проводных датчиков: 
-                    <Text className={styles.countSensors}>{ countWiredSensors }</Text>
+                <Text className={styles.title}>Кол-во датчиков: 
+                    <Text className={styles.countSensors}>{ countSensors }</Text>
                 </Text>
             </View>
             <View>
-                { countWiredSensors ? showWiredSensors() : '' }
+                 { countSensors ? showSensors() : '' }
             </View>
-            
-            <View>
-                <Text className={styles.title}>Кол-во беспроводных датчиков: 
-                    <Text className={styles.countSensors}>{ countRadioSensors }</Text>
-                </Text>
-            </View>
-            <View>
-                { countRadioSensors ? showRadioSensors() : '' }
-            </View>
-
             <View className={styles.blockFooter}>
                 <Button
-                    style={{ padding: '15px !important' }}
-                    onClick={() => actions.radio_search.set(radioSearch)}>Добавить
+                    style={{ padding: '15px' }}
+                    onClick={() => actions.device_cmd.set(cmdSearch)}>Добавить
                 </Button>
             </View>
-
             <PageContainer show={isShow} position='bottom' onClickOverlay={toggleIsShow} round={true}>
                 <View>
                     <View className={styles.headerModalWindow}>                                
@@ -275,9 +215,6 @@ export default () => {
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteSensor}>
-                            <View>
-                                <Text>ID датчика:</Text><Text className={styles.sensorId}>{sensorId}</Text>
-                            </View>
                             <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow(); }}>
                                 <Icon type="icon-a-minussquarefill" color="red" size={32}></Icon>
                                 <Text>Удалить датчик</Text>
@@ -299,10 +236,9 @@ export default () => {
                     <View>
                         <Button
                             className={styles.buttonModalWindow}
-                            style={{ padding: '15px !important' }}
                             onClick={() => {
                                 toggleIsShow();
-                                editNameSensor(value, sensorId);
+                                editNameSensor(sensorId, value);
                             }}>ОК
                         </Button>
                     </View>
