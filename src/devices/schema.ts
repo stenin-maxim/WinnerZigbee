@@ -89,8 +89,29 @@ export const defaultSchema = [
     "mode": "ro",
     "name": "Battery",
     "property": {
-      "unit": "",
+      "unit": "%",
       "min": 0,
+      "max": 100,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "device_cmd",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "",
+    "id": 103,
+    "mode": "rw",
+    "name": "Device cmd",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
       "max": 2147483647,
       "scale": 0,
       "step": 1,
@@ -101,18 +122,18 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_search",
+    "code": "registr_mask",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
-    "id": 103,
-    "mode": "rw",
-    "name": "Radio search",
+    "id": 104,
+    "mode": "ro",
+    "name": "Registr mask",
     "property": {
       "unit": "",
-      "min": 0,
-      "max": 250,
+      "min": -2147483647,
+      "max": 2147483647,
       "scale": 0,
       "step": 1,
       "type": "value"
@@ -122,82 +143,77 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "wired_sensor_1",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "",
-    "id": 104,
-    "mode": "rw",
-    "name": "Wired sensor 1",
-    "property": {
-      "type": "string",
-      "maxlen": 255
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "wired_sensor_2",
+    "code": "online_mask",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 105,
-    "mode": "rw",
-    "name": "Wired sensor 2",
+    "mode": "ro",
+    "name": "Online mask",
     "property": {
-      "type": "string",
-      "maxlen": 255
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_1",
+    "code": "leak_mask",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 106,
-    "mode": "rw",
-    "name": "Radio sensor 1",
+    "mode": "ro",
+    "name": "Leak mask",
     "property": {
-      "type": "string",
-      "maxlen": 255
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_2",
+    "code": "sensor_1",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 107,
     "mode": "rw",
-    "name": "Radio sensor 2",
+    "name": "Sensor 1",
     "property": {
-      "type": "string",
-      "maxlen": 255
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_3",
+    "code": "sensor_name_1",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 108,
     "mode": "rw",
-    "name": "Radio sensor 3",
+    "name": "Sensor name 1",
     "property": {
       "type": "string",
       "maxlen": 255
@@ -207,31 +223,35 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_4",
+    "code": "sensor_2",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 109,
     "mode": "rw",
-    "name": "Radio sensor 4",
+    "name": "Sensor 2",
     "property": {
-      "type": "string",
-      "maxlen": 255
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_5",
+    "code": "sensor_name_2",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 110,
     "mode": "rw",
-    "name": "Radio sensor 5",
+    "name": "Sensor name 2",
     "property": {
       "type": "string",
       "maxlen": 255
@@ -241,31 +261,35 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_6",
+    "code": "sensor_3",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 111,
     "mode": "rw",
-    "name": "Radio sensor 6",
+    "name": "Sensor 3",
     "property": {
-      "type": "string",
-      "maxlen": 255
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_7",
+    "code": "sensor_name_3",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 112,
     "mode": "rw",
-    "name": "Radio sensor 7",
+    "name": "Sensor name 3",
     "property": {
       "type": "string",
       "maxlen": 255
@@ -275,116 +299,73 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_8",
+    "code": "sensor_4",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 113,
     "mode": "rw",
-    "name": "Radio sensor 8",
+    "name": "Sensor 4",
     "property": {
-      "type": "string",
-      "maxlen": 255
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
     },
     "type": "obj"
   },
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "radio_sensor_9",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "{}",
-    "id": 114,
-    "mode": "rw",
-    "name": "Radio sensor 9",
-    "property": {
-      "type": "string",
-      "maxlen": 255
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "radio_sensor_10",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "{}",
-    "id": 115,
-    "mode": "rw",
-    "name": "Radio sensor 10",
-    "property": {
-      "type": "string",
-      "maxlen": 255
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "radio_sensor_11",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "{}",
-    "id": 116,
-    "mode": "rw",
-    "name": "Radio sensor 11",
-    "property": {
-      "type": "string",
-      "maxlen": 255
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "radio_sensor_12",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "{}",
-    "id": 117,
-    "mode": "rw",
-    "name": "Radio sensor 12",
-    "property": {
-      "type": "string",
-      "maxlen": 255
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "radio_sensor_13",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "{}",
-    "id": 118,
-    "mode": "rw",
-    "name": "Radio sensor 13",
-    "property": {
-      "type": "string",
-      "maxlen": 255
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "radio_sensor_14",
+    "code": "sensor_name_4",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
-    "id": 119,
+    "id": 114,
     "mode": "rw",
-    "name": "Radio sensor 14",
+    "name": "Sensor name 4",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_5",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "",
+    "id": 115,
+    "mode": "rw",
+    "name": "Sensor 5",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_5",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "",
+    "id": 116,
+    "mode": "rw",
+    "name": "Sensor name 5",
     "property": {
       "type": "string",
       "maxlen": 255
