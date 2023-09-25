@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
-import { navigateTo } from 'ray';
+import { navigateTo, vibrateShort } from '@ray-js/ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
-import { vibrateShort } from '@ray-js/ray';
 
 export function Home() {
     const actions = useActions();
@@ -11,11 +10,15 @@ export function Home() {
     const alarm = useProps((props) =>  props.alarm);
     const craneCondition = useProps((props) =>  props.switch);
 
-    function colorBattery(): object
+    function colorAndTextBattery(): object
     {
         let color = 'black';
+        let text = 'Заряд батареи';
 
-        if (battery >= '50') {
+        if (battery > '100') {
+            text = 'Заряжается';
+            color = 'green';
+        } else if (battery >= '50') {
             color = 'green';
         } else if (battery >= '20' && battery < '50') {
             color = 'orange';
@@ -25,6 +28,7 @@ export function Home() {
 
         return (
             <React.Fragment>
+                <Text className={styles.batteryText}>{text}</Text>
                 <Icon type="icon-a-boltfill" size={35} color={color}></Icon>
                 <Text>{battery}%</Text>
             </React.Fragment>
@@ -34,12 +38,16 @@ export function Home() {
     function alarmBlock(): object|boolean
     {
         if (alarm) {
-            actions.switch.off();
-
             return (
-                <View className={styles.alarmBlock}>
-                    <Text className={styles.alarmText}>Обнаружена протечка!</Text>
-                    <Text className={styles.notifyText}>Уведомления</Text>
+                <View className={styles.alarmNotifyButton}>
+                    <View className={styles.alarmNotify}>
+                        <Text className={styles.alarmText}>Обнаружена протечка!</Text>
+                        <Text className={styles.notifyText}>Уведомления</Text>
+                    </View>
+                    <View className={styles.alarmButton} onClick={ () => actions.alarm.off() }>
+                        <Icon type="icon-cancel" size={35} color="red"></Icon>
+                        <Text>Отключить аварию</Text>
+                    </View>
                 </View>
             );
         }
@@ -85,14 +93,13 @@ export function Home() {
             </View>
             <View className={styles.batteryAlarm}>
                 <View className={styles.battery}>
-                    <Text className={styles.batteryText}>Заряд батареи</Text>
-                    { colorBattery() }
+                    { colorAndTextBattery() }
                 </View>
                 {alarmBlock()}
             </View>
 
             <View className={styles.blockCraneCondition}>
-                <View onClick={() => { alarm ? actions.switch.off() : actions.switch.toggle() }}>
+                <View onClick={() => { actions.switch.toggle(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>
                     {blockCraneCondition()}
                 </View>
             </View>
