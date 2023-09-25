@@ -68,9 +68,9 @@ export const defaultSchema = [
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 101,
-    "mode": "ro",
+    "mode": "rw",
     "name": "Alarm",
     "property": {
       "type": "bool"
@@ -91,7 +91,7 @@ export const defaultSchema = [
     "property": {
       "unit": "%",
       "min": 0,
-      "max": 100,
+      "max": 255,
       "scale": 0,
       "step": 1,
       "type": "value"
