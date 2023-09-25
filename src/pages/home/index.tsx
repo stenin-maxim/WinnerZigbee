@@ -3,6 +3,7 @@ import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo } from 'ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
+import { vibrateShort } from '@ray-js/ray';
 
 export function Home() {
     const actions = useActions();
@@ -32,7 +33,9 @@ export function Home() {
 
     function alarmBlock(): object|boolean
     {
-        if (alarm) {        
+        if (alarm) {
+            actions.switch.off();
+
             return (
                 <View className={styles.alarmBlock}>
                     <Text className={styles.alarmText}>Обнаружена протечка!</Text>
@@ -48,7 +51,7 @@ export function Home() {
     {
         if (craneCondition) {
             return (
-                <View onClick={() => actions.switch.toggle()}>
+                <View>
                     <View className={styles.openClose}>
                         <Text>Открыт</Text>
                     </View>
@@ -61,7 +64,7 @@ export function Home() {
         }
 
         return (
-            <View onClick={() => actions.switch.toggle()}>
+            <View>
                 <View className={styles.openClose}>
                     <Text>Закрыт</Text>
                 </View>
@@ -89,7 +92,9 @@ export function Home() {
             </View>
 
             <View className={styles.blockCraneCondition}>
-                {blockCraneCondition()}
+                <View onClick={() => { alarm ? actions.switch.off() : actions.switch.toggle() }}>
+                    {blockCraneCondition()}
+                </View>
             </View>
 
             <View className={styles.blockFooter}>
