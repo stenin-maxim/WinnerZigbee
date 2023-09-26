@@ -7,6 +7,7 @@ import { vibrateShort } from '@ray-js/ray';
 export default () => {
     const actions = useActions();
     const device = useDevice().dpSchema;
+    const idCodes = useDevice().devInfo.idCodes;
     //                    ________--------________--------
     const registrMask = 0b00000000000000010000000000000000;
     //                    ________--------________--------
@@ -31,6 +32,13 @@ export default () => {
         paramSensor(Number(props.sensor_3), String(props.sensor_name_3), Number(device.sensor_3.id), sensors);
         paramSensor(Number(props.sensor_4), String(props.sensor_name_4), Number(device.sensor_4.id), sensors);
         paramSensor(Number(props.sensor_5), String(props.sensor_name_5), Number(device.sensor_5.id), sensors);
+        paramSensor(Number(props.sensor_6), String(props.sensor_name_6), Number(device.sensor_6.id), sensors);
+        paramSensor(Number(props.sensor_7), String(props.sensor_name_7), Number(device.sensor_7.id), sensors);
+        paramSensor(Number(props.sensor_8), String(props.sensor_name_8), Number(device.sensor_8.id), sensors);
+        paramSensor(Number(props.sensor_9), String(props.sensor_name_9), Number(device.sensor_9.id), sensors);
+        paramSensor(Number(props.sensor_10), String(props.sensor_name_10), Number(device.sensor_10.id), sensors);
+        paramSensor(Number(props.sensor_11), String(props.sensor_name_11), Number(device.sensor_11.id), sensors);
+        paramSensor(Number(props.sensor_12), String(props.sensor_name_12), Number(device.sensor_12.id), sensors);
 
         sensors.forEach((item) => item.registr ? ++countSensors : false);
 
@@ -97,45 +105,23 @@ export default () => {
     function deleteSensor(sensorId: number): void
     {
         let cmdDeleteArgument = cmdDelete + sensorId;
+        let name = idCodes[sensorId];
 
-        switch (sensorId) {
-            case 107:
-                actions.sensor_1.set(cmdDeleteArgument);
-                break;
-            case 109:
-                actions.sensor_2.set(cmdDeleteArgument);
-                break;
-            case 111:
-                actions.sensor_3.set(cmdDeleteArgument);
-                break;
-            case 113:
-                actions.sensor_4.set(cmdDeleteArgument);
-                break;
-            case 115:
-                actions.sensor_5.set(cmdDeleteArgument);
-                break;
-        }
+        actions[name].set(cmdDeleteArgument);
     }
 
+    /**
+     * Изменение имени датчика
+     * 
+     * @param sensorId - dpid датчика
+     * @param value - новое имя датчика
+     */
     function editNameSensor(sensorId: number, value: string): void
     {
-        switch (sensorId) {
-            case 107:
-                actions.sensor_name_1.set(value);
-                break;
-            case 109:
-                actions.sensor_name_2.set(value);
-                break;
-            case 111:
-                actions.sensor_name_3.set(value);
-                break;
-            case 113:
-                actions.sensor_name_4.set(value);
-                break;
-            case 115:
-                actions.sensor_name_5.set(value);
-                break;
-        }
+        let sensorNameId = sensorId + 1; // dpid sensor_name_n
+        let name = idCodes[sensorNameId];
+
+        actions[name].set(value);
     }
 
     function borderColor(leak: boolean, online: boolean): string
