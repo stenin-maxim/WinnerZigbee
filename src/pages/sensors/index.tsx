@@ -26,44 +26,32 @@ export default () => {
     let sensors: object[] = useProps((props: any) => {
         let sensors = [];
 
-        if (Boolean(props.sensor_1 & registrMask)) {
-            sensors.push(paramSensor(Number(props.sensor_1), String(props.sensor_name_1), Number(device.sensor_1.id)));
-        }
-        
-        if (Boolean(props.sensor_2 & registrMask)) {
-            sensors.push(paramSensor(Number(props.sensor_2), String(props.sensor_name_2), Number(device.sensor_2.id)));
-        }
-
-        if (Boolean(props.sensor_3 & registrMask)) {
-            sensors.push(paramSensor(Number(props.sensor_3), String(props.sensor_name_3), Number(device.sensor_3.id)));
-        }
-
-        if (Boolean(props.sensor_4 & registrMask)) {
-            sensors.push(paramSensor(Number(props.sensor_4), String(props.sensor_name_4), Number(device.sensor_4.id)));
-        }
-
-        if (Boolean(props.sensor_5 & registrMask)) {
-            sensors.push(paramSensor(Number(props.sensor_5), String(props.sensor_name_5), Number(device.sensor_5.id)));
-        }
+        paramSensor(Number(props.sensor_1), String(props.sensor_name_1), Number(device.sensor_1.id), sensors);
+        paramSensor(Number(props.sensor_2), String(props.sensor_name_2), Number(device.sensor_2.id), sensors);
+        paramSensor(Number(props.sensor_3), String(props.sensor_name_3), Number(device.sensor_3.id), sensors);
+        paramSensor(Number(props.sensor_4), String(props.sensor_name_4), Number(device.sensor_4.id), sensors);
+        paramSensor(Number(props.sensor_5), String(props.sensor_name_5), Number(device.sensor_5.id), sensors);
 
         sensors.forEach((item) => item.registr ? ++countSensors : false);
 
         return sensors;
     });
 
-    function paramSensor(sensor: number, sensorName: string, sensorId: number): object
+    function paramSensor(sensor: number, sensorName: string, sensorId: number, sensors: any): object
     {
-        let sensorObj: any = {};
+        if (Boolean(sensor & registrMask)) {
+            sensors.push({
+                id: sensorId,
+                registr: Boolean(sensor & registrMask),
+                online: Boolean(sensor & onlineMask),
+                leak: Boolean(sensor & leakMask),
+                battery: Number(sensor & 0xFF),
+                signal: Number((sensor >> 8) & 0xFF),
+                name: sensorName,
+            });
+        }
 
-        sensorObj.id = sensorId;
-        sensorObj.registr = Boolean(sensor & registrMask);
-        sensorObj.online = Boolean(sensor & onlineMask);
-        sensorObj.leak = Boolean(sensor & leakMask);
-        sensorObj.battery = Number(sensor & 0xFF);
-        sensorObj.signal = Number((sensor >> 8) & 0xFF);
-        sensorObj.name = sensorName;
-
-        return sensorObj;
+        return sensors;
     }
 
     function handleInput(event: any): void
@@ -241,10 +229,10 @@ export default () => {
                 </Text>
             </View>
             <View>
-                 { countSensors ? showSensors() : '' }
+                { countSensors ? showSensors() : '' }
             </View>
             <View>
-                { seconds > 0 ? viewCountSeconds() : ''}
+                { seconds > 0 ? viewCountSeconds() : '' }
             </View>
             <View className={styles.blockFooter}>
                 <Button
