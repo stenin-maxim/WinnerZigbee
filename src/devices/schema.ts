@@ -122,23 +122,15 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "registr_mask",
+    "code": "test",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 104,
-    "mode": "ro",
-    "name": "Registr mask",
-    "property": {
-      "unit": "",
-      "min": -2147483647,
-      "max": 2147483647,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
-    },
-    "type": "obj"
+    "mode": "rw",
+    "name": "test",
+    "type": "raw"
   },
   {
     "attr": 0,
@@ -632,6 +624,766 @@ export const defaultSchema = [
     "id": 130,
     "mode": "rw",
     "name": "Sensor name 12",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_13",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 131,
+    "mode": "rw",
+    "name": "Sensor 13",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_13",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 132,
+    "mode": "rw",
+    "name": "Sensor name 13",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_14",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 133,
+    "mode": "rw",
+    "name": "Sensor 14",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_14",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 134,
+    "mode": "rw",
+    "name": "Sensor name 14",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_15",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 135,
+    "mode": "rw",
+    "name": "Sensor 15",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_15",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 136,
+    "mode": "rw",
+    "name": "Sensor name 15",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_16",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 137,
+    "mode": "rw",
+    "name": "Sensor 16",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_16",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 138,
+    "mode": "rw",
+    "name": "Sensor name 16",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_17",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 139,
+    "mode": "rw",
+    "name": "Sensor 17",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_17",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 140,
+    "mode": "rw",
+    "name": "Sensor name 17",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_18",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 141,
+    "mode": "rw",
+    "name": "Sensor 18",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_18",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 142,
+    "mode": "rw",
+    "name": "Sensor name 18",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_19",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 143,
+    "mode": "rw",
+    "name": "Sensor 19",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_19",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 144,
+    "mode": "rw",
+    "name": "Sensor name 19",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_20",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 145,
+    "mode": "rw",
+    "name": "Sensor 20",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_20",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 146,
+    "mode": "rw",
+    "name": "Sensor name 20",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_21",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 147,
+    "mode": "rw",
+    "name": "Sensor 21",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_21",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "",
+    "id": 148,
+    "mode": "rw",
+    "name": "Sensor name 21",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_22",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 149,
+    "mode": "rw",
+    "name": "Sensor 22",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_22",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 150,
+    "mode": "rw",
+    "name": "Sensor_name_22",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_23",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 151,
+    "mode": "rw",
+    "name": "Sensor 23",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_23",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 152,
+    "mode": "rw",
+    "name": "Sensor name 23",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_24",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 153,
+    "mode": "rw",
+    "name": "Sensor 24",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_24",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 154,
+    "mode": "rw",
+    "name": "Sensor name 24",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_25",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 155,
+    "mode": "rw",
+    "name": "Sensor 25",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_25",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 156,
+    "mode": "rw",
+    "name": "Sensor name 25",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_26",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 157,
+    "mode": "rw",
+    "name": "Sensor 26",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_26",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 158,
+    "mode": "rw",
+    "name": "Sensor name 26",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_27",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 159,
+    "mode": "rw",
+    "name": "Sensor 27",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_27",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 160,
+    "mode": "rw",
+    "name": "Sensor name 27",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_28",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 161,
+    "mode": "rw",
+    "name": "Sensor 28",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_28",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 162,
+    "mode": "rw",
+    "name": "Sensor name 28",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_29",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 163,
+    "mode": "rw",
+    "name": "Sensor 29",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_29",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 164,
+    "mode": "rw",
+    "name": "Sensor name 29",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_30",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 165,
+    "mode": "rw",
+    "name": "Sensor 30",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_30",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 166,
+    "mode": "rw",
+    "name": "Sensor name 30",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_31",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 167,
+    "mode": "rw",
+    "name": "Sensor 31",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_31",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 168,
+    "mode": "rw",
+    "name": "Sensor name 31",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_32",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 169,
+    "mode": "rw",
+    "name": "Sensor 32",
+    "property": {
+      "unit": "",
+      "min": -2147483647,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "sensor_name_32",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "{}",
+    "id": 170,
+    "mode": "rw",
+    "name": "Sensor name 32",
     "property": {
       "type": "string",
       "maxlen": 255
