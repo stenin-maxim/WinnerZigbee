@@ -7,7 +7,8 @@
     "BaseKit": "2.1.2",
     "MiniKit": "3.1.0",
     "TYKit": "2.0.6",
-    "DeviceKit": "2.3.3"
+    "DeviceKit": "2.3.3",
+    "BizKit": "3.3.1"
   },
   "baseversion": "2.13.0"
 }
