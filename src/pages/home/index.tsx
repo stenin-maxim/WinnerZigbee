@@ -12,8 +12,8 @@ export function Home() {
 
     function colorAndTextBattery(): object
     {
-        let color = 'black';
-        let text = 'Заряд батареи';
+        let color: string = 'black';
+        let text: string = 'Заряд батареи';
 
         if (battery > '100') {
             text = 'Заряжается';

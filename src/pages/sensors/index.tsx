@@ -107,13 +107,13 @@ export default () => {
         )
     }
 
-    function batterySensorColorIcon(battery: number): object
+    function batterySensorColorIcon(batterySensor: number): object
     {
         let color: string = 'black';
 
-        if (battery === 100) {
-            color = 'green';
-        } 
+        if (batterySensor < 30) {
+            color = 'orange'
+        }
 
         return (
             <React.Fragment>
@@ -144,12 +144,14 @@ export default () => {
         actions[name].set(value);
     }
 
-    function borderColor(leak: boolean, online: boolean): string
+    function borderColor(leak: boolean, online: boolean, batterySensor: number): string
     {
         if (leak) {
             return '1px solid #FF0000';
         } else if (!online) {
             return '1px solid #00BFFF';
+        } else if (batterySensor < 30) {
+            return '1px solid orange';
         }
 
         return '1px solid white';
@@ -192,7 +194,7 @@ export default () => {
                     <React.Fragment key={index}>
                         <View
                             className={styles.sensor}
-                            style={{ border: borderColor(item.leak, item.online) }}
+                            style={{ border: borderColor(item.leak, item.online, item.battery) }}
                             onClick={() => {
                                 toggleIsShow();
                                 setValue(item.name);
