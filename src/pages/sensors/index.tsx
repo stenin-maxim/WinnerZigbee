@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Icon, Text, PageContainer, Input } from "@ray-js/components";
 import styles from './index.module.less';
 import { useProps, useDevice, useActions } from '@ray-js/panel-sdk';
-import { vibrateShort } from '@ray-js/ray';
+import { vibrateShort, showModal } from '@ray-js/ray';
 
 export default () => {
     const actions = useActions();
@@ -87,7 +87,7 @@ export default () => {
         setValue(event.value);
     }
 
-    function signalColorIcon(signal: number): object
+    function signalColorIcon(signal?: number): object
     {
         let color: string = 'black';
 
@@ -186,6 +186,19 @@ export default () => {
         )
     }
 
+    let confirmDelete: any = {
+        title: 'Удаление датчика',
+        content: 'Вы уверены в том, что хотите удалить датчик?',
+        cancelText: 'Отмена',
+        confirmText: 'Подтвердить',
+        confirmColor: '#ff0000',
+        success: (param: any): void => {
+            if (param.confirm) {
+                deleteSensor(sensorId);
+            }
+        },
+    }
+
     function showSensors(): object
     {
         return (
@@ -255,7 +268,7 @@ export default () => {
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteSensor}>
-                            <View className={styles.buttonDelete} onClick={() => { deleteSensor(sensorId); toggleIsShow(); }}>
+                            <View className={styles.buttonDelete} onClick={() => { showModal(confirmDelete); toggleIsShow(); }}>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
                                 <Text>Удалить датчик</Text>
                             </View>
