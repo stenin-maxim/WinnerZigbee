@@ -8,15 +8,15 @@ export default () => {
     const actions = useActions();
     const device = useDevice().dpSchema;
     const idCodes = useDevice().devInfo.idCodes;
-    //                    ________--------________--------
-    const registrMask = 0b00000000000000010000000000000000;
-    //                    ________--------________--------
-    const onlineMask  = 0b00000000000000100000000000000000;
-    //                    ________--------________--------
-    const leakMask    = 0b00000000000001000000000000000000;
+    //                            ________--------________--------
+    const registrMask: number = 0b00000000000000010000000000000000;
+    //                            ________--------________--------
+    const onlineMask: number  = 0b00000000000000100000000000000000;
+    //                            ________--------________--------
+    const leakMask: number    = 0b00000000000001000000000000000000;
     //                  __--__--
-    const cmdSearch = 0x0100000F; // поиск датчика 0F = 15 секунд
-    const cmdDelete = 0x02000000; // удаление датчика с текущим dpid
+    const cmdSearch: number = 0x01000000; // поиск датчика
+    const cmdDelete: number = 0x02000000; // удаление датчика с текущим dpid
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const [sensorId, setSensorId] = React.useState();
@@ -195,6 +195,7 @@ export default () => {
         success: (param: any): void => {
             if (param.confirm) {
                 deleteSensor(sensorId);
+                toggleIsShow();
             }
         },
     }
@@ -214,14 +215,18 @@ export default () => {
                                 setSensorId(item.id);
                             }}
                         >
-                            <View>
-                                <View style={{ display: item.leak ? 'inline-block' : 'none' }}>
-                                    <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
+                            <View className={styles.leftBlockSensor}>
+                                <View>
+                                    <View style={{ display: item.leak ? 'inline-block' : 'none' }}>
+                                        <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
+                                    </View>
+                                    <View style={{ display: item.leak ? 'none' : 'inline-block' }}>
+                                        <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
+                                    </View>
                                 </View>
-                                <View style={{ display: item.leak ? 'none' : 'inline-block' }}>
-                                    <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
+                                <View>
+                                    <Text className={styles.name}>{ item.name }</Text>
                                 </View>
-                                <Text className={styles.name}>{ item.name }</Text>
                             </View>
                             { item.id != 107 ? 
                                 <View className={styles.signalBattery}>
@@ -268,9 +273,9 @@ export default () => {
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteSensor}>
-                            <View className={styles.buttonDelete} onClick={() => { showModal(confirmDelete); toggleIsShow(); }}>
+                            <View className={styles.buttonDelete} onClick={() => { showModal(confirmDelete) }}>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
-                                <Text>Удалить датчик</Text>
+                                <Text className={styles.textDelete}>Удалить датчик</Text>
                             </View>
                         </View>
                         <View className={styles.inputText}>
@@ -278,7 +283,7 @@ export default () => {
                             <Input
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"
-                                maxLength={16}
+                                maxLength={32}
                                 type="string"
                                 value={value}
                                 onInput={handleInput}
