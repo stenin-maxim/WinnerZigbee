@@ -1,12 +1,35 @@
 export default {
-  en: {
-    checkDpState: 'Check Device {0} DP State',
-    deviceSchemaEmptyTip:
-      'The current device does not have any function points, and the template displays a blank screen. If the function points are normal, delete the logic in this step',
-  },
-  zh: {
-    checkDpState: '查看设备{0} DP 点状态',
-    deviceSchemaEmptyTip:
-      '当前设备不存在功能点，模板会白屏状态，如为正常需求，请自行删除此处判断逻辑',
-  },
+    en: {
+        dp_battery: 'Battery charge',
+        dp_charging: 'Charging',
+        dp_alarm: 'Leak detected!',
+        dp_notify: 'Notifications',
+        dp_disable_alarm: 'Disable alarm',
+        dp_switch_on: 'Open',
+        dp_switch_off: 'Close',
+        dp_sensors: 'Sensors',
+        dp_settings: 'Settings',
+    },
+    zh: {
+        dp_battery: '电池',
+        dp_charging: '收费',
+        dp_alarm: '检测到泄漏！',
+        dp_notify: '通知',
+        dp_disable_alarm: '禁用警报',
+        dp_switch_on: '打开',
+        dp_switch_off: '关闭',
+        dp_sensors: '传感器',
+        dp_settings: '设置',
+    },
+    ru: {
+        dp_battery: 'Заряд батареи',
+        dp_charging: 'Заряжается',
+        dp_alarm: 'Обнаружена протечка!',
+        dp_notify: 'Уведомления',
+        dp_disable_alarm: 'Отключить аварию',
+        dp_switch_on: 'Открыт',
+        dp_switch_off: 'Закрыт',
+        dp_sensors: 'Датчики',
+        dp_settings: 'Настройки',
+    }
 };

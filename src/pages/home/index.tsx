@@ -3,6 +3,7 @@ import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo, vibrateShort } from '@ray-js/ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
+import Strings from '../../i18n';
 
 export function Home() {
     const actions = useActions();
@@ -10,13 +11,24 @@ export function Home() {
     const alarm = useProps((props) =>  props.alarm);
     const craneCondition = useProps((props) =>  props.switch);
 
+    // language text
+    let textBattery: string = Strings.getDpLang('battery'),
+        textCharging: string = Strings.getDpLang('charging'),
+        textAlarm: string = Strings.getDpLang('alarm'),
+        textNotify: string = Strings.getDpLang('notify'),
+        textDisableAlarm: string = Strings.getDpLang('disable_alarm'),
+        textSwitchOn: string = Strings.getDpLang('switch_on'),
+        textSwitchOff: string = Strings.getDpLang('switch_off'),
+        textButtonSensors: string = Strings.getDpLang('sensors'),
+        textButtonSettings: string = Strings.getDpLang('settings');
+
     function colorAndTextBattery(): object
     {
         let color: string = 'black';
-        let text: string = 'Заряд батареи';
+        let text: string = textBattery;
 
         if (battery > '100') {
-            text = 'Заряжается';
+            text = textCharging;
             color = 'green';
         } else if (battery >= '50') {
             color = 'green';
@@ -41,12 +53,12 @@ export function Home() {
             return (
                 <View className={styles.alarmNotifyButton}>
                     <View className={styles.alarmNotify}>
-                        <Text className={styles.alarmText}>Обнаружена протечка!</Text>
-                        <Text className={styles.notifyText}>Уведомления</Text>
+                        <Text className={styles.textAlarm}>{textAlarm}</Text>
+                        <Text className={styles.textNotify}>{textNotify}</Text>
                     </View>
                     <View className={styles.alarmButton} onClick={ () => actions.alarm.off() }>
                         <Icon type="icon-cancel" size={35} color="red"></Icon>
-                        <Text>Отключить аварию</Text>
+                        <Text>{textDisableAlarm}</Text>
                     </View>
                 </View>
             );
@@ -61,7 +73,7 @@ export function Home() {
             return (
                 <View>
                     <View className={styles.openClose}>
-                        <Text>Открыт</Text>
+                        <Text className={styles.textSwitch}>{textSwitchOn}</Text>
                     </View>
                     <View className={styles.waves}>
                         <View className={styles.wave1}></View>
@@ -74,7 +86,7 @@ export function Home() {
         return (
             <View>
                 <View className={styles.openClose}>
-                    <Text>Закрыт</Text>
+                    <Text className={styles.textSwitch}>{textSwitchOff}</Text>
                 </View>
                 <View className={styles.waves}>
                     <View className={styles.wave3}></View>
@@ -111,14 +123,14 @@ export function Home() {
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
                     >
                         <Icon type="icon-a-dotradiowavesleftandright" size={35}/>
-                        <Text className={styles.textButton}>Датчики</Text>
+                        <Text className={styles.textButton}>{textButtonSensors}</Text>
                     </Button>
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/settings/index'})}
                     >
                         <Icon type="icon-checkmark-3" size={35}/>
-                        <Text className={styles.textButton}>Настройки</Text>
+                        <Text className={styles.textButton}>{textButtonSettings}</Text>
                     </Button>
                 </View>
             </View>
