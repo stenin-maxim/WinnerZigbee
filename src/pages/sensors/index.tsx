@@ -14,7 +14,7 @@ export default () => {
     const onlineMask: number  = 0b00000000000000100000000000000000;
     //                            ________--------________--------
     const leakMask: number    = 0b00000000000001000000000000000000;
-    //                  __--__--
+    //                          __--__--
     const cmdSearch: number = 0x01000000; // команда поиск датчика
     const cmdDelete: number = 0x02000000; // команда удаления датчика
     const [isShow, setIsShow] = React.useState(false);
@@ -146,6 +146,18 @@ export default () => {
     }
 
     /**
+     * Поиск датчика для конкретного dpid
+     * 
+     * @param sensorId 
+     */
+    function searchSensor(sensorId: number): void
+    {
+        let name = idCodes[sensorId];
+
+        actions[name].set(cmdSearch);
+    }
+
+    /**
      * Изменение имени датчика
      * 
      * @param sensorId - dpid датчика
@@ -202,7 +214,7 @@ export default () => {
     }
 
     let confirmDelete: any = {
-        title: 'Удаление датчика',
+        title: 'Удалить датчик',
         content: 'Вы уверены в том, что хотите удалить датчик?',
         cancelText: 'Отмена',
         confirmText: 'Подтвердить',
@@ -210,6 +222,20 @@ export default () => {
         success: (param: any): void => {
             if (param.confirm) {
                 deleteSensor(sensorId);
+                toggleIsShow();
+            }
+        },
+    }
+
+    let confirmChange: any = {
+        title: 'Заменить датчик',
+        content: 'Вы уверены в том, что хотите заменить датчик?',
+        cancelText: 'Отмена',
+        confirmText: 'Подтвердить',
+        confirmColor: '#ff0000',
+        success: (param: any): void => {
+            if (param.confirm) {
+                searchSensor(sensorId);
                 toggleIsShow();
             }
         },
@@ -287,10 +313,14 @@ export default () => {
                         Настройка: <Text>{value}</Text>
                     </View>
                     <View className={styles.centerModalWindow}>
-                        <View className={styles.deleteSensor}>
-                            <View className={styles.buttonDelete} onClick={() => { showModal(confirmDelete) }}>
+                        <View className={styles.deleteChangeSensor}>
+                            <View className={styles.buttonDeleteChange} onClick={() => { showModal(confirmDelete) }}>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
-                                <Text className={styles.textDelete}>Удалить датчик</Text>
+                                <Text className={styles.textDeleteChange}>Удалить датчик</Text>
+                            </View>
+                            <View className={styles.buttonDeleteChange} onClick={() => { showModal(confirmChange) }}>
+                                <Icon type="icon-repeat" color="black" size={32}></Icon>
+                                <Text className={styles.textDeleteChange}>Заменить датчик</Text>
                             </View>
                         </View>
                         <View className={styles.inputText}>
