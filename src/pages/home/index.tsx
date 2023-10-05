@@ -1,24 +1,26 @@
 import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
-import { navigateTo, vibrateShort } from '@ray-js/ray';
+import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 
 export function Home() {
     const actions = useActions();
-    const battery = useProps((props) =>  props.battery);
-    const alarm = useProps((props) =>  props.alarm);
-    const craneCondition = useProps((props) =>  props.switch);
+    const countdown: number = useProps((props): number => Number(props.countdown)); // Время уборки
+    const battery: number = useProps((props): number => Number(props.battery));
+    const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
+    const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
 
     // language text
     let textBattery: string = Strings.getDpLang('battery'),
         textCharging: string = Strings.getDpLang('charging'),
-        textAlarm: string = Strings.getDpLang('alarm'),
+        textAlarm: string = Strings.getDpLang('text_alarm'),
         textNotify: string = Strings.getDpLang('notify'),
         textDisableAlarm: string = Strings.getDpLang('disable_alarm'),
         textSwitchOn: string = Strings.getDpLang('switch_on'),
         textSwitchOff: string = Strings.getDpLang('switch_off'),
+        textButtonCleaning: string = Strings.getLang('cleaning'),
         textButtonSensors: string = Strings.getDpLang('sensors'),
         textButtonSettings: string = Strings.getDpLang('settings');
 
@@ -27,14 +29,14 @@ export function Home() {
         let color: string = 'black';
         let text: string = textBattery;
 
-        if (battery > '100') {
+        if (battery > 100) {
             text = textCharging;
             color = 'green';
-        } else if (battery >= '50') {
+        } else if (battery >= 50) {
             color = 'green';
-        } else if (battery >= '20' && battery < '50') {
+        } else if (battery >= 20 && battery < 50) {
             color = 'orange';
-        } else if (battery > '0' && battery < '20') {
+        } else if (battery > 0 && battery < 20) {
             color = 'red';
         } 
 
@@ -96,6 +98,22 @@ export function Home() {
         )
     }
 
+    /**
+     * При аварии команда на вкл/выкл крана не отправлается
+     */
+    function clickCraneCondition(): void 
+    {
+        if (alarm) {
+            for (let i = 0; i < 4; i++) {
+                vibrateShort({type: 'heavy'}); 
+            }
+        } else {
+            actions.switch.toggle();
+            vibrateShort({type: 'heavy'}); 
+            vibrateShort({type: 'heavy'});
+        }
+    }
+
     return (
         <View className={styles.view}>
             <View className={styles.logo}>
@@ -111,13 +129,19 @@ export function Home() {
             </View>
 
             <View className={styles.blockCraneCondition}>
-                <View onClick={() => { actions.switch.toggle(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>
+                <View onClick={() => { clickCraneCondition() }}>
                     {blockCraneCondition()}
                 </View>
             </View>
 
             <View className={styles.blockFooter}>
                 <View className={styles.navButtons}>
+                    <Button
+                        className={styles.button}
+                    >
+                        <Icon type="icon-a-dropfill" size={35}/>
+                        <Text className={styles.textButton}>{textButtonCleaning}</Text>
+                    </Button>
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
