@@ -14,6 +14,8 @@ export default () => {
     const onlineMask: number  = 0b00000000000000100000000000000000;
     //                            ________--------________--------
     const leakMask: number    = 0b00000000000001000000000000000000;
+    //                            ________--------________--------
+    const ignoreMask: number  = 0b00000000000010000000000000000000;
     //                          __--__--
     const cmdSearch: number = 0x01000000; // команда поиск датчика
     const cmdDelete: number = 0x02000000; // команда удаления датчика
@@ -83,6 +85,7 @@ export default () => {
                 registr: Boolean(sensor & registrMask),
                 online: Boolean(sensor & onlineMask),
                 leak: Boolean(sensor & leakMask),
+                ignore: Boolean(sensor & ignoreMask),
                 battery: Number(sensor & 0xFF),
                 signal: Number((sensor >> 8) & 0xFF),
                 name: sensorName,
