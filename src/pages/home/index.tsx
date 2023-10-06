@@ -11,6 +11,7 @@ export function Home() {
     const battery: number = useProps((props): number => Number(props.battery));
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
+    const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
 
     // language text
     let textBattery: string = Strings.getDpLang('battery'),
@@ -101,17 +102,52 @@ export function Home() {
     /**
      * При аварии команда на вкл/выкл крана не отправлается
      */
-    function clickCraneCondition(): void 
+    function clickCraneCondition(): void
     {
         if (alarm) {
-            for (let i = 0; i < 4; i++) {
-                vibrateShort({type: 'heavy'}); 
-            }
+            vibrateButton(4);
         } else {
             actions.switch.toggle();
-            vibrateShort({type: 'heavy'}); 
+            vibrateButton(2);
+        }
+    }
+
+    function vibrateButton(int: number): void
+    {
+        for (let i = int; i == 0; i--) {
             vibrateShort({type: 'heavy'});
         }
+    }
+
+    function startStopCleaning(): void
+    {
+        let text: string;
+
+        if (!cleaning) {
+            text = `Режим уборки включен на ${countdown} мин.`;
+            actions.cleaning.on();
+        } else {
+            text = 'Режим уборки выключен.';
+            actions.cleaning.off();
+        }
+        vibrateButton(2);
+
+        showToast({
+            title: text,
+            duration: 3000,
+        })
+    }
+
+    function colorIconCleaning(): object {
+        let color: string = '#00BFFF';
+        
+        if (cleaning) {
+            color = 'orange';
+        }
+
+        return (
+            <Icon type="icon-a-dropfill" size={35} color={color}/>
+        )
     }
 
     return (
@@ -138,8 +174,9 @@ export function Home() {
                 <View className={styles.navButtons}>
                     <Button
                         className={styles.button}
+                        onClick={() => { startStopCleaning(); }}
                     >
-                        <Icon type="icon-a-dropfill" size={35}/>
+                        { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
                     </Button>
                     <Button

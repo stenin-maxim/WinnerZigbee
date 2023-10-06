@@ -50,7 +50,7 @@ export const defaultSchema = [
     "iconname": "icon-dp_time2",
     "id": 11,
     "mode": "rw",
-    "name": "灌溉时间",
+    "name": "Irrigation time",
     "property": {
       "unit": "s",
       "min": 0,
@@ -122,15 +122,18 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "test",
+    "code": "cleaning",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 104,
     "mode": "rw",
-    "name": "test",
-    "type": "raw"
+    "name": "Cleaning",
+    "property": {
+      "type": "bool"
+    },
+    "type": "obj"
   },
   {
     "attr": 0,
