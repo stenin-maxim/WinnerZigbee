@@ -174,14 +174,16 @@ export default () => {
         actions[name].set(value);
     }
 
-    function borderColor(leak: boolean, online: boolean, batterySensor: number): string
+    function borderColor(item: any): string
     {
-        if (leak) {
-            return '1px solid #FF0000';
-        } else if (!online) {
-            return '1px solid #00BFFF';
-        } else if (batterySensor < 30) {
-            return '1px solid orange';
+        if (item.ignore) {
+            return '2px solid gray';
+        } else if (item.leak) {
+            return '2px solid #FF0000';
+        } else if (!item.online) {
+            return '2px solid #00BFFF';
+        } else if (item.batterySensor < 30) {
+            return '2px solid orange';
         }
 
         return '1px solid white';
@@ -252,7 +254,7 @@ export default () => {
                     <React.Fragment key={index}>
                         <View
                             className={styles.sensor}
-                            style={{ border: borderColor(item.leak, item.online, item.battery) }}
+                            style={{ border: borderColor(item) }}
                             onClick={() => {
                                 toggleIsShow();
                                 setValue(item.name);
