@@ -1,6 +1,6 @@
 {
   "projectname": "WinnerZigbee",
-  "i18n": false,
+  "i18n": true,
   "description": "",
   "miniprogramRoot": "./dist/tuya",
   "dependencies": {
