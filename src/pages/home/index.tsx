@@ -2,28 +2,30 @@ import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
-import { useActions, useProps } from '@ray-js/panel-sdk';
+import { useActions, useProps, useDevInfo } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 
 export function Home() {
     const actions = useActions();
-    const countdown: number = useProps((props): number => Number(props.countdown)); // Время уборки
-    const battery: number = useProps((props): number => Number(props.battery));
+    let battery: number = useProps((props): number => Number(props.battery));
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
 
     // language text
-    let textBattery: string = Strings.getDpLang('battery'),
-        textCharging: string = Strings.getDpLang('charging'),
-        textAlarm: string = Strings.getDpLang('text_alarm'),
-        textNotify: string = Strings.getDpLang('notify'),
-        textDisableAlarm: string = Strings.getDpLang('disable_alarm'),
-        textSwitchOn: string = Strings.getDpLang('switch_on'),
-        textSwitchOff: string = Strings.getDpLang('switch_off'),
+    let textBattery: string = Strings.getLang('battery'),
+        textCharging: string = Strings.getLang('charging'),
+        textAlarm: string = Strings.getLang('text_alarm'),
+        textNotify: string = Strings.getLang('notify'),
+        textDisableAlarm: string = Strings.getLang('disable_alarm'),
+        textSwitchOn: string = Strings.getLang('switch_on'),
+        textSwitchOff: string = Strings.getLang('switch_off'),
+        textNotifyCleaning: string = Strings.getLang('text_notify_cleaning'),
+        textCleaningModeOn: string = Strings.getLang('text_cleaning_mode_on'),
+        textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('cleaning'),
-        textButtonSensors: string = Strings.getDpLang('sensors'),
-        textButtonSettings: string = Strings.getDpLang('settings');
+        textButtonSensors: string = Strings.getLang('sensors'),
+        textButtonSettings: string = Strings.getLang('settings');
 
     function colorAndTextBattery(): object
     {
@@ -50,15 +52,12 @@ export function Home() {
         )
     }
 
-    function alarmBlock(): object|boolean
+    function notifyAlarm(): object|false
     {
         if (alarm) {
             return (
-                <View className={styles.alarmNotifyButton}>
-                    <View className={styles.alarmNotify}>
-                        <Text className={styles.textAlarm}>{textAlarm}</Text>
-                        <Text className={styles.textNotify}>{textNotify}</Text>
-                    </View>
+                <View className={styles.blockAlarm}>
+                    {notify(textAlarm)}
                     <View className={styles.alarmButton} onClick={ () => actions.alarm.off() }>
                         <Icon type="icon-cancel" size={35} color="red"></Icon>
                         <Text>{textDisableAlarm}</Text>
@@ -68,6 +67,25 @@ export function Home() {
         }
 
         return false;
+    }
+
+    function notifyCleaning(): object|false
+    {
+        if (cleaning) {
+            return notify(textNotifyCleaning);
+        }
+
+        return false;
+    }
+
+    function notify(text: string): object
+    {
+        return (
+            <View className={styles.blockNotify}>
+                <Text className={styles.textLeft}>{text}</Text>
+                <Text className={styles.textRight}>{textNotify}</Text>
+            </View>
+        )
     }
 
     function blockCraneCondition(): object
@@ -124,17 +142,17 @@ export function Home() {
         let text: string;
 
         if (!cleaning) {
-            text = `Режим уборки включен на ${countdown} мин.`;
+            text = textCleaningModeOn;
             actions.cleaning.on();
         } else {
-            text = 'Режим уборки выключен.';
+            text = textCleaningModeOff;
             actions.cleaning.off();
         }
         vibrateButton(2);
 
         showToast({
             title: text,
-            duration: 3000,
+            duration: 4000,
         })
     }
 
@@ -157,11 +175,12 @@ export function Home() {
                 <Icon type="icon-a-dropfill" size={25} color="white"></Icon>
                 <Text className={styles.logoTextRight}>CK</Text>
             </View>
-            <View className={styles.batteryAlarm}>
-                <View className={styles.battery}>
-                    { colorAndTextBattery() }
-                </View>
-                {alarmBlock()}
+            <View>
+                {notifyCleaning()}
+                {notifyAlarm()}
+            </View>
+            <View className={styles.battery}>
+                { colorAndTextBattery() }
             </View>
 
             <View className={styles.blockCraneCondition}>
