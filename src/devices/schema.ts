@@ -138,14 +138,14 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "online_mask",
+    "code": "counter",
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
     "extContent": "",
     "id": 105,
-    "mode": "ro",
-    "name": "Online mask",
+    "mode": "rw",
+    "name": "Counter",
     "property": {
       "unit": "",
       "min": -2147483647,

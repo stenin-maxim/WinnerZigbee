@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
-import { useActions, useProps, useDevInfo } from '@ray-js/panel-sdk';
+import { useActions, useProps } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 
 export function Home() {
@@ -23,7 +23,7 @@ export function Home() {
         textNotifyCleaning: string = Strings.getLang('text_notify_cleaning'),
         textCleaningModeOn: string = Strings.getLang('text_cleaning_mode_on'),
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
-        textButtonCleaning: string = Strings.getLang('cleaning'),
+        textButtonCleaning: string = Strings.getLang('text_cleaning'),
         textButtonSensors: string = Strings.getLang('sensors'),
         textButtonSettings: string = Strings.getLang('settings');
 
@@ -34,7 +34,14 @@ export function Home() {
 
         if (battery > 100) {
             text = textCharging;
-            color = 'green';
+            color = '#07fa3c';
+
+            return (
+                <React.Fragment>
+                    <Text className={styles.batteryText}>{text}</Text>
+                    <Icon type="icon-a-boltfill" size={35} color={color}></Icon>
+                </React.Fragment>
+            )
         } else if (battery >= 50) {
             color = 'green';
         } else if (battery >= 20 && battery < 50) {
