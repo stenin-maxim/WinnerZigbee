@@ -189,7 +189,7 @@ export default () => {
     function borderColor(item: any): string
     {
         if (item.ignore) {
-            return '2px solid gray';
+            return '2px solid darkgray';
         } else if (item.leak) {
             return '2px solid #FF0000';
         } else if (!item.online) {
