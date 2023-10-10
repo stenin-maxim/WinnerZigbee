@@ -25,6 +25,8 @@ export default {
         text_content_replace: 'Are you sure you want to replace the sensor?',
         cancel: 'Cancel',
         confirm: 'Confirm',
+        // instructions
+        instruction: 'User Manual',
     },
     zh: {
         // home
@@ -52,6 +54,8 @@ export default {
         text_content_replace: '您确定要更换传感器吗？',
         cancel: '取消',
         confirm: '确认',
+        // instruction
+        instruction: '用户手册',
     },
     ru: {
         // home
@@ -79,5 +83,7 @@ export default {
         text_content_replace: 'Вы уверены в том, что хотите заменить датчик?',
         cancel: 'Отмена',
         confirm: 'Подтвердить',
+        // instruction
+        instruction: 'Инструкция пользователя',
     },
 };
