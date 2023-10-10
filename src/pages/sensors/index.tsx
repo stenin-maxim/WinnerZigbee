@@ -3,6 +3,7 @@ import { View, Button, Icon, Text, PageContainer, Input } from "@ray-js/componen
 import styles from './index.module.less';
 import { useProps, useDevice, useActions } from '@ray-js/panel-sdk';
 import { vibrateShort, showModal } from '@ray-js/ray';
+import Strings from '../../i18n';
 
 export default () => {
     const actions = useActions();
@@ -26,6 +27,17 @@ export default () => {
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
 
     let countSensors: number = 0;
+    // language text
+    let numberOfSensors: string = Strings.getLang('number_of_sensors'),
+        add: string = Strings.getLang('add'),
+        textDeleteSensor = Strings.getLang('text_delete_sensor'),
+        textReplaceSensor = Strings.getLang('text_replace_sensor'),
+        textNameSensor = Strings.getLang('text_name_sensor'),
+        textSettings = Strings.getLang('text_settings'),
+        textContentDelete = Strings.getLang('text_content_delete'),
+        textContentReplace = Strings.getLang('text_content_replace'),
+        textCancel = Strings.getLang('cancel'),
+        textConfirm = Strings.getLang('confirm');
     
     let sensors: object[] = useProps((props: any) => {
         let sensors = [];
@@ -219,10 +231,10 @@ export default () => {
     }
 
     let confirmDelete: any = {
-        title: 'Удалить датчик',
-        content: 'Вы уверены в том, что хотите удалить датчик?',
-        cancelText: 'Отмена',
-        confirmText: 'Подтвердить',
+        title: textDeleteSensor,
+        content: textContentDelete,
+        cancelText: textCancel,
+        confirmText: textConfirm,
         confirmColor: '#ff0000',
         success: (param: any): void => {
             if (param.confirm) {
@@ -233,10 +245,10 @@ export default () => {
     }
 
     let confirmChange: any = {
-        title: 'Заменить датчик',
-        content: 'Вы уверены в том, что хотите заменить датчик?',
-        cancelText: 'Отмена',
-        confirmText: 'Подтвердить',
+        title: textReplaceSensor,
+        content: textContentReplace,
+        cancelText: textCancel,
+        confirmText: textConfirm,
         confirmColor: '#ff0000',
         success: (param: any): void => {
             if (param.confirm) {
@@ -296,7 +308,7 @@ export default () => {
     return (
         <View>
             <View>
-                <Text className={styles.title}>Кол-во датчиков: 
+                <Text className={styles.title}>{numberOfSensors}
                     <Text className={styles.countSensors}>{ countSensors }</Text>
                 </Text>
             </View>
@@ -309,27 +321,27 @@ export default () => {
             <View className={styles.blockFooter}>
                 <Button
                     style={{ padding: '15px' }}
-                    onClick={() => { addSensors(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>Добавить
+                    onClick={() => { addSensors(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>{add}
                 </Button>
             </View>
             <PageContainer show={isShow} position='bottom' onClickOverlay={toggleIsShow} round={true}>
                 <View>
                     <View className={styles.headerModalWindow}>                                
-                        Настройка: <Text>{value}</Text>
+                        {textSettings} <Text>{value}</Text>
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteChangeSensor}>
                             <View className={styles.buttonDeleteChange} onClick={() => { showModal(confirmDelete) }}>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
-                                <Text className={styles.textDeleteChange}>Удалить датчик</Text>
+                                <Text className={styles.textDeleteChange}>{textDeleteSensor}</Text>
                             </View>
                             <View className={styles.buttonDeleteChange} onClick={() => { showModal(confirmChange) }}>
                                 <Icon type="icon-repeat" color="black" size={32}></Icon>
-                                <Text className={styles.textDeleteChange}>Заменить датчик</Text>
+                                <Text className={styles.textDeleteChange}>{textReplaceSensor}</Text>
                             </View>
                         </View>
                         <View className={styles.inputText}>
-                            <Text className={styles.textModalWindow}>Имя датчика:</Text>
+                            <Text className={styles.textModalWindow}>{textNameSensor}</Text>
                             <Input
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"

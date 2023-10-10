@@ -1,5 +1,6 @@
 export default {
     en: {
+        // home
         battery: 'Battery charge',
         charging: 'Charging',
         text_alarm: 'Leak detected!',
@@ -13,8 +14,20 @@ export default {
         text_cleaning: 'Cleaning',
         sensors: 'Sensors',
         settings: 'Settings',
+        // sensors
+        number_of_sensors: 'Number of sensors:',
+        add: 'Add',
+        text_delete_sensor: 'Delete sensor',
+        text_replace_sensor: 'Replaсe sensor',
+        text_name_sensor: 'Name sensor:',
+        text_settings: 'Settings:',
+        text_content_delete: 'Are you sure you want to remove the sensor?',
+        text_content_replace: 'Are you sure you want to replace the sensor?',
+        cancel: 'Cancel',
+        confirm: 'Confirm',
     },
     zh: {
+        // home
         battery: '电池',
         charging: '收费',
         text_alarm: '检测到泄漏！',
@@ -28,8 +41,20 @@ export default {
         text_cleaning: '打扫',
         sensors: '传感器',
         settings: '设置',
+        // sensors
+        number_of_sensors: '传感器数量：',
+        add: '添加',
+        text_delete_sensor: '移除传感器',
+        text_replace_sensor: '更换传感器',
+        text_name_sensor: '名称传感器',
+        text_settings: '设置: ',
+        text_content_delete: '您确定要移除传感器吗？',
+        text_content_replace: '您确定要更换传感器吗？',
+        cancel: '取消',
+        confirm: '确认',
     },
     ru: {
+        // home
         battery: 'Заряд батареи',
         charging: 'Заряжается',
         text_alarm: 'Обнаружена протечка!',
@@ -43,5 +68,16 @@ export default {
         text_cleaning: 'Уборка',
         sensors: 'Датчики',
         settings: 'Настройки',
+        // sensors
+        number_of_sensors: 'Number of sensors:',
+        add: 'Добавить',
+        text_delete_sensor: 'Удалить датчик',
+        text_replace_sensor: 'Заменить датчик',
+        text_name_sensor: 'Имя датчика:',
+        text_settings: 'Настройки:',
+        text_content_delete: 'Вы уверены в том, что хотите удалить датчик?',
+        text_content_replace: 'Вы уверены в том, что хотите заменить датчик?',
+        cancel: 'Отмена',
+        confirm: 'Подтвердить',
     },
 };
