@@ -17,6 +17,7 @@ export default {
         // sensors
         number_of_sensors: 'Number of sensors:',
         add: 'Add',
+        add_sensors: 'Adding sensors: 15 seconds',
         text_delete_sensor: 'Delete sensor',
         text_replace_sensor: 'Replaсe sensor',
         text_name_sensor: 'Name sensor:',
@@ -46,6 +47,7 @@ export default {
         // sensors
         number_of_sensors: '传感器数量：',
         add: '添加',
+        add_sensors: '添加传感器：15秒',
         text_delete_sensor: '移除传感器',
         text_replace_sensor: '更换传感器',
         text_name_sensor: '名称传感器',
@@ -75,6 +77,7 @@ export default {
         // sensors
         number_of_sensors: 'Number of sensors:',
         add: 'Добавить',
+        add_sensors: 'Добавление датчиков: 15 секунд',
         text_delete_sensor: 'Удалить датчик',
         text_replace_sensor: 'Заменить датчик',
         text_name_sensor: 'Имя датчика:',

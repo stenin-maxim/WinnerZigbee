@@ -30,14 +30,15 @@ export default () => {
     // language text
     let numberOfSensors: string = Strings.getLang('number_of_sensors'),
         add: string = Strings.getLang('add'),
-        textDeleteSensor = Strings.getLang('text_delete_sensor'),
-        textReplaceSensor = Strings.getLang('text_replace_sensor'),
-        textNameSensor = Strings.getLang('text_name_sensor'),
-        textSettings = Strings.getLang('text_settings'),
-        textContentDelete = Strings.getLang('text_content_delete'),
-        textContentReplace = Strings.getLang('text_content_replace'),
-        textCancel = Strings.getLang('cancel'),
-        textConfirm = Strings.getLang('confirm');
+        add_sensors: string = Strings.getLang('add_sensors'),
+        textDeleteSensor: string = Strings.getLang('text_delete_sensor'),
+        textReplaceSensor: string = Strings.getLang('text_replace_sensor'),
+        textNameSensor: string = Strings.getLang('text_name_sensor'),
+        textSettings: string = Strings.getLang('text_settings'),
+        textContentDelete: string = Strings.getLang('text_content_delete'),
+        textContentReplace: string = Strings.getLang('text_content_replace'),
+        textCancel: string = Strings.getLang('cancel'),
+        textConfirm: string = Strings.getLang('confirm');
     
     let sensors: object[] = useProps((props: any) => {
         let sensors = [];
@@ -224,7 +225,7 @@ export default () => {
         return (
             <React.Fragment>
                 <View className={styles.countSeconds}>
-                    Добавление датчиков: {seconds} секунд
+                    {add_sensors}
                 </View>
             </React.Fragment>
         )
