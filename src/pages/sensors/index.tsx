@@ -133,19 +133,17 @@ export default () => {
         )
     }
 
-    function batterySensorColorIcon(batterySensor: number): object
+    function batterySensorColorIcon(batterySensor: number): object|string
     {
-        let color: string = 'black';
-
-        if (batterySensor < 30) {
-            color = 'orange'
+        if (batterySensor < 50) {
+            return (
+                <React.Fragment>
+                    <Icon type="icon-a-boltfill" color="red" size={26}/>
+                </React.Fragment>
+            )
         }
 
-        return (
-            <React.Fragment>
-                <Icon type="icon-a-boltfill" color={color} size={26}/>
-            </React.Fragment>
-        )
+        return '';
     }
 
     /**
@@ -289,13 +287,12 @@ export default () => {
                             </View>
                             { item.id != 107 ? 
                                 <View className={styles.signalBattery}>
+                                    <View className={styles.battery}>
+                                        {batterySensorColorIcon(item.battery)}
+                                    </View>
                                     <View className={styles.signal}>
                                         {item.online ? signalColorIcon(item.signal) : lossSensorIcon()}
                                         <Text className={styles.signalText}>{ item.signal }</Text>
-                                    </View>
-                                    <View className={styles.battery}>
-                                        {batterySensorColorIcon(item.battery)}
-                                        <Text className={styles.batteryText}>{ item.battery }</Text>
                                     </View>
                                 </View>
                             : '' }
