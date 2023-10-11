@@ -28,6 +28,8 @@ export default {
         confirm: 'Confirm',
         // instructions
         instruction: 'User Manual',
+        // history
+        text_history: 'History',
     },
     zh: {
         // home
@@ -58,6 +60,8 @@ export default {
         confirm: '确认',
         // instruction
         instruction: '用户手册',
+        // history
+        text_history: '古鲁纳勒',
     },
     ru: {
         // home
@@ -88,5 +92,7 @@ export default {
         confirm: 'Подтвердить',
         // instruction
         instruction: 'Инструкция пользователя',
+        // history
+        text_history: 'Журнал',
     },
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
-import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
+import { navigateTo, vibrateShort, showToast, getDpReportLog } from '@ray-js/ray';
 import styles from './index.module.less';
-import { useActions, useProps } from '@ray-js/panel-sdk';
+import { useActions, useProps, useDevice } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 
 export function Home() {
@@ -12,7 +12,6 @@ export function Home() {
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
 
-    // language text
     let textBattery: string = Strings.getLang('battery'),
         textCharging: string = Strings.getLang('charging'),
         textAlarm: string = Strings.getLang('text_alarm'),
@@ -24,6 +23,7 @@ export function Home() {
         textCleaningModeOn: string = Strings.getLang('text_cleaning_mode_on'),
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
+        textButtonHistory: string = Strings.getLang('text_history'),
         textButtonSensors: string = Strings.getLang('sensors'),
         textButtonSettings: string = Strings.getLang('settings');
 
@@ -204,6 +204,13 @@ export function Home() {
                     >
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
+                    </Button>
+                    <Button
+                        className={styles.button}
+                        onClick={() => navigateTo({ url: '/pages/history/index'})}
+                    >
+                        <Icon type="icon-a-scrollfill" size={35}/>
+                        <Text className={styles.textButton}>{textButtonHistory}</Text>
                     </Button>
                     <Button
                         className={styles.button}
