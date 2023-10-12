@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo, vibrateShort, showToast, getDpReportLog } from '@ray-js/ray';
 import styles from './index.module.less';
-import { useActions, useProps, useDevice } from '@ray-js/panel-sdk';
+import { useActions, useProps } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 
 export function Home() {
@@ -205,13 +205,13 @@ export function Home() {
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
                     </Button>
-                    <Button
+                    {/* <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/history/index'})}
                     >
                         <Icon type="icon-a-scrollfill" size={35}/>
                         <Text className={styles.textButton}>{textButtonHistory}</Text>
-                    </Button>
+                    </Button> */}
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
