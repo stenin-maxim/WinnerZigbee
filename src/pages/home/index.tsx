@@ -23,7 +23,7 @@ export function Home() {
         textCleaningModeOn: string = Strings.getLang('text_cleaning_mode_on'),
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
-        textButtonHistory: string = Strings.getLang('text_history'),
+        // textButtonHistory: string = Strings.getLang('text_history'),
         textButtonSensors: string = Strings.getLang('sensors'),
         textButtonSettings: string = Strings.getLang('settings');
 
@@ -205,6 +205,13 @@ export function Home() {
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
                     </Button>
+                    {/* <Button
+                        className={styles.button}
+                        onClick={() => navigateTo({ url: '/pages/history/index'})}
+                    >
+                        <Icon type="icon-a-scrollfill" size={35}/>
+                        <Text className={styles.textButton}>{textButtonHistory}</Text>
+                    </Button> */}
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
