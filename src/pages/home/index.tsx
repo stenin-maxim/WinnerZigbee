@@ -205,13 +205,6 @@ export function Home() {
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
                     </Button>
-                    {/* <Button
-                        className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/history/index'})}
-                    >
-                        <Icon type="icon-a-scrollfill" size={35}/>
-                        <Text className={styles.textButton}>{textButtonHistory}</Text>
-                    </Button> */}
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
