@@ -14,6 +14,7 @@ export default {
         text_cleaning: 'Cleaning',
         sensors: 'Sensors',
         settings: 'Settings',
+        manual: 'Manual',
         // sensors
         number_of_sensors: 'Number of sensors:',
         add: 'Add',
@@ -46,6 +47,7 @@ export default {
         text_cleaning: '打扫',
         sensors: '传感器',
         settings: '设置',
+        manual: '手动的',
         // sensors
         number_of_sensors: '传感器数量：',
         add: '添加',
@@ -78,6 +80,7 @@ export default {
         text_cleaning: 'Уборка',
         sensors: 'Датчики',
         settings: 'Настройки',
+        manual: 'Руководство',
         // sensors
         number_of_sensors: 'Number of sensors:',
         add: 'Добавить',

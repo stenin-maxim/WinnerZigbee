@@ -25,7 +25,8 @@ export function Home() {
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
         // textButtonHistory: string = Strings.getLang('text_history'),
         textButtonSensors: string = Strings.getLang('sensors'),
-        textButtonSettings: string = Strings.getLang('settings');
+        textButtonManual: string = Strings.getLang('manual');
+        //textButtonSettings: string = Strings.getLang('settings');
 
     function colorAndTextBattery(): object
     {
@@ -219,10 +220,10 @@ export function Home() {
                     </Button>
                     <Button
                         className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/settings/index'})}
+                        onClick={() => navigateTo({ url: '/pages/instructions/index'})}
                     >
-                        <Icon type="icon-checkmark-3" size={35}/>
-                        <Text className={styles.textButton}>{textButtonSettings}</Text>
+                        <Icon type="icon-a-exclamationmarkbubblefill" size={35}/>
+                        <Text className={styles.textButton}>{textButtonManual}</Text>
                     </Button>
                 </View>
             </View>
