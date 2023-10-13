@@ -178,9 +178,7 @@ export function Home() {
     return (
         <View className={styles.view}>
             <View className={styles.logo}>
-                <Text className={styles.logoTextLeft}>GIDROL</Text>
-                <Icon type="icon-a-dropfill" size={25} color="white"></Icon>
-                <Text className={styles.logoTextRight}>CK</Text>
+                <Text className={styles.logoText}>Winner ZigBee</Text>
             </View>
             <View>
                 {notifyCleaning()}
