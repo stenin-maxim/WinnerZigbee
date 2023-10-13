@@ -286,7 +286,7 @@ export default () => {
                                     <Text className={styles.name}>{ item.name }</Text>
                                 </View>
                             </View>
-                            { item.id != 107 ? 
+                            { (item.id != 107 && item.id != 109) ? 
                                 <View className={styles.signalBattery}>
                                     <View className={styles.battery}>
                                         {batterySensorColorIcon(item.battery)}
