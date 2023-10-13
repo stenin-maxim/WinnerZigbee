@@ -23,14 +23,13 @@ export default () => {
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const [sensorId, setSensorId] = React.useState();
-    const [seconds, setSeconds] = React.useState(0);
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
-
+    
+    let [seconds, setSeconds] = React.useState(0);
     let countSensors: number = 0;
-    // language text
     let numberOfSensors: string = Strings.getLang('number_of_sensors'),
         add: string = Strings.getLang('add'),
-        add_sensors: string = Strings.getLang('add_sensors'),
+        textAddSensors: string = Strings.getLang('add_sensors'),
         textDeleteSensor: string = Strings.getLang('text_delete_sensor'),
         textReplaceSensor: string = Strings.getLang('text_replace_sensor'),
         textNameSensor: string = Strings.getLang('text_name_sensor'),
@@ -201,10 +200,11 @@ export default () => {
     }
 
     function addSensors(): void {
+        actions.device_cmd.set(cmdSearch);
+
         if (seconds == 0) {
-            actions.device_cmd.set(cmdSearch);
-            printNumbers(15);
-        }
+            printNumbers(30);
+        } 
     }
 
     function printNumbers(seconds: number): void
@@ -219,11 +219,12 @@ export default () => {
         }, 1000);
     }
 
-    function viewCountSeconds(): object {
+    function viewTextAddSensors(): object {
         return (
             <React.Fragment>
-                <View className={styles.countSeconds}>
-                    {add_sensors}
+                <View className={styles.addSensors}>
+                    {textAddSensors}
+                    <View className={styles.loading}>...</View>
                 </View>
             </React.Fragment>
         )
@@ -314,7 +315,7 @@ export default () => {
                 { countSensors ? showSensors() : '' }
             </View>
             <View>
-                { seconds > 0 ? viewCountSeconds() : '' }
+                { seconds > 0 ? viewTextAddSensors() : '' }
             </View>
             <View className={styles.blockFooter}>
                 <Button
