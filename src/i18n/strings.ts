@@ -82,7 +82,7 @@ export default {
         settings: 'Настройки',
         manual: 'Руководство',
         // sensors
-        number_of_sensors: 'Number of sensors:',
+        number_of_sensors: 'Количество датчиков:',
         add: 'Добавить',
         add_sensors: 'Добавление датчиков',
         text_delete_sensor: 'Удалить датчик',
