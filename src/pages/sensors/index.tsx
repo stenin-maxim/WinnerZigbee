@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, Icon, Text, PageContainer, Input } from "@ray-js/components";
+import { View, Button, Icon, Text, PageContainer, Input, Switch } from "@ray-js/components";
 import styles from './index.module.less';
 import { useProps, useDevice, useActions } from '@ray-js/panel-sdk';
 import { vibrateShort, showModal } from '@ray-js/ray';
@@ -19,10 +19,13 @@ export default () => {
     const ignoreMask: number  = 0b00000000000010000000000000000000;
     //                          __--__--
     const cmdSearch: number = 0x01000000; // команда поиск датчика
-    const cmdDelete: number = 0x02000000; // команда удаления датчика
+    const cmdDelete: number = 0x02000000; // команда удаление датчика
+    const cmdEnableIgnore: number = 0x03000000; // включить игнор аварии датчика
+    const cmdDisableIgnore: number = 0x04000000; // отключить игнор аварии датчика
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const [sensorId, setSensorId] = React.useState();
+    const [ignore, setIgnore] = React.useState();
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
     
     let [seconds, setSeconds] = React.useState(0);
@@ -152,10 +155,9 @@ export default () => {
      */
     function deleteSensor(sensorId: number): void
     {
-        let cmdDeleteArgument = cmdDelete + sensorId;
         let name = idCodes[sensorId];
 
-        actions[name].set(cmdDeleteArgument);
+        actions[name].set(cmdDelete);
     }
 
     /**
@@ -258,6 +260,25 @@ export default () => {
         },
     }
 
+    /**
+     * Включить/выключить игнор аварии датчика
+     * 
+     * @param value - состояние checkbox
+     * @param sensorId - dpid датчика
+     */
+    function ignoreAlarmOnSensor(value: boolean, sensorId: number): void
+    {
+        let name = idCodes[sensorId];
+        let cmd: number;
+
+        if (value) {
+            cmd = cmdEnableIgnore;
+        } else {
+            cmd = cmdDisableIgnore;
+        }
+        actions[name].set(cmd);
+    }
+
     function showSensors(): object
     {
         return (
@@ -271,6 +292,7 @@ export default () => {
                                 toggleIsShow();
                                 setValue(item.name);
                                 setSensorId(item.id);
+                                setIgnore(item.ignore); 
                             }}
                         >
                             <View className={styles.leftBlockSensor}>
@@ -327,6 +349,11 @@ export default () => {
                 <View>
                     <View className={styles.headerModalWindow}>                                
                         {textSettings} <Text>{value}</Text>
+                    </View>
+                    <View className={styles.checkbox}>
+                        <View className={styles.checkboxIgnore}>
+                            <Switch type="checkbox" color="#00BFFF" checked={ignore} onChange={(e) => { ignoreAlarmOnSensor(e.value, sensorId)}}>Игнорировать аварию на датчике</Switch>
+                        </View>
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteChangeSensor}>
