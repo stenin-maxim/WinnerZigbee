@@ -27,6 +27,7 @@ export default {
         text_content_replace: 'Are you sure you want to replace the sensor?',
         cancel: 'Cancel',
         confirm: 'Confirm',
+        text_ignore: 'Ignore sensor alarm',
         // instructions
         instruction: 'User Manual',
         // history
@@ -60,6 +61,7 @@ export default {
         text_content_replace: '您确定要更换传感器吗？',
         cancel: '取消',
         confirm: '确认',
+        text_ignore: '忽略传感器警报',
         // instruction
         instruction: '用户手册',
         // history
@@ -93,6 +95,7 @@ export default {
         text_content_replace: 'Вы уверены в том, что хотите заменить датчик?',
         cancel: 'Отмена',
         confirm: 'Подтвердить',
+        text_ignore: 'Игнорировать аварию на датчике',
         // instruction
         instruction: 'Инструкция пользователя',
         // history

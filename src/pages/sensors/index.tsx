@@ -40,7 +40,8 @@ export default () => {
         textContentDelete: string = Strings.getLang('text_content_delete'),
         textContentReplace: string = Strings.getLang('text_content_replace'),
         textCancel: string = Strings.getLang('cancel'),
-        textConfirm: string = Strings.getLang('confirm');
+        textConfirm: string = Strings.getLang('confirm'),
+        textIgnore: string = Strings.getLang('text_ignore');
     
     let sensors: object[] = useProps((props: any) => {
         let sensors = [];
@@ -342,7 +343,7 @@ export default () => {
                     </View>
                     <View className={styles.checkbox}>
                         <View className={styles.checkboxIgnore}>
-                            <Switch type="checkbox" color="#00BFFF" checked={ignore} onChange={(e) => { ignoreAlarmOnSensor(e.value, sensorId)}}>Игнорировать аварию на датчике</Switch>
+                            <Switch type="checkbox" color="#00BFFF" checked={ignore} onChange={(e) => { ignoreAlarmOnSensor(e.value, sensorId)}}>{textIgnore}</Switch>
                         </View>
                     </View>
                     <View className={styles.centerModalWindow}>
