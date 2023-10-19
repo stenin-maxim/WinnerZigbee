@@ -130,18 +130,8 @@ export function Home() {
      */
     function clickCraneCondition(): void
     {
-        if (alarm) {
-            vibrateButton(4);
-        } else {
+        if (!alarm) {
             actions.switch.toggle();
-            vibrateButton(2);
-        }
-    }
-
-    function vibrateButton(int: number): void
-    {
-        for (let i = int; i == 0; i--) {
-            vibrateShort({type: 'heavy'});
         }
     }
 
@@ -156,7 +146,6 @@ export function Home() {
             text = textCleaningModeOff;
             actions.cleaning.off();
         }
-        vibrateButton(2);
 
         showToast({
             title: text,
@@ -190,7 +179,7 @@ export function Home() {
             </View>
 
             <View className={styles.blockCraneCondition}>
-                <View onClick={() => { clickCraneCondition() }}>
+                <View onClick={() => { clickCraneCondition(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>
                     {blockCraneCondition()}
                 </View>
             </View>
@@ -199,7 +188,7 @@ export function Home() {
                 <View className={styles.navButtons}>
                     <Button
                         className={styles.button}
-                        onClick={() => { startStopCleaning(); }}
+                        onClick={() => { startStopCleaning(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}
                     >
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
