@@ -28,6 +28,8 @@ export default {
         cancel: 'Cancel',
         confirm: 'Confirm',
         text_ignore: 'Ignore sensor alarm',
+        text_security_mode: 'Enhanced Security Mode',
+        text_low_charge: 'Low charge sensor, close the tap',
         // instructions
         instruction: 'User Manual',
         // history
@@ -62,6 +64,8 @@ export default {
         cancel: '取消',
         confirm: '确认',
         text_ignore: '忽略传感器警报',
+        text_security_mode: '增强安全模式',
+        text_low_charge: '传感器电量低，关闭水龙头',
         // instruction
         instruction: '用户手册',
         // history
@@ -96,6 +100,8 @@ export default {
         cancel: 'Отмена',
         confirm: 'Подтвердить',
         text_ignore: 'Игнорировать аварию на датчике',
+        text_security_mode: 'Режим повышенной безопасности',
+        text_low_charge: 'Низкий заряд датчика, закрыть кран',
         // instruction
         instruction: 'Инструкция пользователя',
         // history

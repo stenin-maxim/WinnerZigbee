@@ -9,23 +9,28 @@ export default () => {
     const actions = useActions();
     const device = useDevice().dpSchema;
     const idCodes = useDevice().devInfo.idCodes;
-    //                            ________--------________--------
-    const registrMask: number = 0b00000000000000010000000000000000;
-    //                            ________--------________--------
-    const onlineMask: number  = 0b00000000000000100000000000000000;
-    //                            ________--------________--------
-    const leakMask: number    = 0b00000000000001000000000000000000;
-    //                            ________--------________--------
-    const ignoreMask: number  = 0b00000000000010000000000000000000;
+    //                                  ________--------________--------
+    const registrMask: number       = 0b00000000000000010000000000000000;
+    //                                  ________--------________--------
+    const onlineMask: number        = 0b00000000000000100000000000000000;
+    //                                  ________--------________--------
+    const leakMask: number          = 0b00000000000001000000000000000000;
+    //                                  ________--------________--------
+    const ignoreMask: number        = 0b00000000000010000000000000000000;
+    //                                  ________--------________--------
+    const securityModeMask: number  = 0b00000000000100000000000000000000;
     //                          __--__--
     const cmdSearch: number = 0x01000000; // команда поиск датчика
     const cmdDelete: number = 0x02000000; // команда удаление датчика
     const cmdEnableIgnore: number = 0x03000000; // включить игнор аварии датчика
     const cmdDisableIgnore: number = 0x04000000; // отключить игнор аварии датчика
+    const cmdEnableSecurityMode: number = 0x05000000; // включить режим повышенной безопасности для датчика
+    const cmdDisableSecurityMode: number = 0x06000000; // выключить режим повышенной безопасности для датчика
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const [sensorId, setSensorId] = React.useState();
     const [ignore, setIgnore] = React.useState();
+    const [securityMode, setSecurityMode] = React.useState();
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
     
     let [seconds, setSeconds] = React.useState(0);
@@ -41,7 +46,9 @@ export default () => {
         textContentReplace: string = Strings.getLang('text_content_replace'),
         textCancel: string = Strings.getLang('cancel'),
         textConfirm: string = Strings.getLang('confirm'),
-        textIgnore: string = Strings.getLang('text_ignore');
+        textIgnore: string = Strings.getLang('text_ignore'),
+        textSecurityMode: string = Strings.getLang('text_security_mode'),
+        textLowCharge: string = Strings.getLang('text_low_charge');
     
     let sensors: object[] = useProps((props: any) => {
         let sensors = [];
@@ -102,6 +109,7 @@ export default () => {
                 online: Boolean(sensor & onlineMask),
                 leak: Boolean(sensor & leakMask),
                 ignore: Boolean(sensor & ignoreMask),
+                securityMode: Boolean(sensor & securityModeMask),
                 battery: Number(sensor & 0xFF),
                 signal: Number((sensor >> 8) & 0xFF),
                 name: sensorName,
@@ -116,7 +124,7 @@ export default () => {
         setValue(event.value);
     }
 
-    function signalColorIcon(signal?: number): object
+    function signalColorIcon(): object
     {
         let color: string = 'black';
 
@@ -161,7 +169,6 @@ export default () => {
 
         actions[name].set(cmd);
     }
-
 
     /**
      * Изменение имени датчика
@@ -270,6 +277,41 @@ export default () => {
         actions[name].set(cmd);
     }
 
+    /**
+     * Включить/выключить режим повышенной безопасности или низкий заряд датчика, закрыть кран
+     * 
+     * @param value - состояние checkbox
+     * @param sensorId - dpid датчика
+     */
+    function securityModeSensor(value: boolean, sensorId: number): void
+    {
+        let name = idCodes[sensorId];
+        let cmd: number;
+
+        if (value) {
+            cmd = cmdEnableSecurityMode;
+        } else {
+            cmd = cmdDisableSecurityMode;
+        }
+        actions[name].set(cmd);
+    }
+
+    function viewSecurityMode(sensorId: number): object|string
+    {
+        if (sensorId != 109) {
+            return (
+                <React.Fragment>
+                    <Switch type="checkbox" color="#00BFFF" checked={securityMode}
+                        onChange={(e) => { securityModeSensor(e.value, sensorId)}}>
+                        {sensorId != 107 ? textSecurityMode : textLowCharge}
+                    </Switch>
+                </React.Fragment>
+            )
+        }
+
+        return '';
+    }
+
     function showSensors(): object
     {
         return (
@@ -283,7 +325,8 @@ export default () => {
                                 toggleIsShow();
                                 setValue(item.name);
                                 setSensorId(item.id);
-                                setIgnore(item.ignore); 
+                                setIgnore(item.ignore);
+                                setSecurityMode(item.securityMode);
                             }}
                         >
                             <View className={styles.leftBlockSensor}>
@@ -305,7 +348,7 @@ export default () => {
                                         {batterySensorColorIcon(item.battery)}
                                     </View>
                                     <View className={styles.signal}>
-                                        {item.online ? signalColorIcon(item.signal) : lossSensorIcon()}
+                                        {item.online ? signalColorIcon() : lossSensorIcon()}
                                         <Text className={styles.signalText}>{ item.signal }</Text>
                                     </View>
                                 </View>
@@ -343,7 +386,13 @@ export default () => {
                     </View>
                     <View className={styles.checkbox}>
                         <View className={styles.checkboxIgnore}>
-                            <Switch type="checkbox" color="#00BFFF" checked={ignore} onChange={(e) => { ignoreAlarmOnSensor(e.value, sensorId)}}>{textIgnore}</Switch>
+                            <Switch type="checkbox" color="#00BFFF" checked={ignore}
+                                onChange={(e) => { ignoreAlarmOnSensor(e.value, sensorId)}}>
+                                {textIgnore}
+                            </Switch>
+                        </View>
+                        <View>
+                            {viewSecurityMode(sensorId)}
                         </View>
                     </View>
                     <View className={styles.centerModalWindow}>
