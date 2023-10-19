@@ -149,28 +149,18 @@ export default () => {
     }
 
     /**
-     * Удаление датчика
+     * Удаление и замена датчика
      * 
-     * @param sensorId - dpid sensor
+     * @param sensorId  - dpid sensor
+     * @param cmd - команда на удаление или замену
      */
-    function deleteSensor(sensorId: number): void
+    function deleteOrReplaceSensor(sensorId: number, cmd: number): void
     {
         let name = idCodes[sensorId];
 
-        actions[name].set(cmdDelete);
+        actions[name].set(cmd);
     }
 
-    /**
-     * Поиск датчика для конкретного dpid
-     * 
-     * @param sensorId 
-     */
-    function searchSensor(sensorId: number): void
-    {
-        let name = idCodes[sensorId];
-
-        actions[name].set(cmdSearch);
-    }
 
     /**
      * Изменение имени датчика
@@ -240,13 +230,13 @@ export default () => {
         confirmColor: '#ff0000',
         success: (param: any): void => {
             if (param.confirm) {
-                deleteSensor(sensorId);
+                deleteOrReplaceSensor(sensorId, cmdDelete);
                 toggleIsShow();
             }
         },
     }
 
-    let confirmChange: any = {
+    let confirmReplace: any = {
         title: textReplaceSensor,
         content: textContentReplace,
         cancelText: textCancel,
@@ -254,7 +244,7 @@ export default () => {
         confirmColor: '#ff0000',
         success: (param: any): void => {
             if (param.confirm) {
-                searchSensor(sensorId);
+                deleteOrReplaceSensor(sensorId, cmdSearch);
                 toggleIsShow();
             }
         },
@@ -357,11 +347,11 @@ export default () => {
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteChangeSensor}>
-                            <View className={styles.buttonDeleteChange} onClick={() => { showModal(confirmDelete) }}>
+                            <View className={styles.buttonDeleteReplace} onClick={() => { showModal(confirmDelete) }}>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
                                 <Text className={styles.textDeleteChange}>{textDeleteSensor}</Text>
                             </View>
-                            <View className={styles.buttonDeleteChange} onClick={() => { showModal(confirmChange) }}>
+                            <View className={styles.buttonDeleteReplace} onClick={() => { showModal(confirmReplace) }}>
                                 <Icon type="icon-repeat" color="black" size={32}></Icon>
                                 <Text className={styles.textDeleteChange}>{textReplaceSensor}</Text>
                             </View>
