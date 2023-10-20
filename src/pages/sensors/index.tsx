@@ -6,7 +6,7 @@ import { vibrateShort, showModal } from '@ray-js/ray';
 import Strings from '../../i18n';
 
 export default () => {
-    const actions = useActions();
+    const actions: any = useActions();
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const device = useDevice().dpSchema;
     const idCodes = useDevice().devInfo.idCodes;
@@ -29,11 +29,9 @@ export default () => {
     const cmdDisableSecurityMode: number = 0x06000000; // выключить режим повышенной безопасности для датчика
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
-    const [sensorId, setSensorId] = React.useState();
-    const [ignore, setIgnore] = React.useState();
-    const [securityMode, setSecurityMode] = React.useState();
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
-    
+
+    let [item, setItem]: any = React.useState({});
     let [seconds, setSeconds] = React.useState(0);
     let countSensors: number = 0;
     let numberOfSensors: string = Strings.getLang('number_of_sensors'),
@@ -251,32 +249,29 @@ export default () => {
         )
     }
 
-    let confirmDelete: any = {
-        title: textDeleteSensor,
-        content: textContentDelete,
-        cancelText: textCancel,
-        confirmText: textConfirm,
-        confirmColor: '#ff0000',
-        success: (param: any): void => {
-            if (param.confirm) {
-                deleteOrReplaceSensor(sensorId, cmdDelete);
-                toggleIsShow();
-            }
-        },
-    }
-
-    let confirmReplace: any = {
-        title: textReplaceSensor,
-        content: textContentReplace,
-        cancelText: textCancel,
-        confirmText: textConfirm,
-        confirmColor: '#ff0000',
-        success: (param: any): void => {
-            if (param.confirm) {
-                deleteOrReplaceSensor(sensorId, cmdSearch);
-                toggleIsShow();
-            }
-        },
+    /**
+     * Параметры модального окна для удаления и замены датчика
+     * 
+     * @param title 
+     * @param content 
+     * @param cmd 
+     * @returns object
+     */
+    function confirm(title: string, content: string, cmd: number): object
+    {
+        return {
+            title: title,
+            content: content,
+            cancelText: textCancel,
+            confirmText: textConfirm,
+            confirmColor: '#ff0000',
+            success: (param: any): void => {
+                if (param.confirm) {
+                    deleteOrReplaceSensor(item.id, cmd);
+                    toggleIsShow();
+                }
+            },
+        }
     }
 
     /**
@@ -285,7 +280,7 @@ export default () => {
      * @param value - состояние checkbox
      * @param sensorId - dpid датчика
      */
-    function ignoreAlarmOnSensor(value: boolean, sensorId: number): void
+    function ignoreAlarmOnSensor(value: boolean, sensorId: number): void // TODO
     {
         let name = idCodes[sensorId];
         let cmd: number;
@@ -304,7 +299,7 @@ export default () => {
      * @param value - состояние checkbox
      * @param sensorId - dpid датчика
      */
-    function securityModeSensor(value: boolean, sensorId: number): void
+    function securityModeSensor(value: boolean, sensorId: number): void  // TODO
     {
         let name = idCodes[sensorId];
         let cmd: number;
@@ -317,18 +312,20 @@ export default () => {
         actions[name].set(cmd);
     }
 
-    function viewSecurityMode(sensorId: number): object|void
+    function viewSecurityMode(sensorId: number): object|string
     {
         if (sensorId != 109) {
             return (
                 <React.Fragment>
-                    <Switch type="checkbox" color="#00BFFF" checked={securityMode}
+                    <Switch type="checkbox" color="#00BFFF" checked={item.securityMode}
                         onChange={(e) => { securityModeSensor(e.value, sensorId)}}>
                         {sensorId != 107 ? textSecurityMode : textLowCharge}
                     </Switch>
                 </React.Fragment>
             )
         }
+
+        return '';
     }
 
     function showSensors(): object
@@ -343,9 +340,7 @@ export default () => {
                             onClick={() => {
                                 toggleIsShow();
                                 setValue(item.name); // TODO
-                                setSensorId(item.id); // TODO
-                                setIgnore(item.ignore); // TODO
-                                setSecurityMode(item.securityMode); // TODO
+                                setItem(item);
                             }}
                         >
                             <View className={styles.leftBlockSensor}>
@@ -404,22 +399,26 @@ export default () => {
                     </View>
                     <View className={styles.checkbox}>
                         <View className={styles.checkboxIgnore}>
-                            <Switch type="checkbox" color="#00BFFF" checked={ignore}
-                                onChange={(e) => { ignoreAlarmOnSensor(e.value, sensorId)}}>
+                            <Switch type="checkbox" color="#00BFFF" checked={item.ignore}
+                                onChange={(e) => { ignoreAlarmOnSensor(e.value, item.id)}}>
                                 {textIgnore}
                             </Switch>
                         </View>
                         <View>
-                            {viewSecurityMode(sensorId)}
+                            {viewSecurityMode(item.id)}
                         </View>
                     </View>
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteChangeSensor}>
-                            <View className={styles.buttonDeleteReplace} onClick={() => { showModal(confirmDelete) }}>
+                            <View className={styles.buttonDeleteReplace} 
+                                onClick={() => { showModal(confirm(textDeleteSensor, textContentDelete, cmdDelete)) }
+                            }>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
                                 <Text className={styles.textDeleteChange}>{textDeleteSensor}</Text>
                             </View>
-                            <View className={styles.buttonDeleteReplace} onClick={() => { showModal(confirmReplace) }}>
+                            <View className={styles.buttonDeleteReplace} 
+                                onClick={() => { showModal(confirm(textReplaceSensor, textContentReplace, cmdSearch))}
+                            }>
                                 <Icon type="icon-repeat" color="black" size={32}></Icon>
                                 <Text className={styles.textDeleteChange}>{textReplaceSensor}</Text>
                             </View>
@@ -442,7 +441,7 @@ export default () => {
                             className={styles.buttonModalWindow}
                             onClick={() => {
                                 toggleIsShow();
-                                editNameSensor(sensorId, value);
+                                editNameSensor(item.id, value);
                             }}>ОК
                         </Button>
                     </View>
