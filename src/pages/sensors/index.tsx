@@ -7,6 +7,7 @@ import Strings from '../../i18n';
 
 export default () => {
     const actions = useActions();
+    const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const device = useDevice().dpSchema;
     const idCodes = useDevice().devInfo.idCodes;
     //                                  ________--------________--------
@@ -144,17 +145,37 @@ export default () => {
         )
     }
 
-    function batterySensorColorIcon(batterySensor: number): object|string
+    /**
+     * Вывод предупреждения при включенной повышенной опасности и аварии
+     * 
+     * @param securityMode - статус включения повышеной опасности
+     * @param ignore - статус игнора
+     * @returns object
+     */
+    function alarmSecurityMode(securityMode: boolean, ignore: boolean): object|void
+    {
+        if (!ignore && securityMode && alarm) {
+            return (
+                <React.Fragment>
+                    <View className={styles.securityMode}>
+                        <Icon type="icon-warning" color="red" size={26}/>
+                    </View>
+                </React.Fragment>
+            )
+        }
+    }
+
+    function batterySensorColorIcon(batterySensor: number): object|void
     {
         if (batterySensor < 50) {
             return (
                 <React.Fragment>
-                    <Icon type="icon-a-boltfill" color="red" size={26}/>
+                    <View className={styles.battery}>
+                        <Icon type="icon-a-boltfill" color="red" size={26}/>
+                    </View>
                 </React.Fragment>
             )
         }
-
-        return '';
     }
 
     /**
@@ -296,7 +317,7 @@ export default () => {
         actions[name].set(cmd);
     }
 
-    function viewSecurityMode(sensorId: number): object|string
+    function viewSecurityMode(sensorId: number): object|void
     {
         if (sensorId != 109) {
             return (
@@ -308,8 +329,6 @@ export default () => {
                 </React.Fragment>
             )
         }
-
-        return '';
     }
 
     function showSensors(): object
@@ -323,10 +342,10 @@ export default () => {
                             style={{ border: borderColor(item) }}
                             onClick={() => {
                                 toggleIsShow();
-                                setValue(item.name);
-                                setSensorId(item.id);
-                                setIgnore(item.ignore);
-                                setSecurityMode(item.securityMode);
+                                setValue(item.name); // TODO
+                                setSensorId(item.id); // TODO
+                                setIgnore(item.ignore); // TODO
+                                setSecurityMode(item.securityMode); // TODO
                             }}
                         >
                             <View className={styles.leftBlockSensor}>
@@ -344,9 +363,8 @@ export default () => {
                             </View>
                             { (item.id != 107 && item.id != 109) ? 
                                 <View className={styles.signalBattery}>
-                                    <View className={styles.battery}>
-                                        {batterySensorColorIcon(item.battery)}
-                                    </View>
+                                    {alarmSecurityMode(item.securityMode, item.ignore)}
+                                    {batterySensorColorIcon(item.battery)}
                                     <View className={styles.signal}>
                                         {item.online ? signalColorIcon() : lossSensorIcon()}
                                         <Text className={styles.signalText}>{ item.signal }</Text>
@@ -411,7 +429,7 @@ export default () => {
                             <Input
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"
-                                maxLength={32}
+                                maxLength={21}
                                 type="string"
                                 value={value}
                                 onInput={handleInput}
