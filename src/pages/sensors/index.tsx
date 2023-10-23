@@ -6,6 +6,15 @@ import { vibrateShort, showModal } from '@ray-js/ray';
 import Strings from '../../i18n';
 
 export default () => {
+    interface Cmd {
+        readonly search: number;
+        readonly delete: number;
+        readonly enableIgnore: number;
+        readonly disableIgnore: number;
+        readonly enableSecurityMode: number;
+        readonly disableSecurityMode: number;
+    }
+
     const actions: any = useActions();
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const device = useDevice().dpSchema;
@@ -20,16 +29,18 @@ export default () => {
     const ignoreMask: number        = 0b00000000000010000000000000000000;
     //                                  ________--------________--------
     const securityModeMask: number  = 0b00000000000100000000000000000000;
-    //                          __--__--
-    const cmdSearch: number = 0x01000000; // команда поиск датчика
-    const cmdDelete: number = 0x02000000; // команда удаление датчика
-    const cmdEnableIgnore: number = 0x03000000; // включить игнор аварии датчика
-    const cmdDisableIgnore: number = 0x04000000; // отключить игнор аварии датчика
-    const cmdEnableSecurityMode: number = 0x05000000; // включить режим повышенной безопасности для датчика
-    const cmdDisableSecurityMode: number = 0x06000000; // выключить режим повышенной безопасности для датчика
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
+    const cmd: Cmd = {
+        //                        __--__--
+        search:                 0x01000000, // команда поиск датчика
+        delete:                 0x02000000, // команда удаление датчика
+        enableIgnore:           0x03000000, // включить игнор аварии датчика
+        disableIgnore:          0x04000000, // отключить игнор аварии датчика
+        enableSecurityMode:     0x05000000, // включить режим повышенной безопасности для датчика
+        disableSecurityMode:    0x06000000, // выключить режим повышенной безопасности для датчика
+    }
 
     let [item, setItem]: any = React.useState({});
     let [seconds, setSeconds] = React.useState(0);
@@ -219,7 +230,7 @@ export default () => {
     }
 
     function addSensors(): void {
-        actions.device_cmd.set(cmdSearch);
+        actions.device_cmd.set(cmd.search);
 
         if (seconds == 0) {
             printNumbers(30);
@@ -275,39 +286,22 @@ export default () => {
     }
 
     /**
-     * Включить/выключить игнор аварии датчика
+     * Включить/выключить игнор аварии датчика, режим повышенной безопасности при низком заряде датчика
      * 
      * @param value - состояние checkbox
      * @param sensorId - dpid датчика
+     * @param cmdEnable
+     * @param cmdDisable
      */
-    function ignoreAlarmOnSensor(value: boolean, sensorId: number): void // TODO
+    function enableDisable(...args: any[]): void
     {
-        let name = idCodes[sensorId];
+        let name: string = idCodes[args[1]];
         let cmd: number;
 
-        if (value) {
-            cmd = cmdEnableIgnore;
+        if (args[0]) {
+            cmd = args[2];
         } else {
-            cmd = cmdDisableIgnore;
-        }
-        actions[name].set(cmd);
-    }
-
-    /**
-     * Включить/выключить режим повышенной безопасности или низкий заряд датчика, закрыть кран
-     * 
-     * @param value - состояние checkbox
-     * @param sensorId - dpid датчика
-     */
-    function securityModeSensor(value: boolean, sensorId: number): void  // TODO
-    {
-        let name = idCodes[sensorId];
-        let cmd: number;
-
-        if (value) {
-            cmd = cmdEnableSecurityMode;
-        } else {
-            cmd = cmdDisableSecurityMode;
+            cmd = args[3];
         }
         actions[name].set(cmd);
     }
@@ -318,7 +312,7 @@ export default () => {
             return (
                 <React.Fragment>
                     <Switch type="checkbox" color="#00BFFF" checked={item.securityMode}
-                        onChange={(e) => { securityModeSensor(e.value, sensorId)}}>
+                        onChange={(e) => { enableDisable(e.value, sensorId, cmd.enableSecurityMode, cmd.disableSecurityMode)}}>
                         {sensorId != 107 ? textSecurityMode : textLowCharge}
                     </Switch>
                 </React.Fragment>
@@ -400,7 +394,7 @@ export default () => {
                     <View className={styles.checkbox}>
                         <View className={styles.checkboxIgnore}>
                             <Switch type="checkbox" color="#00BFFF" checked={item.ignore}
-                                onChange={(e) => { ignoreAlarmOnSensor(e.value, item.id)}}>
+                                onChange={(e) => { enableDisable(e.value, item.id, cmd.enableIgnore, cmd.disableIgnore)}}>
                                 {textIgnore}
                             </Switch>
                         </View>
@@ -411,13 +405,13 @@ export default () => {
                     <View className={styles.centerModalWindow}>
                         <View className={styles.deleteChangeSensor}>
                             <View className={styles.buttonDeleteReplace} 
-                                onClick={() => { showModal(confirm(textDeleteSensor, textContentDelete, cmdDelete)) }
+                                onClick={() => { showModal(confirm(textDeleteSensor, textContentDelete, cmd.delete)) }
                             }>
                                 <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
                                 <Text className={styles.textDeleteChange}>{textDeleteSensor}</Text>
                             </View>
                             <View className={styles.buttonDeleteReplace} 
-                                onClick={() => { showModal(confirm(textReplaceSensor, textContentReplace, cmdSearch))}
+                                onClick={() => { showModal(confirm(textReplaceSensor, textContentReplace, cmd.search))}
                             }>
                                 <Icon type="icon-repeat" color="black" size={32}></Icon>
                                 <Text className={styles.textDeleteChange}>{textReplaceSensor}</Text>
