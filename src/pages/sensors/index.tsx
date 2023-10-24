@@ -18,25 +18,23 @@ export default () => {
     const actions: any = useActions();
     const device = useDevice().dpSchema;
     const idCodes = useDevice().devInfo.idCodes;
-    //                                          ________--------________--------
-    const registrMask: number               = 0b00000000000000010000000000000000;
-    const onlineMask: number                = 0b00000000000000100000000000000000;
-    const leakMask: number                  = 0b00000000000001000000000000000000;
-    const ignoreMask: number                = 0b00000000000010000000000000000000;
-    const securityModeMask: number          = 0b00000000000100000000000000000000;
-    const statusBatterySignalMask: number   = 0b00000000001000000000000000000000;
+    const registrMask: number               = 0b00000000_00000001_00000000_00000000;
+    const onlineMask: number                = 0b00000000_00000010_00000000_00000000;
+    const leakMask: number                  = 0b00000000_00000100_00000000_00000000;
+    const ignoreMask: number                = 0b00000000_00001000_00000000_00000000;
+    const securityModeMask: number          = 0b00000000_00010000_00000000_00000000;
+    const statusBatterySignalMask: number   = 0b00000000_00100000_00000000_00000000;
 
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
     const cmd: Cmd = {
-        //                        __--__--
-        search:                 0x01000000, // команда поиск датчика
-        delete:                 0x02000000, // команда удаление датчика
-        enableIgnore:           0x03000000, // включить игнор аварии датчика
-        disableIgnore:          0x04000000, // отключить игнор аварии датчика
-        enableSecurityMode:     0x05000000, // включить режим повышенной безопасности для датчика
-        disableSecurityMode:    0x06000000, // выключить режим повышенной безопасности для датчика
+        search:                 0x01_00_00_00, // команда поиск датчика
+        delete:                 0x02_00_00_00, // команда удаление датчика
+        enableIgnore:           0x03_00_00_00, // включить игнор аварии датчика
+        disableIgnore:          0x04_00_00_00, // отключить игнор аварии датчика
+        enableSecurityMode:     0x05_00_00_00, // включить режим повышенной безопасности для датчика
+        disableSecurityMode:    0x06_00_00_00, // выключить режим повышенной безопасности для датчика
     }
 
     let [item, setItem]: any = React.useState({});
@@ -134,22 +132,11 @@ export default () => {
         setValue(event.value);
     }
 
-    function signalColorIcon(): object
-    {
-        let color: string = 'black';
-
-        return (
-            <React.Fragment>
-                <Icon type="icon-wifi" color={color} size={26}/>
-            </React.Fragment>
-        )
-    }
-
-    function lossSensorIcon(): object
+    function signalColorIcon(type: string, color: string): object
     {
         return (
             <React.Fragment>
-                <Icon type="icon-a-wifiexclamationmark" color="#00BFFF" size={26}/>
+                <Icon type={type} color={color} size={26}/>
             </React.Fragment>
         )
     }
@@ -157,13 +144,14 @@ export default () => {
     /**
      * Вывод предупреждения при включенной повышенной опасности и аварии
      * 
-     * @param securityMode - статус включения повышеной опасности
-     * @param ignore - статус игнора
+     * @param ignore статус игнора - args[0]
+     * @param securityMode - статус включения повышеной опасности - args[1]
+     * @param statusBatterySignal - статус потери сигнала и низкого заряда - args[2]
      * @returns object
      */
-    function alarmSecurityMode(securityMode: boolean, ignore: boolean, statusBatterySignal: boolean): object|void
+    function alarmSecurityMode(...args: boolean[]): object|void
     {
-        if (!ignore && securityMode && statusBatterySignal) {
+        if (!args[0] && args[1] && args[2]) {
             return (
                 <React.Fragment>
                     <View className={styles.securityMode}>
@@ -352,10 +340,13 @@ export default () => {
                             </View>
                             { (item.id != 107 && item.id != 109) ? 
                                 <View className={styles.signalBattery}>
-                                    {alarmSecurityMode(item.securityMode, item.ignore, item.statusBatterySignal)}
+                                    {alarmSecurityMode(item.ignore, item.securityMode, item.statusBatterySignal)}
                                     {batterySensorColorIcon(item.battery)}
                                     <View className={styles.signal}>
-                                        {item.online ? signalColorIcon() : lossSensorIcon()}
+                                        {item.online ? 
+                                            signalColorIcon('icon-wifi', 'black') : 
+                                            signalColorIcon('icon-a-wifiexclamationmark', '#00BFFF')
+                                        }
                                         <Text className={styles.signalText}>{ item.signal }</Text>
                                     </View>
                                 </View>
