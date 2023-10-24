@@ -16,19 +16,16 @@ export default () => {
     }
 
     const actions: any = useActions();
-    const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const device = useDevice().dpSchema;
     const idCodes = useDevice().devInfo.idCodes;
-    //                                  ________--------________--------
-    const registrMask: number       = 0b00000000000000010000000000000000;
-    //                                  ________--------________--------
-    const onlineMask: number        = 0b00000000000000100000000000000000;
-    //                                  ________--------________--------
-    const leakMask: number          = 0b00000000000001000000000000000000;
-    //                                  ________--------________--------
-    const ignoreMask: number        = 0b00000000000010000000000000000000;
-    //                                  ________--------________--------
-    const securityModeMask: number  = 0b00000000000100000000000000000000;
+    //                                          ________--------________--------
+    const registrMask: number               = 0b00000000000000010000000000000000;
+    const onlineMask: number                = 0b00000000000000100000000000000000;
+    const leakMask: number                  = 0b00000000000001000000000000000000;
+    const ignoreMask: number                = 0b00000000000010000000000000000000;
+    const securityModeMask: number          = 0b00000000000100000000000000000000;
+    const statusBatterySignalMask: number   = 0b00000000001000000000000000000000;
+
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
@@ -63,38 +60,38 @@ export default () => {
     let sensors: object[] = useProps((props: any) => {
         let sensors = [];
 
-        createSensor(Number(props.sensor_1), String(props.sensor_name_1), Number(device.sensor_1.id), sensors);
-        createSensor(Number(props.sensor_2), String(props.sensor_name_2), Number(device.sensor_2.id), sensors);
-        createSensor(Number(props.sensor_3), String(props.sensor_name_3), Number(device.sensor_3.id), sensors);
-        createSensor(Number(props.sensor_4), String(props.sensor_name_4), Number(device.sensor_4.id), sensors);
-        createSensor(Number(props.sensor_5), String(props.sensor_name_5), Number(device.sensor_5.id), sensors);
-        createSensor(Number(props.sensor_6), String(props.sensor_name_6), Number(device.sensor_6.id), sensors);
-        createSensor(Number(props.sensor_7), String(props.sensor_name_7), Number(device.sensor_7.id), sensors);
-        createSensor(Number(props.sensor_8), String(props.sensor_name_8), Number(device.sensor_8.id), sensors);
-        createSensor(Number(props.sensor_9), String(props.sensor_name_9), Number(device.sensor_9.id), sensors);
-        createSensor(Number(props.sensor_10), String(props.sensor_name_10), Number(device.sensor_10.id), sensors);
-        createSensor(Number(props.sensor_11), String(props.sensor_name_11), Number(device.sensor_11.id), sensors);
-        createSensor(Number(props.sensor_12), String(props.sensor_name_12), Number(device.sensor_12.id), sensors);
-        createSensor(Number(props.sensor_13), String(props.sensor_name_13), Number(device.sensor_13.id), sensors);
-        createSensor(Number(props.sensor_14), String(props.sensor_name_14), Number(device.sensor_14.id), sensors);
-        createSensor(Number(props.sensor_15), String(props.sensor_name_15), Number(device.sensor_15.id), sensors);
-        createSensor(Number(props.sensor_16), String(props.sensor_name_16), Number(device.sensor_16.id), sensors);
-        createSensor(Number(props.sensor_17), String(props.sensor_name_17), Number(device.sensor_17.id), sensors);
-        createSensor(Number(props.sensor_18), String(props.sensor_name_18), Number(device.sensor_18.id), sensors);
-        createSensor(Number(props.sensor_19), String(props.sensor_name_19), Number(device.sensor_19.id), sensors);
-        createSensor(Number(props.sensor_20), String(props.sensor_name_20), Number(device.sensor_20.id), sensors);
-        createSensor(Number(props.sensor_21), String(props.sensor_name_21), Number(device.sensor_21.id), sensors);
-        createSensor(Number(props.sensor_22), String(props.sensor_name_22), Number(device.sensor_22.id), sensors);
-        createSensor(Number(props.sensor_23), String(props.sensor_name_23), Number(device.sensor_23.id), sensors);
-        createSensor(Number(props.sensor_24), String(props.sensor_name_24), Number(device.sensor_24.id), sensors);
-        createSensor(Number(props.sensor_25), String(props.sensor_name_25), Number(device.sensor_25.id), sensors);
-        createSensor(Number(props.sensor_26), String(props.sensor_name_26), Number(device.sensor_26.id), sensors);
-        createSensor(Number(props.sensor_27), String(props.sensor_name_27), Number(device.sensor_27.id), sensors);
-        createSensor(Number(props.sensor_28), String(props.sensor_name_28), Number(device.sensor_28.id), sensors);
-        createSensor(Number(props.sensor_29), String(props.sensor_name_29), Number(device.sensor_29.id), sensors);
-        createSensor(Number(props.sensor_30), String(props.sensor_name_30), Number(device.sensor_30.id), sensors);
-        createSensor(Number(props.sensor_31), String(props.sensor_name_31), Number(device.sensor_31.id), sensors);
-        createSensor(Number(props.sensor_32), String(props.sensor_name_32), Number(device.sensor_32.id), sensors);
+        createSensor(Number(props.sensor_1), String(props.sensor_name_1), Number(device.sensor_1.id), sensors, 1);
+        createSensor(Number(props.sensor_2), String(props.sensor_name_2), Number(device.sensor_2.id), sensors, 2);
+        createSensor(Number(props.sensor_3), String(props.sensor_name_3), Number(device.sensor_3.id), sensors, 3);
+        createSensor(Number(props.sensor_4), String(props.sensor_name_4), Number(device.sensor_4.id), sensors, 4);
+        createSensor(Number(props.sensor_5), String(props.sensor_name_5), Number(device.sensor_5.id), sensors, 5);
+        createSensor(Number(props.sensor_6), String(props.sensor_name_6), Number(device.sensor_6.id), sensors, 6);
+        createSensor(Number(props.sensor_7), String(props.sensor_name_7), Number(device.sensor_7.id), sensors, 7);
+        createSensor(Number(props.sensor_8), String(props.sensor_name_8), Number(device.sensor_8.id), sensors, 8);
+        createSensor(Number(props.sensor_9), String(props.sensor_name_9), Number(device.sensor_9.id), sensors, 9);
+        createSensor(Number(props.sensor_10), String(props.sensor_name_10), Number(device.sensor_10.id), sensors, 10);
+        createSensor(Number(props.sensor_11), String(props.sensor_name_11), Number(device.sensor_11.id), sensors, 11);
+        createSensor(Number(props.sensor_12), String(props.sensor_name_12), Number(device.sensor_12.id), sensors, 12);
+        createSensor(Number(props.sensor_13), String(props.sensor_name_13), Number(device.sensor_13.id), sensors, 13);
+        createSensor(Number(props.sensor_14), String(props.sensor_name_14), Number(device.sensor_14.id), sensors, 14);
+        createSensor(Number(props.sensor_15), String(props.sensor_name_15), Number(device.sensor_15.id), sensors, 15);
+        createSensor(Number(props.sensor_16), String(props.sensor_name_16), Number(device.sensor_16.id), sensors, 16);
+        createSensor(Number(props.sensor_17), String(props.sensor_name_17), Number(device.sensor_17.id), sensors, 17);
+        createSensor(Number(props.sensor_18), String(props.sensor_name_18), Number(device.sensor_18.id), sensors, 18);
+        createSensor(Number(props.sensor_19), String(props.sensor_name_19), Number(device.sensor_19.id), sensors, 19);
+        createSensor(Number(props.sensor_20), String(props.sensor_name_20), Number(device.sensor_20.id), sensors, 20);
+        createSensor(Number(props.sensor_21), String(props.sensor_name_21), Number(device.sensor_21.id), sensors, 21);
+        createSensor(Number(props.sensor_22), String(props.sensor_name_22), Number(device.sensor_22.id), sensors, 22);
+        createSensor(Number(props.sensor_23), String(props.sensor_name_23), Number(device.sensor_23.id), sensors, 23);
+        createSensor(Number(props.sensor_24), String(props.sensor_name_24), Number(device.sensor_24.id), sensors, 24);
+        createSensor(Number(props.sensor_25), String(props.sensor_name_25), Number(device.sensor_25.id), sensors, 25);
+        createSensor(Number(props.sensor_26), String(props.sensor_name_26), Number(device.sensor_26.id), sensors, 26);
+        createSensor(Number(props.sensor_27), String(props.sensor_name_27), Number(device.sensor_27.id), sensors, 27);
+        createSensor(Number(props.sensor_28), String(props.sensor_name_28), Number(device.sensor_28.id), sensors, 28);
+        createSensor(Number(props.sensor_29), String(props.sensor_name_29), Number(device.sensor_29.id), sensors, 29);
+        createSensor(Number(props.sensor_30), String(props.sensor_name_30), Number(device.sensor_30.id), sensors, 30);
+        createSensor(Number(props.sensor_31), String(props.sensor_name_31), Number(device.sensor_31.id), sensors, 31);
+        createSensor(Number(props.sensor_32), String(props.sensor_name_32), Number(device.sensor_32.id), sensors, 32);
 
         sensors.forEach((item) => item.registr ? ++countSensors : false);
 
@@ -108,18 +105,21 @@ export default () => {
      * @param sensorName - имя датчика  
      * @param sensorId - dpid датчика 
      * @param sensors - массив датчиков
+     * @param sensorNumber - порядковый номер датчика
      * @returns object[]
      */
-    function createSensor(sensor: number, sensorName: string, sensorId: number, sensors: object[]): object[]
+    function createSensor(sensor: number, sensorName: string, sensorId: number, sensors: object[], sensorNumber: number): object[]
     {
         if (Boolean(sensor & registrMask)) {
             sensors.push({
                 id: sensorId,
+                sensorNumber: sensorNumber,
                 registr: Boolean(sensor & registrMask),
                 online: Boolean(sensor & onlineMask),
                 leak: Boolean(sensor & leakMask),
                 ignore: Boolean(sensor & ignoreMask),
                 securityMode: Boolean(sensor & securityModeMask),
+                statusBatterySignal: Boolean(sensor & statusBatterySignalMask),
                 battery: Number(sensor & 0xFF),
                 signal: Number((sensor >> 8) & 0xFF),
                 name: sensorName,
@@ -161,9 +161,9 @@ export default () => {
      * @param ignore - статус игнора
      * @returns object
      */
-    function alarmSecurityMode(securityMode: boolean, ignore: boolean): object|void
+    function alarmSecurityMode(securityMode: boolean, ignore: boolean, statusBatterySignal: boolean): object|void
     {
-        if (!ignore && securityMode && alarm) {
+        if (!ignore && securityMode && statusBatterySignal) {
             return (
                 <React.Fragment>
                     <View className={styles.securityMode}>
@@ -176,7 +176,7 @@ export default () => {
 
     function batterySensorColorIcon(batterySensor: number): object|void
     {
-        if (batterySensor < 50) {
+        if (batterySensor < 30) {
             return (
                 <React.Fragment>
                     <View className={styles.battery}>
@@ -222,7 +222,7 @@ export default () => {
             return '2px solid #FF0000';
         } else if (!item.online) {
             return '2px solid #00BFFF';
-        } else if (item.batterySensor < 30) {
+        } else if (item.battery < 30) {
             return '2px solid orange';
         }
 
@@ -343,7 +343,7 @@ export default () => {
                                         <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
                                     </View>
                                     <View style={{ display: item.leak ? 'none' : 'inline-block' }}>
-                                        <Icon type="icon-a-sunminfill" color="black" size={26}></Icon>
+                                        <View className={styles.sensorNumber}>{item.sensorNumber}</View>
                                     </View>
                                 </View>
                                 <View>
@@ -352,7 +352,7 @@ export default () => {
                             </View>
                             { (item.id != 107 && item.id != 109) ? 
                                 <View className={styles.signalBattery}>
-                                    {alarmSecurityMode(item.securityMode, item.ignore)}
+                                    {alarmSecurityMode(item.securityMode, item.ignore, item.statusBatterySignal)}
                                     {batterySensorColorIcon(item.battery)}
                                     <View className={styles.signal}>
                                         {item.online ? signalColorIcon() : lossSensorIcon()}

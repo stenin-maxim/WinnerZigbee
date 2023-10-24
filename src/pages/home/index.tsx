@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
-import { navigateTo, vibrateShort, showToast, getDpReportLog } from '@ray-js/ray';
+import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
