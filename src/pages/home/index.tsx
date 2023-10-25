@@ -7,7 +7,7 @@ import Strings from '../../i18n';
 
 export function Home() {
     const actions = useActions();
-    let battery: number = useProps((props): number => Number(props.battery));
+    let battery: number = useProps((props): number => Number(props.battery_percentage));
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));

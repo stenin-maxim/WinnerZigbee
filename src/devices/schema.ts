@@ -17,6 +17,50 @@ export const defaultSchema = [
     "type": "obj"
   },
   {
+    "attr": 1216,
+    "canTrigger": true,
+    "code": "water_total",
+    "defaultRecommend": false,
+    "editPermission": true,
+    "executable": false,
+    "extContent": "",
+    "iconname": "icon-dp_mode",
+    "id": 6,
+    "mode": "ro",
+    "name": "Pulse counter",
+    "property": {
+      "unit": "L",
+      "min": 0,
+      "max": 999999999,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 1216,
+    "canTrigger": true,
+    "code": "battery_percentage",
+    "defaultRecommend": false,
+    "editPermission": true,
+    "executable": false,
+    "extContent": "",
+    "iconname": "icon-dp_battery",
+    "id": 7,
+    "mode": "ro",
+    "name": "Battery",
+    "property": {
+      "unit": "%",
+      "min": 0,
+      "max": 100,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
     "attr": 1760,
     "canTrigger": false,
     "code": "weather_delay",
@@ -78,27 +122,6 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
-    "code": "battery",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "",
-    "id": 102,
-    "mode": "ro",
-    "name": "Battery",
-    "property": {
-      "unit": "",
-      "min": 0,
-      "max": 255,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
     "code": "device_cmd",
     "defaultRecommend": false,
     "editPermission": false,
@@ -130,27 +153,6 @@ export const defaultSchema = [
     "name": "Cleaning",
     "property": {
       "type": "bool"
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 0,
-    "canTrigger": true,
-    "code": "pulse_counter",
-    "defaultRecommend": false,
-    "editPermission": false,
-    "executable": true,
-    "extContent": "",
-    "id": 105,
-    "mode": "rw",
-    "name": "Pulse counter",
-    "property": {
-      "unit": "",
-      "min": -2147483647,
-      "max": 2147483647,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
     },
     "type": "obj"
   },
