@@ -5,29 +5,33 @@ import { useProps, useDevice, useActions } from '@ray-js/panel-sdk';
 import { vibrateShort, showModal } from '@ray-js/ray';
 import Strings from '../../i18n';
 
+interface Mask {
+    readonly registr: number;
+    readonly online: number;
+    readonly leak: number;
+    readonly ignore: number;
+    readonly securityMode: number;
+    readonly statusBatterySignal: number;
+}
+
+interface Cmd {
+    readonly search: number;
+    readonly delete: number;
+    readonly enableIgnore: number;
+    readonly disableIgnore: number;
+    readonly enableSecurityMode: number;
+    readonly disableSecurityMode: number;
+}
+
 export default () => {
-    interface Cmd {
-        readonly search: number;
-        readonly delete: number;
-        readonly enableIgnore: number;
-        readonly disableIgnore: number;
-        readonly enableSecurityMode: number;
-        readonly disableSecurityMode: number;
+    const mask: Mask = {
+        registr:                0b00000000_00000001_00000000_00000000,
+        online:                 0b00000000_00000010_00000000_00000000,
+        leak:                   0b00000000_00000100_00000000_00000000,
+        ignore:                 0b00000000_00001000_00000000_00000000,
+        securityMode:           0b00000000_00010000_00000000_00000000,
+        statusBatterySignal:    0b00000000_00100000_00000000_00000000,
     }
-
-    const actions: any = useActions();
-    const device = useDevice().dpSchema;
-    const idCodes = useDevice().devInfo.idCodes;
-    const registrMask: number               = 0b00000000_00000001_00000000_00000000;
-    const onlineMask: number                = 0b00000000_00000010_00000000_00000000;
-    const leakMask: number                  = 0b00000000_00000100_00000000_00000000;
-    const ignoreMask: number                = 0b00000000_00001000_00000000_00000000;
-    const securityModeMask: number          = 0b00000000_00010000_00000000_00000000;
-    const statusBatterySignalMask: number   = 0b00000000_00100000_00000000_00000000;
-
-    const [isShow, setIsShow] = React.useState(false);
-    const [value, setValue] = React.useState("");
-    const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
     const cmd: Cmd = {
         search:                 0x01_00_00_00, // команда поиск датчика
         delete:                 0x02_00_00_00, // команда удаление датчика
@@ -36,6 +40,12 @@ export default () => {
         enableSecurityMode:     0x05_00_00_00, // включить режим повышенной безопасности для датчика
         disableSecurityMode:    0x06_00_00_00, // выключить режим повышенной безопасности для датчика
     }
+    const actions: any = useActions();
+    const device = useDevice().dpSchema;
+    const idCodes = useDevice().devInfo.idCodes;
+    const [isShow, setIsShow] = React.useState(false);
+    const [value, setValue] = React.useState("");
+    const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
 
     let [item, setItem]: any = React.useState({});
     let [seconds, setSeconds] = React.useState(0);
@@ -108,16 +118,16 @@ export default () => {
      */
     function createSensor(sensor: number, sensorName: string, sensorId: number, sensors: object[], sensorNumber: number): object[]
     {
-        if (Boolean(sensor & registrMask)) {
+        if (Boolean(sensor & mask.registr)) {
             sensors.push({
                 id: sensorId,
                 sensorNumber: sensorNumber,
-                registr: Boolean(sensor & registrMask),
-                online: Boolean(sensor & onlineMask),
-                leak: Boolean(sensor & leakMask),
-                ignore: Boolean(sensor & ignoreMask),
-                securityMode: Boolean(sensor & securityModeMask),
-                statusBatterySignal: Boolean(sensor & statusBatterySignalMask),
+                registr: Boolean(sensor & mask.registr),
+                online: Boolean(sensor & mask.online),
+                leak: Boolean(sensor & mask.leak),
+                ignore: Boolean(sensor & mask.ignore),
+                securityMode: Boolean(sensor & mask.securityMode),
+                statusBatterySignal: Boolean(sensor & mask.statusBatterySignal),
                 battery: Number(sensor & 0xFF),
                 signal: Number((sensor >> 8) & 0xFF),
                 name: sensorName,

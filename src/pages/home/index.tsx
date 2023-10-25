@@ -6,7 +6,7 @@ import { useActions, useProps } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 
 export function Home() {
-    const actions = useActions();
+    const actions: any = useActions();
     let battery: number = useProps((props): number => Number(props.battery_percentage));
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
