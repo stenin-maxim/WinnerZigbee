@@ -4,6 +4,7 @@ import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
 import { useActions, useProps } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
+import sensors from '@/components/sensors';
 
 export function Home() {
     const actions: any = useActions();
@@ -11,6 +12,7 @@ export function Home() {
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
     
+    let sensorsLeak = [];
     let battery: number = useProps((props): number => Number(props.battery_percentage));
     let textBattery: string = Strings.getLang('battery'),
         textCharging: string = Strings.getLang('charging'),
@@ -24,9 +26,11 @@ export function Home() {
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
         // textButtonHistory: string = Strings.getLang('text_history'),
-        textButtonSensors: string = Strings.getLang('sensors'),
+        textSensors: string = Strings.getLang('sensors'),
         textButtonManual: string = Strings.getLang('manual');
         //textButtonSettings: string = Strings.getLang('settings');
+
+    sensors().map(item => item.leak ? sensorsLeak.push(item.sensorNumber) : false);
 
     function colorAndTextBattery(): object
     {
@@ -62,10 +66,10 @@ export function Home() {
 
     function notifyAlarm(): object|false
     {
-        if (alarm) {
+        if (alarm && (sensorsLeak.length > 0)) {
             return (
                 <View className={styles.blockAlarm}>
-                    {notify(textAlarm)}
+                    {notify(textAlarm + ' ' + textSensors + ': ' + sensorsLeak.join(', '))}
                     <View className={styles.alarmButton} onClick={ () => actions.alarm.off() }>
                         <Icon type="icon-cancel" size={35} color="red"></Icon>
                         <Text>{textDisableAlarm}</Text>
@@ -171,8 +175,8 @@ export function Home() {
                 <Text className={styles.logoText}>Winner ZigBee</Text>
             </View>
             <View>
-                {notifyCleaning()}
                 {notifyAlarm()}
+                {notifyCleaning()}
             </View>
             <View className={styles.battery}>
                 { colorAndTextBattery() }
@@ -205,7 +209,7 @@ export function Home() {
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
                     >
                         <Icon type="icon-a-dotradiowavesleftandright" size={35}/>
-                        <Text className={styles.textButton}>{textButtonSensors}</Text>
+                        <Text className={styles.textButton}>{textSensors}</Text>
                     </Button>
                     <Button
                         className={styles.button}
