@@ -337,12 +337,7 @@ export default () => {
                         >
                             <View className={styles.leftBlockSensor}>
                                 <View>
-                                    <View style={{ display: item.leak ? 'inline-block' : 'none' }}>
-                                        <Icon type="icon-warning" color="#FF0000" size={26}></Icon>
-                                    </View>
-                                    <View style={{ display: item.leak ? 'none' : 'inline-block' }}>
-                                        <View className={styles.sensorNumber}>{item.sensorNumber}</View>
-                                    </View>
+                                    <View className={ item.leak ? styles.sensorNumberAlarm : styles.sensorNumberNorm }>{item.sensorNumber}</View>
                                 </View>
                                 <View>
                                     <Text className={styles.name}>{ item.name }</Text>
