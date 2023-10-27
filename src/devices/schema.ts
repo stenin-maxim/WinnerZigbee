@@ -17,6 +17,27 @@ export const defaultSchema = [
     "type": "obj"
   },
   {
+    "attr": 1184,
+    "canTrigger": false,
+    "code": "percent_control",
+    "defaultRecommend": false,
+    "editPermission": true,
+    "executable": true,
+    "extContent": "",
+    "id": 2,
+    "mode": "rw",
+    "name": "Percent control",
+    "property": {
+      "unit": "%",
+      "min": 0,
+      "max": 100,
+      "scale": 0,
+      "step": 5,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
     "attr": 1216,
     "canTrigger": true,
     "code": "water_total",
@@ -29,9 +50,9 @@ export const defaultSchema = [
     "mode": "ro",
     "name": "Pulse counter",
     "property": {
-      "unit": "L",
+      "unit": "Impuls",
       "min": 0,
-      "max": 999999999,
+      "max": 2147483647,
       "scale": 0,
       "step": 1,
       "type": "value"
@@ -92,11 +113,11 @@ export const defaultSchema = [
     "iconname": "icon-dp_time2",
     "id": 11,
     "mode": "rw",
-    "name": "Irrigation time",
+    "name": "Limit counter",
     "property": {
-      "unit": "s",
+      "unit": "Impuls",
       "min": 0,
-      "max": 65535,
+      "max": 2147483647,
       "scale": 0,
       "step": 1,
       "type": "value"
