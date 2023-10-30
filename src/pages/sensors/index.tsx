@@ -67,7 +67,7 @@ export default () => {
      * Вывод предупреждения при включенной повышенной опасности и аварии
      * 
      * @param ignore статус игнора - args[0]
-     * @param securityMode - статус включения повышеной опасности - args[1]
+     * @param securityMode - статус включения режима повышенной безопасности - args[1]
      * @param statusBatterySignal - статус потери сигнала и низкого заряда - args[2]
      * @returns object
      */
@@ -331,7 +331,7 @@ export default () => {
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"
                                 maxLength={21}
-                                type="string"
+                                type="text"
                                 value={value}
                                 onInput={handleInput}
                             >
