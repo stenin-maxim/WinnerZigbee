@@ -13,11 +13,13 @@ export function Home() {
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
     
     let sensorsLeak = [];
+    let sensorsSecurityMode = [];
     let battery: number = useProps((props): number => Number(props.battery_percentage));
     let textBattery: string = Strings.getLang('battery'),
         textCharging: string = Strings.getLang('charging'),
         textAlarm: string = Strings.getLang('text_alarm'),
         textNotify: string = Strings.getLang('notify'),
+        textLowBatteryOrSignal: string = Strings.getLang('low_battery_or_signal'),
         textDisableAlarm: string = Strings.getLang('disable_alarm'),
         textSwitchOn: string = Strings.getLang('switch_on'),
         textSwitchOff: string = Strings.getLang('switch_off'),
@@ -30,7 +32,15 @@ export function Home() {
         textButtonManual: string = Strings.getLang('manual');
         //textButtonSettings: string = Strings.getLang('settings');
 
-    sensors().map(item => item.leak ? sensorsLeak.push(item.sensorNumber) : false);
+    sensors().map((item) => {
+        if (item.leak) {
+            sensorsLeak.push(item.sensorNumber);
+        }
+
+        if (!item.ignore && item.securityMode && item.statusBatterySignal) {
+            sensorsSecurityMode.push(item.sensorNumber);
+        }
+    });
 
     function colorAndTextBattery(): object
     {
@@ -64,13 +74,18 @@ export function Home() {
         )
     }
 
-    function notifyAlarm(): object|false
+    function alarmResetButton(): object|false
     {
-        if (alarm && (sensorsLeak.length > 0)) {
+        if (alarm) {
             return (
                 <View className={styles.blockAlarm}>
-                    {notify(textAlarm + ' ' + textSensors + ': ' + sensorsLeak.join(', '))}
-                    <View className={styles.alarmButton} onClick={ () => actions.alarm.off() }>
+                    <View className={styles.alarmButton} 
+                        onClick={ () => {
+                            actions.alarm.off(); 
+                            sensorsLeak = []; 
+                            sensorsSecurityMode = [];
+                        }}
+                    >
                         <Icon type="icon-cancel" size={35} color="red"></Icon>
                         <Text>{textDisableAlarm}</Text>
                     </View>
@@ -79,6 +94,20 @@ export function Home() {
         }
 
         return false;
+    }
+
+    function notifyLowBatteryOrSignal()
+    {
+        if (alarm && (sensorsSecurityMode.length > 0)) {
+            notify(textLowBatteryOrSignal + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
+        }
+    }
+
+    function notifyLeak()
+    {
+        if (alarm && (sensorsLeak.length > 0)) {
+            return notify(textAlarm + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
+        }
     }
 
     function notifyCleaning(): object|false
@@ -175,8 +204,10 @@ export function Home() {
                 <Text className={styles.logoText}>Winner ZigBee</Text>
             </View>
             <View>
-                {notifyAlarm()}
+                {notifyLeak()}
+                {notifyLowBatteryOrSignal()}
                 {notifyCleaning()}
+                {alarmResetButton()}
             </View>
             <View className={styles.battery}>
                 { colorAndTextBattery() }
