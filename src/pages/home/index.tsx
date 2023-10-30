@@ -214,7 +214,9 @@ export function Home() {
             </View>
 
             <View className={styles.blockCraneCondition}>
-                <View onClick={() => { clickCraneCondition(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>
+                <View onClick={() => { clickCraneCondition(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); 
+                    if (alarm) { vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }
+                }}>
                     {blockCraneCondition()}
                 </View>
             </View>
