@@ -143,7 +143,7 @@ export default () => {
         actions.device_cmd.set(cmd.search);
 
         if (seconds == 0) {
-            printNumbers(30);
+            printNumbers(28);
         } 
     }
 
