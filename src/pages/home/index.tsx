@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
-import { useActions, useProps } from '@ray-js/panel-sdk';
+import { useActions, useProps, useDevInfo } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
 import sensors from '@/components/sensors';
 
@@ -16,6 +16,7 @@ export function Home() {
     let sensorsSecurityMode = [];
     let battery: number = useProps((props): number => Number(props.battery_percentage));
     let textBattery: string = Strings.getLang('battery'),
+        textDevice: string = Strings.getLang('device'),
         textCharging: string = Strings.getLang('charging'),
         textAlarm: string = Strings.getLang('text_alarm'),
         textNotify: string = Strings.getLang('notify'),
@@ -119,6 +120,13 @@ export function Home() {
         return false;
     }
 
+    function notifyDevice()
+    {
+        if (!useDevInfo().isOnline) {
+            return notify(textDevice);
+        }
+    }
+
     function notify(text: string): object
     {
         return (
@@ -201,9 +209,10 @@ export function Home() {
     return (
         <View className={styles.view}>
             <View className={styles.logo}>
-                <Text className={styles.logoText}>Winner ZigBee</Text>
+                <Text className={styles.logoText}>{useDevInfo().name}</Text>
             </View>
             <View>
+                {notifyDevice()}
                 {notifyLeak()}
                 {notifyLowBatteryOrSignal()}
                 {notifyCleaning()}

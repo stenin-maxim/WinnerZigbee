@@ -1,6 +1,7 @@
 export default {
     en: {
         // home
+        device: 'The device is offline!',
         battery: 'Battery charge',
         charging: 'Charging',
         text_alarm: 'Leak detected!',
@@ -38,6 +39,7 @@ export default {
     },
     zh: {
         // home
+        device: '設備離線！',
         battery: '电池',
         charging: '收费',
         text_alarm: '检测到泄漏！',
@@ -75,6 +77,7 @@ export default {
     },
     ru: {
         // home
+        device: 'Устройство не в сети!',
         battery: 'Заряд батареи',
         charging: 'Заряжается',
         text_alarm: 'Обнаружена протечка!',
