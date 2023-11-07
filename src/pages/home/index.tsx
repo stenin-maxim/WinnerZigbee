@@ -14,7 +14,7 @@ export function Home() {
     
     let sensorsLeak = [];
     let sensorsSecurityMode = [];
-    let battery: number = useProps((props) => Number(props.battery));
+    let battery: number = useProps((props): number => Number(props.battery));
     let textBattery: string = Strings.getLang('battery'),
         textDevice: string = Strings.getLang('device'),
         textCharging: string = Strings.getLang('charging'),
