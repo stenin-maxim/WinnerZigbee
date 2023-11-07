@@ -311,22 +311,22 @@ export default () => {
                         </View>
                     </View>
                     <View className={styles.centerModalWindow}>
-                        <View className={styles.deleteChangeSensor}>
-                            <View className={styles.buttonDeleteReplace} 
-                                onClick={() => { showModal(confirm(textDeleteSensor, textContentDelete, cmd.delete)) }
-                            }>
-                                <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
-                                <Text className={styles.textDeleteChange}>{textDeleteSensor}</Text>
-                            </View>
-                            { (item.id != 107 && item.id != 109) ? 
+                        { (item.id != 107 && item.id != 109) ? 
+                            <View className={styles.deleteChangeSensor}>
                                 <View className={styles.buttonDeleteReplace} 
-                                    onClick={() => { showModal(confirm(textReplaceSensor, textContentReplace, cmd.search))}
+                                    onClick={() => { showModal(confirm(textDeleteSensor, textContentDelete, cmd.delete)) }
                                 }>
+                                    <Icon type="icon-a-paintbrushfill" color="red" size={32}></Icon>
+                                    <Text className={styles.textDeleteChange}>{textDeleteSensor}</Text>
+                                </View>
+                                <View className={styles.buttonDeleteReplace} 
+                                    onClick={() => { showModal(confirm(textReplaceSensor, textContentReplace, cmd.search))}}
+                                >
                                     <Icon type="icon-repeat" color="black" size={32}></Icon>
                                     <Text className={styles.textDeleteChange}>{textReplaceSensor}</Text>
                                 </View>
-                            : false }
-                        </View>
+                            </View>
+                        : false }
                         <View className={styles.inputText}>
                             <Text className={styles.textModalWindow}>{textNameSensor}</Text>
                             <Input

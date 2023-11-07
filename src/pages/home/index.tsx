@@ -14,7 +14,7 @@ export function Home() {
     
     let sensorsLeak = [];
     let sensorsSecurityMode = [];
-    let battery: number = useProps((props): number => Number(props.battery_percentage));
+    let battery: number = useProps((props) => Number(props.battery));
     let textBattery: string = Strings.getLang('battery'),
         textDevice: string = Strings.getLang('device'),
         textCharging: string = Strings.getLang('charging'),
@@ -58,13 +58,13 @@ export function Home() {
                     <Icon type="icon-a-boltfill" size={35} color={color}></Icon>
                 </React.Fragment>
             )
-        } else if (battery >= 50) {
+        } else if (battery >= 50 && battery <= 100) {
             color = 'green';
         } else if (battery >= 20 && battery < 50) {
             color = 'orange';
         } else if (battery > 0 && battery < 20) {
             color = 'red';
-        } 
+        }
 
         return (
             <React.Fragment>
@@ -221,7 +221,6 @@ export function Home() {
             <View className={styles.battery}>
                 { colorAndTextBattery() }
             </View>
-
             <View className={styles.blockCraneCondition}>
                 <View onClick={() => { clickCraneCondition(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); 
                     if (alarm) { vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }
