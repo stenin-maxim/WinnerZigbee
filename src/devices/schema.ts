@@ -60,28 +60,6 @@ export const defaultSchema = [
     "type": "obj"
   },
   {
-    "attr": 1216,
-    "canTrigger": true,
-    "code": "battery_percentage",
-    "defaultRecommend": false,
-    "editPermission": true,
-    "executable": false,
-    "extContent": "",
-    "iconname": "icon-dp_battery",
-    "id": 7,
-    "mode": "ro",
-    "name": "Battery",
-    "property": {
-      "unit": "%",
-      "min": 0,
-      "max": 101,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
-    },
-    "type": "obj"
-  },
-  {
     "attr": 1760,
     "canTrigger": false,
     "code": "weather_delay",
@@ -137,6 +115,35 @@ export const defaultSchema = [
     "name": "Alarm",
     "property": {
       "type": "bool"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
+    "code": "battery",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "",
+    "id": 102,
+    "mode": "ro",
+    "name": "Battery",
+    "property": {
+      "range": [
+        "10",
+        "20",
+        "30",
+        "40",
+        "50",
+        "60",
+        "70",
+        "80",
+        "90",
+        "100",
+        "101"
+      ],
+      "type": "enum"
     },
     "type": "obj"
   },
