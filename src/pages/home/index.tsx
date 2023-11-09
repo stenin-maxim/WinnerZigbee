@@ -11,6 +11,10 @@ export function Home() {
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
+    const maskManualControl = 0b00000000_10000000_00000000_00000000; // Если этот флаг стоит. Кран находится под ручным управлением
+    
+    let sensor_1: number = useProps((props): number => Number(props.sensor_1));
+    let statusManualControl = Boolean(sensor_1 & maskManualControl);
     
     let sensorsLeak = [];
     let sensorsSecurityMode = [];
@@ -22,6 +26,7 @@ export function Home() {
         textNotify: string = Strings.getLang('notify'),
         textLowBatteryOrSignal: string = Strings.getLang('low_battery_or_signal'),
         textDisableAlarm: string = Strings.getLang('disable_alarm'),
+        textManualControl: string = Strings.getLang('manual_control'),
         textSwitchOn: string = Strings.getLang('switch_on'),
         textSwitchOff: string = Strings.getLang('switch_off'),
         textNotifyCleaning: string = Strings.getLang('text_notify_cleaning'),
@@ -137,45 +142,6 @@ export function Home() {
         )
     }
 
-    function blockCraneCondition(): object
-    {
-        if (craneCondition) {
-            return (
-                <View>
-                    <View className={styles.openClose}>
-                        <Text className={styles.textSwitch}>{textSwitchOn}</Text>
-                    </View>
-                    <View className={styles.waves}>
-                        <View className={styles.wave1}></View>
-                        <View className={styles.wave2}></View>
-                    </View>
-                </View>
-            )
-        }
-
-        return (
-            <View>
-                <View className={styles.openClose}>
-                    <Text className={styles.textSwitch}>{textSwitchOff}</Text>
-                </View>
-                <View className={styles.waves}>
-                    <View className={styles.wave3}></View>
-                    <View className={styles.wave4}></View>
-                </View>
-            </View>
-        )
-    }
-
-    /**
-     * При аварии команда на вкл/выкл крана не отправлается
-     */
-    function clickCraneCondition(): void
-    {
-        if (!alarm) {
-            actions.switch.toggle();
-        }
-    }
-
     function startStopCleaning(): void
     {
         let text: string;
@@ -203,6 +169,50 @@ export function Home() {
 
         return (
             <Icon type="icon-a-dropfill" size={35} color={color}/>
+        )
+    }
+
+    /**
+     * При аварии или когда установленно ручное управление краном в состоянии закрыт, команда на вкл/выкл крана не отправлается
+     */
+    function clickCraneCondition(): void
+    {
+        if (!(alarm || (statusManualControl && !craneCondition))) {
+            actions.switch.toggle();
+        }
+    }
+
+    function blockCraneCondition(): object
+    {
+        if (craneCondition) {
+            return (
+                <View>
+                    <View className={styles.openClose}>
+                        <Text className={styles.textSwitch}>{textSwitchOn}</Text>
+                    </View>
+                    <View className={styles.waves}>
+                        <View className={styles.wave1}></View>
+                        <View className={styles.wave2}></View>
+                    </View>
+                </View>
+            )
+        }
+
+        return (
+            <View>
+                <View className={styles.openClose}>
+                    <View className={styles.manualControl}>
+                        {(statusManualControl) ? <Text>{textManualControl}</Text> : false}
+                    </View>
+                    <View>
+                        <Text className={styles.textSwitch}>{textSwitchOff}</Text>
+                    </View>
+                </View>
+                <View className={styles.waves}>
+                    <View className={styles.wave3}></View>
+                    <View className={styles.wave4}></View>
+                </View>
+            </View>
         )
     }
 
