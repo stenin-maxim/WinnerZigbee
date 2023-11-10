@@ -2,31 +2,50 @@ import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
 import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
 import styles from './index.module.less';
-import { useActions, useProps } from '@ray-js/panel-sdk';
+import { useActions, useProps, useDevInfo } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
+import sensors from '@/components/sensors';
 
 export function Home() {
     const actions: any = useActions();
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
+    const maskManualControl = 0b00000000_10000000_00000000_00000000; // Если этот флаг стоит. Кран находится под ручным управлением
     
-    let battery: number = useProps((props): number => Number(props.battery_percentage));
+    let sensor_1: number = useProps((props): number => Number(props.sensor_1));
+    let statusManualControl = Boolean(sensor_1 & maskManualControl);
+    
+    let sensorsLeak = [];
+    let sensorsSecurityMode = [];
+    let battery: number = useProps((props): number => Number(props.battery));
     let textBattery: string = Strings.getLang('battery'),
+        textDevice: string = Strings.getLang('device'),
         textCharging: string = Strings.getLang('charging'),
         textAlarm: string = Strings.getLang('text_alarm'),
         textNotify: string = Strings.getLang('notify'),
+        textLowBatteryOrSignal: string = Strings.getLang('low_battery_or_signal'),
         textDisableAlarm: string = Strings.getLang('disable_alarm'),
+        textManualControl: string = Strings.getLang('manual_control'),
         textSwitchOn: string = Strings.getLang('switch_on'),
         textSwitchOff: string = Strings.getLang('switch_off'),
         textNotifyCleaning: string = Strings.getLang('text_notify_cleaning'),
         textCleaningModeOn: string = Strings.getLang('text_cleaning_mode_on'),
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
-        // textButtonHistory: string = Strings.getLang('text_history'),
-        textButtonSensors: string = Strings.getLang('sensors'),
+        textSensors: string = Strings.getLang('sensors'),
         textButtonManual: string = Strings.getLang('manual');
         //textButtonSettings: string = Strings.getLang('settings');
+
+    sensors().map((item) => {
+        if (item.leak) {
+            sensorsLeak.push(item.sensorNumber);
+        }
+
+        if (!item.ignore && item.securityMode && item.statusBatterySignal) {
+            sensorsSecurityMode.push(item.sensorNumber);
+        }
+    });
 
     function colorAndTextBattery(): object
     {
@@ -43,13 +62,13 @@ export function Home() {
                     <Icon type="icon-a-boltfill" size={35} color={color}></Icon>
                 </React.Fragment>
             )
-        } else if (battery >= 50) {
+        } else if (battery >= 50 && battery <= 100) {
             color = 'green';
         } else if (battery >= 20 && battery < 50) {
             color = 'orange';
         } else if (battery > 0 && battery < 20) {
             color = 'red';
-        } 
+        }
 
         return (
             <React.Fragment>
@@ -60,13 +79,18 @@ export function Home() {
         )
     }
 
-    function notifyAlarm(): object|false
+    function alarmResetButton(): object|false
     {
         if (alarm) {
             return (
                 <View className={styles.blockAlarm}>
-                    {notify(textAlarm)}
-                    <View className={styles.alarmButton} onClick={ () => actions.alarm.off() }>
+                    <View className={styles.alarmButton} 
+                        onClick={ () => {
+                            actions.alarm.off(); 
+                            sensorsLeak = []; 
+                            sensorsSecurityMode = [];
+                        }}
+                    >
                         <Icon type="icon-cancel" size={35} color="red"></Icon>
                         <Text>{textDisableAlarm}</Text>
                     </View>
@@ -75,6 +99,20 @@ export function Home() {
         }
 
         return false;
+    }
+
+    function notifyLowBatteryOrSignal()
+    {
+        if (alarm && (sensorsSecurityMode.length > 0)) {
+            notify(textLowBatteryOrSignal + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
+        }
+    }
+
+    function notifyLeak()
+    {
+        if (alarm && (sensorsLeak.length > 0)) {
+            return notify(textAlarm + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
+        }
     }
 
     function notifyCleaning(): object|false
@@ -86,6 +124,13 @@ export function Home() {
         return false;
     }
 
+    function notifyDevice()
+    {
+        if (!useDevInfo().isOnline) {
+            return notify(textDevice);
+        }
+    }
+
     function notify(text: string): object
     {
         return (
@@ -94,45 +139,6 @@ export function Home() {
                 <Text className={styles.textRight}>{textNotify}</Text>
             </View>
         )
-    }
-
-    function blockCraneCondition(): object
-    {
-        if (craneCondition) {
-            return (
-                <View>
-                    <View className={styles.openClose}>
-                        <Text className={styles.textSwitch}>{textSwitchOn}</Text>
-                    </View>
-                    <View className={styles.waves}>
-                        <View className={styles.wave1}></View>
-                        <View className={styles.wave2}></View>
-                    </View>
-                </View>
-            )
-        }
-
-        return (
-            <View>
-                <View className={styles.openClose}>
-                    <Text className={styles.textSwitch}>{textSwitchOff}</Text>
-                </View>
-                <View className={styles.waves}>
-                    <View className={styles.wave3}></View>
-                    <View className={styles.wave4}></View>
-                </View>
-            </View>
-        )
-    }
-
-    /**
-     * При аварии команда на вкл/выкл крана не отправлается
-     */
-    function clickCraneCondition(): void
-    {
-        if (!alarm) {
-            actions.switch.toggle();
-        }
     }
 
     function startStopCleaning(): void
@@ -165,21 +171,69 @@ export function Home() {
         )
     }
 
+    /**
+     * При аварии или когда установленно ручное управление краном в состоянии закрыт, команда на вкл/выкл крана не отправлается
+     */
+    function clickCraneCondition(): void
+    {
+        if (!(alarm || (statusManualControl && !craneCondition))) {
+            actions.switch.toggle();
+        }
+    }
+
+    function blockCraneCondition(): object
+    {
+        if (craneCondition) {
+            return (
+                <View>
+                    <View className={styles.openClose}>
+                        <Text className={styles.textSwitch}>{textSwitchOn}</Text>
+                    </View>
+                    <View className={styles.waves}>
+                        <View className={styles.wave1}></View>
+                        <View className={styles.wave2}></View>
+                    </View>
+                </View>
+            )
+        }
+
+        return (
+            <View>
+                <View className={styles.openClose}>
+                    <View className={styles.manualControl}>
+                        {(statusManualControl) ? <Text>{textManualControl}</Text> : false}
+                    </View>
+                    <View>
+                        <Text className={styles.textSwitch}>{textSwitchOff}</Text>
+                    </View>
+                </View>
+                <View className={styles.waves}>
+                    <View className={styles.wave3}></View>
+                    <View className={styles.wave4}></View>
+                </View>
+            </View>
+        )
+    }
+
     return (
         <View className={styles.view}>
             <View className={styles.logo}>
-                <Text className={styles.logoText}>Winner ZigBee</Text>
+                <Text className={styles.logoText}>{useDevInfo().name}</Text>
             </View>
             <View>
+                {notifyDevice()}
+                {notifyLeak()}
+                {notifyLowBatteryOrSignal()}
                 {notifyCleaning()}
-                {notifyAlarm()}
+                {alarmResetButton()}
             </View>
             <View className={styles.battery}>
                 { colorAndTextBattery() }
             </View>
-
             <View className={styles.blockCraneCondition}>
-                <View onClick={() => { clickCraneCondition(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }}>
+                <View onClick={() => { clickCraneCondition(); vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); 
+                    if (alarm) { vibrateShort({type: 'heavy'}); vibrateShort({type: 'heavy'}); }
+                }}>
                     {blockCraneCondition()}
                 </View>
             </View>
@@ -193,23 +247,16 @@ export function Home() {
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
                     </Button>
-                    {/* <Button
-                        className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/history/index'})}
-                    >
-                        <Icon type="icon-a-scrollfill" size={35}/>
-                        <Text className={styles.textButton}>{textButtonHistory}</Text>
-                    </Button> */}
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
                     >
                         <Icon type="icon-a-dotradiowavesleftandright" size={35}/>
-                        <Text className={styles.textButton}>{textButtonSensors}</Text>
+                        <Text className={styles.textButton}>{textSensors}</Text>
                     </Button>
                     <Button
                         className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/instructions/index'})}
+                        onClick={() => navigateTo({ url: '/pages/instruction/index'})}
                     >
                         <Icon type="icon-a-exclamationmarkbubblefill" size={35}/>
                         <Text className={styles.textButton}>{textButtonManual}</Text>

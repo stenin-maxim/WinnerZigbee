@@ -4,10 +4,10 @@
   "description": "",
   "miniprogramRoot": "./dist/tuya",
   "dependencies": {
-    "BaseKit": "2.1.2",
+    "BaseKit": "3.3.13",
     "MiniKit": "3.1.0",
     "TYKit": "2.0.6",
-    "DeviceKit": "2.3.3",
+    "DeviceKit": "3.4.0",
     "BizKit": "3.3.1"
   },
   "baseversion": "2.13.0"

@@ -1,15 +1,18 @@
 export default {
     en: {
         // home
+        device: 'The device is offline!',
         battery: 'Battery charge',
         charging: 'Charging',
         text_alarm: 'Leak detected!',
         notify: 'Notification',
+        low_battery_or_signal: 'Low battery or loss of sensor!',
         disable_alarm: 'Disable alarm',
+        manual_control: 'The crane is under manual control',
         switch_on: 'Open',
         switch_off: 'Close',
         text_notify_cleaning: 'Floor washing mode is on!',
-        text_cleaning_mode_on: 'Cleaning mode is on for 50 minutes.',
+        text_cleaning_mode_on: 'Cleaning mode is on for 60 minutes.',
         text_cleaning_mode_off: 'Cleaning mode is off.',
         text_cleaning: 'Cleaning',
         sensors: 'Sensors',
@@ -29,23 +32,24 @@ export default {
         confirm: 'Confirm',
         text_ignore: 'Ignore sensor alarm',
         text_security_mode: 'Enhanced Security Mode',
-        text_low_charge: 'Low charge, close the tap',
+        text_low_charge: 'Low charge - close the tap',
         // instructions
         instruction: 'User Manual',
-        // history
-        text_history: 'History',
     },
     zh: {
         // home
+        device: '設備離線！',
         battery: '电池',
         charging: '收费',
         text_alarm: '检测到泄漏！',
         notify: '通知',
+        low_battery_or_signal: '电池电量低或传感器丢失! ',
         disable_alarm: '禁用警报',
+        manual_control: '起重机处于手动控制状态',
         switch_on: '打开',
         switch_off: '关闭',
         text_notify_cleaning: '洗地模式开启！',
-        text_cleaning_mode_on: '清洁模式开启 50 分钟',
+        text_cleaning_mode_on: '清洁模式开启 60 分钟',
         text_cleaning_mode_off: '清洁模式已关闭。',
         text_cleaning: '打扫',
         sensors: '传感器',
@@ -65,23 +69,24 @@ export default {
         confirm: '确认',
         text_ignore: '忽略传感器警报',
         text_security_mode: '增强安全模式',
-        text_low_charge: '电量不足，请关闭水龙头',
+        text_low_charge: '电量不足- 请关闭水龙头',
         // instruction
         instruction: '用户手册',
-        // history
-        text_history: '古鲁纳勒',
     },
     ru: {
         // home
+        device: 'Устройство не в сети!',
         battery: 'Заряд батареи',
         charging: 'Заряжается',
         text_alarm: 'Обнаружена протечка!',
         notify: 'Уведомление',
+        low_battery_or_signal: 'Низкий заряд батареи или потеря датчика!',
+        manual_control: 'Кран находится под ручным управлением',
         disable_alarm: 'Отключить аварию',
         switch_on: 'Открыт',
         switch_off: 'Закрыт',
         text_notify_cleaning: 'Включен режим мойки пола!',
-        text_cleaning_mode_on: 'Режим уборки включен на 50 мин.',
+        text_cleaning_mode_on: 'Режим уборки включен на 60 мин.',
         text_cleaning_mode_off: 'Режим уборки выключен.',
         text_cleaning: 'Уборка',
         sensors: 'Датчики',
@@ -101,10 +106,8 @@ export default {
         confirm: 'Подтвердить',
         text_ignore: 'Игнорировать аварию на датчике',
         text_security_mode: 'Режим повышенной безопасности',
-        text_low_charge: 'При низком заряде, закрыть кран',
+        text_low_charge: 'При низком заряде - закрыть кран',
         // instruction
         instruction: 'Инструкция пользователя',
-        // history
-        text_history: 'Журнал',
     },
 };
