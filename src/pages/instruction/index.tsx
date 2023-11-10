@@ -40,7 +40,7 @@ export default () => {
 
     return (
         <View>
-            <View className={styles.instructions}>
+            <View className={styles.instruction}>
                 <RichText nodes={obj.htmlContent}></RichText>
             </View>
         </View>
