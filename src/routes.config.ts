@@ -18,14 +18,9 @@ export const routes: Routes = [
     },
     {
         route: '/instructions',
-        path: '/pages/instructions/index',
+        path: '/pages/instruction/index',
         name: 'Instructions',
     },
-    // {
-    //     route: '/history',
-    //     path: '/pages/history/index',
-    //     name: 'History',
-    // },
 ];
 
 export const tabBar = {};
