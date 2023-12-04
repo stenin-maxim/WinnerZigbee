@@ -222,7 +222,7 @@ export default () => {
             return (
                 <React.Fragment>
                     <Switch type="checkbox" color="#00BFFF" checked={item.securityMode}
-                        onChange={(e) => { enableDisable(e.value, sensorId, cmd.enableSecurityMode, cmd.disableSecurityMode)}}>
+                        onChange={(e) => { enableDisable(e.value, sensorId, cmd.enableSecurityMode, cmd.disableSecurityMode) }}>
                         {sensorId != 107 ? textSecurityMode : textLowCharge}
                     </Switch>
                 </React.Fragment>
@@ -278,9 +278,8 @@ export default () => {
     return (
         <View>
             <View>
-                <Text className={styles.title}>{numberOfSensors}
-                    <Text className={styles.countSensors}>{ countSensors }</Text>
-                </Text>
+                <Text className={styles.title}>{ numberOfSensors }</Text>
+                <Text className={styles.countSensors}>{ countSensors }</Text>
             </View>
             <View>
                 { countSensors ? showSensors() : '' }

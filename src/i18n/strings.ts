@@ -3,7 +3,7 @@ export default {
         // home
         device: 'The device is offline!',
         battery: 'Battery charge',
-        charging: 'Charging',
+        charging: 'Mains power',
         text_alarm: 'Leak detected!',
         notify: 'Notification',
         low_battery_or_signal: 'Low battery or loss of sensor!',
@@ -40,7 +40,7 @@ export default {
         // home
         device: '設備離線！',
         battery: '电池',
-        charging: '收费',
+        charging: '市电电源',
         text_alarm: '检测到泄漏！',
         notify: '通知',
         low_battery_or_signal: '电池电量低或传感器丢失! ',
@@ -77,7 +77,7 @@ export default {
         // home
         device: 'Устройство не в сети!',
         battery: 'Заряд батареи',
-        charging: 'Заряжается',
+        charging: 'Питание от сети',
         text_alarm: 'Обнаружена протечка!',
         notify: 'Уведомление',
         low_battery_or_signal: 'Низкий заряд батареи или потеря датчика!',
