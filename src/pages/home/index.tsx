@@ -123,8 +123,6 @@ export function Home() {
 
     /**
      * Уведлмление при протечки на определенных датчиках
-     * 
-     * @returns 
      */
     function notifyLeak(): object
     {
@@ -242,8 +240,8 @@ export function Home() {
         return (
             <View>
                 <View className={styles.openClose}>
-                    <View className={styles.manualControl}>
-                        {(statusManualControl) ? <Text>{textManualControl}</Text> : false}
+                    <View>
+                        {(statusManualControl) ? <Text className={styles.manualControl}>{textManualControl}</Text> : false}
                     </View>
                     <View>
                         <Text className={styles.textSwitch}>{textSwitchOff}</Text>
