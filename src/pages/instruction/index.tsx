@@ -6,7 +6,7 @@ export default () => {
     let obj =  {
         htmlContent:
             `
-                <h3 style="text-align: center">Winner ZigBee:</h3>
+                <h3 style="text-align: center">Winner:</h3>
                 <div style="font-size: 15px">
                     <h4 style="margin: 5px 0;">Главный экран:</h4>
                     <div style="margin: 0 0 5px 10px;">
