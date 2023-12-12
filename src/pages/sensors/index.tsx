@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Icon, Text, PageContainer, Input, Switch } from "@ray-js/components";
 import styles from './index.module.less';
-import { useDevice, useActions } from '@ray-js/panel-sdk';
+import { useDevice, useActions, useProps } from '@ray-js/panel-sdk';
 import { vibrateShort, showModal } from '@ray-js/ray';
 import Strings from '../../i18n';
 import sensors from '@/components/sensors';
@@ -29,9 +29,9 @@ export default () => {
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
+    const statusSearch: number = useProps((props): number => Number(props.device_cmd));
 
     let [item, setItem]: any = React.useState({});
-    let [seconds, setSeconds] = React.useState(0);
     let numberOfSensors: string = Strings.getLang('number_of_sensors'),
         add: string = Strings.getLang('add'),
         textAddSensors: string = Strings.getLang('add_sensors'),
@@ -142,20 +142,10 @@ export default () => {
     function addSensors(): void {
         actions.device_cmd.set(cmd.search);
 
-        if (seconds == 0) {
-            printNumbers(28);
-        } 
-    }
-
-    function printNumbers(seconds: number): void
-    {
         let timerId = setInterval(function() {
-            if (seconds == 0) {
+            if (statusSearch == 0) {
                 clearInterval(timerId);
             }
-            
-            setSeconds(seconds);
-            seconds--;
         }, 1000);
     }
 
@@ -285,7 +275,7 @@ export default () => {
                 { countSensors ? showSensors() : '' }
             </View>
             <View>
-                { seconds > 0 ? viewTextAddSensors() : '' }
+                { statusSearch === cmd.search ? viewTextAddSensors() : '' }
             </View>
             <View className={styles.blockFooter}>
                 <Button
@@ -331,7 +321,7 @@ export default () => {
                             <Input
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"
-                                maxLength={21}
+                                maxLength={24}
                                 type="text"
                                 value={value}
                                 onInput={handleInput}
