@@ -139,7 +139,8 @@ export default () => {
         return '1px solid white';
     }
 
-    function addSensors(): void {
+    function addSensors(): void
+    {
         actions.device_cmd.set(cmd.search);
 
         let timerId = setInterval(function() {
@@ -149,7 +150,13 @@ export default () => {
         }, 1000);
     }
 
-    function viewTextAddSensors(): object {
+    /**
+     * Вывод текста при добавлении датчика
+     * 
+     * @return object
+     */
+    function viewTextAddSensors(): object
+    {
         return (
             <React.Fragment>
                 <View className={styles.addSensors}>
