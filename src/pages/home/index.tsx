@@ -47,6 +47,11 @@ export function Home() {
         }
     });
 
+    /**
+     * Статус батареи устройства
+     * 
+     * @returns object
+     */
     function colorAndTextBattery(): object
     {
         let color: string = 'black';
@@ -79,6 +84,11 @@ export function Home() {
         )
     }
 
+    /**
+     * Кнопка выключения аварии
+     * 
+     * @returns object|false
+     */
     function alarmResetButton(): object|false
     {
         if (alarm) {
@@ -101,20 +111,31 @@ export function Home() {
         return false;
     }
 
-    function notifyLowBatteryOrSignal()
+    /**
+     * Уведомление при низкой батареи или сигнала
+     */
+    function notifyLowBatteryOrSignal(): object
     {
         if (alarm && (sensorsSecurityMode.length > 0)) {
-            notify(textLowBatteryOrSignal + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
+            return notify(textLowBatteryOrSignal + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
         }
     }
 
-    function notifyLeak()
+    /**
+     * Уведлмление при протечки на определенных датчиках
+     */
+    function notifyLeak(): object
     {
         if (alarm && (sensorsLeak.length > 0)) {
             return notify(textAlarm + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
         }
     }
 
+    /**
+     * Уведомление о включение уборки
+     * 
+     * @returns object|false
+     */
     function notifyCleaning(): object|false
     {
         if (cleaning) {
@@ -124,13 +145,24 @@ export function Home() {
         return false;
     }
 
-    function notifyDevice()
+    /**
+     * Уведомление о статусе устройства в сети
+     * 
+     * @returns object
+     */
+    function notifyDevice(): object
     {
         if (!useDevInfo().isOnline) {
             return notify(textDevice);
         }
     }
 
+    /**
+     * Каркас уведомления
+     * 
+     * @param text string
+     * @returns object
+     */
     function notify(text: string): object
     {
         return (
@@ -141,6 +173,9 @@ export function Home() {
         )
     }
 
+    /**
+     * Вкл/выкл уборку
+     */
     function startStopCleaning(): void
     {
         let text: string;
@@ -159,6 +194,11 @@ export function Home() {
         })
     }
 
+    /**
+     * Состояние цвета иконки при вкл/выкл уборки
+     * 
+     * @returns object
+     */
     function colorIconCleaning(): object {
         let color: string = '#00BFFF';
         
@@ -200,8 +240,8 @@ export function Home() {
         return (
             <View>
                 <View className={styles.openClose}>
-                    <View className={styles.manualControl}>
-                        {(statusManualControl) ? <Text>{textManualControl}</Text> : false}
+                    <View>
+                        {(statusManualControl) ? <Text className={styles.manualControl}>{textManualControl}</Text> : false}
                     </View>
                     <View>
                         <Text className={styles.textSwitch}>{textSwitchOff}</Text>

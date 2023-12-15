@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Icon, Text, PageContainer, Input, Switch } from "@ray-js/components";
 import styles from './index.module.less';
-import { useDevice, useActions } from '@ray-js/panel-sdk';
+import { useDevice, useActions, useProps } from '@ray-js/panel-sdk';
 import { vibrateShort, showModal } from '@ray-js/ray';
 import Strings from '../../i18n';
 import sensors from '@/components/sensors';
@@ -29,9 +29,9 @@ export default () => {
     const [isShow, setIsShow] = React.useState(false);
     const [value, setValue] = React.useState("");
     const toggleIsShow = () => setIsShow(!isShow); // Показать/скрыть модальное окно
+    const statusSearch: number = useProps((props): number => Number(props.device_cmd));
 
     let [item, setItem]: any = React.useState({});
-    let [seconds, setSeconds] = React.useState(0);
     let numberOfSensors: string = Strings.getLang('number_of_sensors'),
         add: string = Strings.getLang('add'),
         textAddSensors: string = Strings.getLang('add_sensors'),
@@ -139,27 +139,24 @@ export default () => {
         return '1px solid white';
     }
 
-    function addSensors(): void {
+    function addSensors(): void
+    {
         actions.device_cmd.set(cmd.search);
 
-        if (seconds == 0) {
-            printNumbers(28);
-        } 
-    }
-
-    function printNumbers(seconds: number): void
-    {
         let timerId = setInterval(function() {
-            if (seconds == 0) {
+            if (statusSearch == 0) {
                 clearInterval(timerId);
             }
-            
-            setSeconds(seconds);
-            seconds--;
         }, 1000);
     }
 
-    function viewTextAddSensors(): object {
+    /**
+     * Вывод текста при добавлении датчика
+     * 
+     * @return object
+     */
+    function viewTextAddSensors(): object
+    {
         return (
             <React.Fragment>
                 <View className={styles.addSensors}>
@@ -222,7 +219,7 @@ export default () => {
             return (
                 <React.Fragment>
                     <Switch type="checkbox" color="#00BFFF" checked={item.securityMode}
-                        onChange={(e) => { enableDisable(e.value, sensorId, cmd.enableSecurityMode, cmd.disableSecurityMode)}}>
+                        onChange={(e) => { enableDisable(e.value, sensorId, cmd.enableSecurityMode, cmd.disableSecurityMode) }}>
                         {sensorId != 107 ? textSecurityMode : textLowCharge}
                     </Switch>
                 </React.Fragment>
@@ -278,15 +275,14 @@ export default () => {
     return (
         <View>
             <View>
-                <Text className={styles.title}>{numberOfSensors}
-                    <Text className={styles.countSensors}>{ countSensors }</Text>
-                </Text>
+                <Text className={styles.title}>{ numberOfSensors }</Text>
+                <Text className={styles.countSensors}>{ countSensors }</Text>
             </View>
             <View>
                 { countSensors ? showSensors() : '' }
             </View>
             <View>
-                { seconds > 0 ? viewTextAddSensors() : '' }
+                { statusSearch === cmd.search ? viewTextAddSensors() : '' }
             </View>
             <View className={styles.blockFooter}>
                 <Button
@@ -332,7 +328,7 @@ export default () => {
                             <Input
                                 className={styles.inputModalWindow}
                                 placeholder="Name Sensor"
-                                maxLength={21}
+                                maxLength={24}
                                 type="text"
                                 value={value}
                                 onInput={handleInput}

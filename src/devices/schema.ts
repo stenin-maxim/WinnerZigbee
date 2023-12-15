@@ -32,7 +32,7 @@ export const defaultSchema = [
       "min": 0,
       "max": 100,
       "scale": 0,
-      "step": 5,
+      "step": 1,
       "type": "value"
     },
     "type": "obj"
@@ -1385,7 +1385,7 @@ export const defaultSchema = [
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 169,
     "mode": "rw",
     "name": "Sensor 32",
@@ -1406,7 +1406,7 @@ export const defaultSchema = [
     "defaultRecommend": false,
     "editPermission": false,
     "executable": true,
-    "extContent": "{}",
+    "extContent": "",
     "id": 170,
     "mode": "rw",
     "name": "Sensor name 32",

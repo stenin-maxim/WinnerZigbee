@@ -60,6 +60,10 @@ export default () => {
 		while (i <= 170) {
 			let sensorIdentifier: string = idCodes[i];
 			let sensorNameIdentifier: string = idCodes[++i];
+
+			if (sensorIdentifier === undefined) {
+				break;
+			}
 			
 			// Example: createSensor(Number(props.sensor_1), String(props.sensor_name_1), Number(device.sensor_1.id), sensors, 1);
 			createSensor(Number(props[sensorIdentifier]), String(props[sensorNameIdentifier]), Number(device[sensorIdentifier].id), sensors, sensorNumber);
