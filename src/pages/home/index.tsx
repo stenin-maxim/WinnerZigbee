@@ -35,17 +35,20 @@ export function Home() {
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
         textSensors: string = Strings.getLang('sensors'),
         textButtonManual: string = Strings.getLang('manual');
-        //textButtonSettings: string = Strings.getLang('settings');
 
-    sensors().map((item) => {
-        if (item.leak) {
-            sensorsLeak.push(item.sensorNumber);
-        }
+    let arrSensors: Array<any> = sensors();
 
-        if (!item.ignore && item.securityMode && item.statusBatterySignal) {
-            sensorsSecurityMode.push(item.sensorNumber);
-        }
-    });
+    if (arrSensors.length !== undefined) {
+        arrSensors.map((item) => {
+            if (item.leak) {
+                sensorsLeak.push(item.sensorNumber);
+            }
+    
+            if (!item.ignore && item.securityMode && item.statusBatterySignal) {
+                sensorsSecurityMode.push(item.sensorNumber);
+            }
+        });
+    }
 
     /**
      * Статус батареи устройства
