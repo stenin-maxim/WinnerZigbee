@@ -73,8 +73,8 @@ export const defaultSchema = [
     "name": "Multiplier",
     "property": {
       "range": [
-        "1",
-        "10"
+        "0",
+        "1"
       ],
       "type": "enum"
     },
