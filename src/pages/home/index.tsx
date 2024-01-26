@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Button, Icon, Text } from '@ray-js/ray';
-import { navigateTo, vibrateShort, showToast } from '@ray-js/ray';
+import { navigateTo, vibrateShort, showToast, showModal } from '@ray-js/ray';
 import styles from './index.module.less';
 import { useActions, useProps, useDevInfo } from '@ray-js/panel-sdk';
 import Strings from '../../i18n';
@@ -34,18 +34,24 @@ export function Home() {
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
         textSensors: string = Strings.getLang('sensors'),
-        textButtonManual: string = Strings.getLang('manual');
-        //textButtonSettings: string = Strings.getLang('settings');
+        textButtonManual: string = Strings.getLang('manual'),
+        textCancel: string = Strings.getLang('cancel'),
+        textConfirm: string = Strings.getLang('confirm'),
+        textContentAlarm: string = Strings.getLang('text_content_alarm');
 
-    sensors().map((item) => {
-        if (item.leak) {
-            sensorsLeak.push(item.sensorNumber);
-        }
+    let arrSensors: Array<any> = sensors();
 
-        if (!item.ignore && item.securityMode && item.statusBatterySignal) {
-            sensorsSecurityMode.push(item.sensorNumber);
-        }
-    });
+    if (arrSensors.length !== undefined) {
+        arrSensors.map((item) => {
+            if (item.leak) {
+                sensorsLeak.push(item.sensorNumber);
+            }
+    
+            if (!item.ignore && item.securityMode && item.statusBatterySignal) {
+                sensorsSecurityMode.push(item.sensorNumber);
+            }
+        });
+    }
 
     /**
      * Статус батареи устройства
@@ -94,12 +100,8 @@ export function Home() {
         if (alarm) {
             return (
                 <View className={styles.blockAlarm}>
-                    <View className={styles.alarmButton} 
-                        onClick={ () => {
-                            actions.alarm.off(); 
-                            sensorsLeak = []; 
-                            sensorsSecurityMode = [];
-                        }}
+                    <View className={styles.alarmButton}
+                        onClick={() => { showModal(confirm()) }}
                     >
                         <Icon type="icon-cancel" size={35} color="red"></Icon>
                         <Text>{textDisableAlarm}</Text>
@@ -109,6 +111,29 @@ export function Home() {
         }
 
         return false;
+    }
+
+    /**
+     * Параметры модального окна при снятии аварии
+     * 
+     * @returns object
+     */
+    function confirm(): object
+    {
+        return {
+            title: textDisableAlarm,
+            content: textContentAlarm,
+            cancelText: textCancel,
+            confirmText: textConfirm,
+            confirmColor: '#ff0000',
+            success: (param: any): void => {
+                if (param.confirm) {
+                    actions.alarm.off(); 
+                    sensorsLeak = []; 
+                    sensorsSecurityMode = [];
+                }
+            },
+        }
     }
 
     /**
