@@ -95,7 +95,7 @@ export const defaultSchema = [
     "iconname": "icon-dp_time2",
     "id": 11,
     "mode": "rw",
-    "name": "Limit counter 1",
+    "name": "Counter 1",
     "property": {
       "unit": "Impuls",
       "min": 0,
@@ -130,28 +130,6 @@ export const defaultSchema = [
   {
     "attr": 1248,
     "canTrigger": false,
-    "code": "maxhum_set",
-    "defaultRecommend": false,
-    "editPermission": true,
-    "executable": false,
-    "extContent": "",
-    "iconname": "icon-setting",
-    "id": 20,
-    "mode": "rw",
-    "name": "Limit counter 2",
-    "property": {
-      "unit": "Impuls",
-      "min": 0,
-      "max": 2147483647,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 1248,
-    "canTrigger": false,
     "code": "minihum_set",
     "defaultRecommend": false,
     "editPermission": true,
@@ -159,28 +137,6 @@ export const defaultSchema = [
     "extContent": "",
     "iconname": "icon-setting",
     "id": 21,
-    "mode": "rw",
-    "name": "Counter 1",
-    "property": {
-      "unit": "",
-      "min": 0,
-      "max": 2147483647,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
-    },
-    "type": "obj"
-  },
-  {
-    "attr": 1248,
-    "canTrigger": false,
-    "code": "maxtemp_set",
-    "defaultRecommend": false,
-    "editPermission": true,
-    "executable": false,
-    "extContent": "",
-    "iconname": "icon-setting",
-    "id": 23,
     "mode": "rw",
     "name": "Counter 2",
     "property": {
