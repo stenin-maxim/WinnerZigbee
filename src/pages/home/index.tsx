@@ -14,11 +14,11 @@ export function Home() {
     const maskManualControl = 0b00000000_10000000_00000000_00000000; // Если этот флаг стоит. Кран находится под ручным управлением
     
     let sensor_1: number = useProps((props): number => Number(props.sensor_1));
+    let battery: number = useProps((props): number => Number(props.battery));
     let statusManualControl = Boolean(sensor_1 & maskManualControl);
-    
     let sensorsLeak = [];
     let sensorsSecurityMode = [];
-    let battery: number = useProps((props): number => Number(props.battery));
+    let arrSensors: Array<any> = sensors();
     let textBattery: string = Strings.getLang('battery'),
         textDevice: string = Strings.getLang('device'),
         textCharging: string = Strings.getLang('charging'),
@@ -37,9 +37,8 @@ export function Home() {
         textButtonManual: string = Strings.getLang('manual'),
         textCancel: string = Strings.getLang('cancel'),
         textConfirm: string = Strings.getLang('confirm'),
-        textContentAlarm: string = Strings.getLang('text_content_alarm');
-
-    let arrSensors: Array<any> = sensors();
+        textContentAlarm: string = Strings.getLang('text_content_alarm'),
+        textCounters: string = Strings.getLang('counters');
 
     if (arrSensors.length !== undefined) {
         arrSensors.map((item) => {
@@ -318,6 +317,13 @@ export function Home() {
                     >
                         <Icon type="icon-a-dotradiowavesleftandright" size={35}/>
                         <Text className={styles.textButton}>{textSensors}</Text>
+                    </Button>
+                    <Button
+                        className={styles.button}
+                        onClick={() => navigateTo({ url: '/pages/counters/index'})}
+                    >
+                        <Icon type="icon-a-stopfill" size={35}/>
+                        <Text className={styles.textButton}>{textCounters}</Text>
                     </Button>
                     <Button
                         className={styles.button}

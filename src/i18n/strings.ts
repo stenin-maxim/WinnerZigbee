@@ -17,6 +17,7 @@ export default {
         text_cleaning: 'Cleaning',
         sensors: 'Sensors',
         settings: 'Settings',
+        counters: 'Counters',
         manual: 'Manual',
         // sensors
         number_of_sensors: 'Number of sensors:',
@@ -54,6 +55,7 @@ export default {
         text_cleaning_mode_off: '清洁模式已关闭。',
         text_cleaning: '打扫',
         sensors: '传感器',
+        counters: '柜台',
         settings: '设置',
         manual: '手动的',
         // sensors
@@ -93,6 +95,7 @@ export default {
         text_cleaning: 'Уборка',
         sensors: 'Датчики',
         settings: 'Настройки',
+        counters: 'Счетчики',
         manual: 'Руководство',
         // sensors
         number_of_sensors: 'Количество датчиков:',
