@@ -34,7 +34,7 @@ export function Home() {
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
         textSensors: string = Strings.getLang('sensors'),
-        textButtonManual: string = Strings.getLang('manual'),
+        // textButtonManual: string = Strings.getLang('manual'),
         textCancel: string = Strings.getLang('cancel'),
         textConfirm: string = Strings.getLang('confirm'),
         textContentAlarm: string = Strings.getLang('text_content_alarm'),
@@ -231,7 +231,7 @@ export function Home() {
         }
 
         return (
-            <Icon type="icon-a-dropfill" size={35} color={color}/>
+            <Icon type="icon-a-dropfill" size={40} color={color}/>
         )
     }
 
@@ -315,23 +315,23 @@ export function Home() {
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/sensors/index'})}
                     >
-                        <Icon type="icon-a-dotradiowavesleftandright" size={35}/>
+                        <Icon type="icon-a-dotradiowavesleftandright" size={40}/>
                         <Text className={styles.textButton}>{textSensors}</Text>
                     </Button>
                     <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/counters/index'})}
                     >
-                        <Icon type="icon-a-stopfill" size={35}/>
+                        <Icon type="icon-timer" size={40}/>
                         <Text className={styles.textButton}>{textCounters}</Text>
                     </Button>
-                    <Button
+                    {/* <Button
                         className={styles.button}
                         onClick={() => navigateTo({ url: '/pages/instruction/index'})}
                     >
-                        <Icon type="icon-a-exclamationmarkbubblefill" size={35}/>
+                        <Icon type="icon-a-exclamationmarkbubblefill" size={40}/>
                         <Text className={styles.textButton}>{textButtonManual}</Text>
-                    </Button>
+                    </Button> */}
                 </View>
             </View>
         </View>
