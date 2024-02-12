@@ -1,7 +1,7 @@
 /**
  * DeviceKit
  *
- * @version 3.4.0
+ * @version 3.5.1
  */
 declare namespace ty.device {
   /**
@@ -1226,6 +1226,11 @@ declare namespace ty.device {
        * 产品属性定义，在 backend-ng 平台上可查到对应配置，使用二进制位运算的方式进行管理
        */
       attribute: number
+      /**
+       * baseAttribute
+       * 基础产品属性定义
+       */
+      baseAttribute: number
       /**
        * capability
        * 产品能力值，在 backend-ng 平台上可以查询对应的勾选项，整体业务逻辑会根据该数据进行划分
@@ -3050,7 +3055,7 @@ declare namespace ty.device {
       /** groupId 群组id */
       groupId: string
       /** deviceList 设备列表 */
-      deviceList: DeviceInfo_W4AIUS[]
+      deviceList: DeviceInfo_MKrXhe[]
     }) => void
     fail?: (params: {
       errorMsg: string
@@ -3303,7 +3308,7 @@ declare namespace ty.device {
       /** The custom DP name. */
       dpName: {}
       /** The device list. */
-      deviceList: DeviceInfo_W4AIUS[]
+      deviceList: DeviceInfo_MKrXhe[]
       /** The local short address of groups. */
       localId: string
       /** The subclass. */
@@ -3843,14 +3848,14 @@ declare namespace ty.device {
    * 设备信息变化
    */
   export function onDeviceInfoUpdated(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 取消监听：设备信息变化
    */
   export function offDeviceInfoUpdated(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
@@ -3885,56 +3890,56 @@ declare namespace ty.device {
    * 网关子设备dp信息变化事件
    */
   export function onSubDeviceDpUpdate(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 取消监听：网关子设备dp信息变化事件
    */
   export function offSubDeviceDpUpdate(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 网关子设备被移除事件
    */
   export function onSubDeviceRemoved(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 取消监听：网关子设备被移除事件
    */
   export function offSubDeviceRemoved(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 网关添加子设备的事件
    */
   export function onSubDeviceAdded(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 取消监听：网关添加子设备的事件
    */
   export function offSubDeviceAdded(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 网关子设备信息变化的事件
    */
   export function onSubDeviceInfoUpdate(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
    * 取消监听：网关子设备信息变化的事件
    */
   export function offSubDeviceInfoUpdate(
-    listener: (params: Device_qXnW0p) => void
+    listener: (params: Device_a9jZxB) => void
   ): void
 
   /**
@@ -4046,6 +4051,11 @@ declare namespace ty.device {
      * 产品属性定义，在 backend-ng 平台上可查到对应配置，使用二进制位运算的方式进行管理
      */
     attribute: number
+    /**
+     * baseAttribute
+     * 基础产品属性定义
+     */
+    baseAttribute: number
     /**
      * capability
      * 产品能力值，在 backend-ng 平台上可以查询对应的勾选项，整体业务逻辑会根据该数据进行划分
@@ -4433,7 +4443,7 @@ declare namespace ty.device {
     cityName: string
   }
 
-  export type DeviceInfo_W4AIUS = {
+  export type DeviceInfo_MKrXhe = {
     /** 产品信息，schema，功能定义都在里面 */
     schema: {}[]
     /**
@@ -4741,7 +4751,7 @@ declare namespace ty.device {
     onlineType: number
   }
 
-  export type Device_qXnW0p = {
+  export type Device_a9jZxB = {
     /**
      * deviceId 设备id
      * 支持跨面板获取其他的设备信息，当前面板可以传当前设备的 id 来进行获取
@@ -5450,7 +5460,7 @@ declare namespace ty.device {
     warningText: string
   }
 
-  export type Device_AGZwkU = {
+  export type Device_CY9NeF = {
     /**
      * deviceId
      * 设备 id
@@ -5700,7 +5710,7 @@ declare namespace ty.device {
     /** groupId 群组id */
     groupId: string
     /** deviceList 设备列表 */
-    deviceList: DeviceInfo_W4AIUS[]
+    deviceList: DeviceInfo_MKrXhe[]
   }
 
   export type DeviceNumResponse = {
@@ -5854,7 +5864,7 @@ declare namespace ty.device {
     /** The custom DP name. */
     dpName: {}
     /** The device list. */
-    deviceList: DeviceInfo_W4AIUS[]
+    deviceList: DeviceInfo_MKrXhe[]
     /** The local short address of groups. */
     localId: string
     /** The subclass. */

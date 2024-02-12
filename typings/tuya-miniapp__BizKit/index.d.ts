@@ -1,7 +1,7 @@
 /**
  * BizKit
  *
- * @version 3.3.1
+ * @version 3.4.2
  */
 declare namespace ty {
   /**
@@ -31,6 +31,48 @@ declare namespace ty {
       thing_json_?: {}
       /** 元数据 */
       data: string
+    }) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * highway面板接口
+   */
+  export function apiRequestByHighwayRestful(params: {
+    /**
+     * 域名
+     * e.g. apigw-cn.wgine.com
+     */
+    host?: string
+    /**
+     * 请求API, 严格遵循restful标准格式，"/"开头
+     * e.g. /v1.0/m/thing/test/path/to/my/api
+     */
+    api: string
+    /**
+     * 数据不会被加密，以 HEADER 形式传递
+     * 每一个request都包含了默认的公共参数，header会覆盖默认的公共参数
+     */
+    header?: Record<string, any>
+    /** 数据会被加密，最终以 QUERY 形式传递 */
+    query?: Record<string, any>
+    /** 只针对 POST 请求，数据会被加密，最终以 BODY 形式传递 */
+    body?: Record<string, any>
+    /** http请求方式 */
+    method?: HighwayMethod
+    complete?: () => void
+    success?: (params: {
+      /** 序列化返回结果 */
+      result: {}
+      /** apiName */
+      api: string
     }) => void
     fail?: (params: {
       errorMsg: string
@@ -1067,6 +1109,20 @@ declare namespace ty {
   export function offRouterResult(
     listener: (params: RouterResultResponse) => void
   ): void
+
+  export enum HighwayMethod {
+    /** HTTP 请求 GET */
+    GET = "GET",
+
+    /** HTTP 请求 POST */
+    POST = "POST",
+
+    /** HTTP 请求 PUT */
+    PUT = "PUT",
+
+    /** HTTP 请求 DELETE */
+    DELETE = "DELETE",
+  }
 
   export type PanelUiInfoBean = {
     /** phase 面板phase */
