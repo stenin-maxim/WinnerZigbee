@@ -13,6 +13,13 @@ export default () => {
     let [valueCounter1, setCounter1] = React.useState('');
     let [valueCounter2, setCounter2] = React.useState('');
 
+    let textIndicatorCounter: string = Strings.getLang('text_indicator_counter'),
+        textSettingCounter: string = Strings.getLang('text_setting_counter'),
+        textImpulsLiter: string = Strings.getLang('text_impuls_liter'),
+        textImpuls10Liter: string = Strings.getLang('text_impuls_10_liter'),
+        textSave: string = Strings.getLang('text_save');
+
+
     function handleInput1(event: any): void
     {
         setCounter1(addPoint(event.value));
@@ -118,10 +125,10 @@ export default () => {
             return (
                 <React.Fragment>
                     <Label>
-                        <Radio value="1" color="#00BFFF" checked>1 импульс на 1 литр воды</Radio>
+                        <Radio value="1" color="#00BFFF" checked>{textImpulsLiter}</Radio>
                     </Label>
                     <Label>
-                        <Radio value="10" color="#00BFFF">1 импульс на 10 литров воды</Radio>
+                        <Radio value="10" color="#00BFFF">{textImpuls10Liter}</Radio>
                     </Label>
                 </React.Fragment>
             )
@@ -129,10 +136,10 @@ export default () => {
             return (
                 <React.Fragment>
                     <Label>
-                        <Radio value="1" color="#00BFFF">1 импульс на 1 литр воды</Radio>
+                        <Radio value="1" color="#00BFFF">{textImpulsLiter}</Radio>
                     </Label>
                     <Label>
-                        <Radio value="10" color="#00BFFF" checked>1 импульс на 10 литров воды</Radio>
+                        <Radio value="10" color="#00BFFF" checked>{textImpuls10Liter}</Radio>
                     </Label>
                 </React.Fragment>
             )
@@ -142,9 +149,11 @@ export default () => {
     return (
         <View>
             <View>
-                <Text className={styles.title}>Показатель счетчика 1:</Text>
+                <Text className={styles.title}>{textIndicatorCounter}</Text>
+                <Text>1:</Text>
                 { viewCounter(counter1, multiplier1) }
-                <Text className={styles.title}>Настройки счетчика 1:</Text>
+                <Text className={styles.title}>{textSettingCounter}</Text>
+                <Text>1:</Text>
                 <RadioGroup onChange={changeRadio1} options={[]} className={styles.radioGroup}>
                     {viewImpuls(multiplier1)}
                 </RadioGroup>
@@ -152,18 +161,21 @@ export default () => {
                     <Input type="digit" 
                         value={valueCounter1}
                         maxLength={9}
+                        placeholder="00000.000"
                         className={styles.inputNumber}
                         onInput={handleInput1}
                     ></Input>
                     <Button className={styles.buttonSave} onClick={ () => {
                         saveCounter1();
-                    }}>Сохранить</Button>
+                    }}>{textSave}</Button>
                 </View>
             </View>
             <View className={styles.counter2}>
-                <Text className={styles.title}>Показатель счетчика 2:</Text>
+                <Text className={styles.title}>{textIndicatorCounter}</Text>
+                <Text>2:</Text>
                 { viewCounter(counter2, multiplier2) }
-                <Text className={styles.title}>Настройки счетчика 2:</Text>
+                <Text className={styles.title}>{textSettingCounter}</Text>
+                <Text>2:</Text>
                 <RadioGroup onChange={changeRadio2} options={[]} className={styles.radioGroup}>
                     {viewImpuls(multiplier2)}
                 </RadioGroup>
@@ -171,12 +183,13 @@ export default () => {
                     <Input type="digit" 
                         value={valueCounter2}
                         maxLength={9}
+                        placeholder="00000.000"
                         className={styles.inputNumber}
                         onInput={handleInput2}
                     ></Input>
                     <Button className={styles.buttonSave} onClick={ () => {
                         saveCounter2();
-                    }}>Сохранить</Button>
+                    }}>{textSave}</Button>
                 </View>
             </View>
         </View>

@@ -39,6 +39,11 @@ export default {
         instruction: 'User Manual',
         // counters
         counter: 'Counter',
+        text_indicator_counter: 'Counter indicator',
+        text_setting_counter: 'Setting counter',
+        text_impuls_liter: '1 pulse per 1 liter of water',
+        text_impuls_10_liter: '1 pulse per 10 liters of water',
+        text_save: 'Save',
     },
     zh: {
         // home
@@ -80,6 +85,11 @@ export default {
         instruction: '用户手册',
         // counters
         counter: '柜台',
+        text_indicator_counter: '计数器指示器',
+        text_setting_counter: '计数器设置',
+        text_impuls_liter: '每 1 升水 1 个脉冲',
+        text_impuls_10_liter: '每 10 升水 1 次脉冲',
+        text_save: '节省',
     },
     ru: {
         // home
@@ -121,5 +131,10 @@ export default {
         instruction: 'Инструкция пользователя',
         // counters
         counter: 'Счетчик',
+        text_indicator_counter: 'Показатель счетчика',
+        text_setting_counter: 'Настройки счетчика',
+        text_impuls_liter: '1 импульс на 1 литр воды',
+        text_impuls_10_liter: '1 импульс на 10 литров воды',
+        text_save: 'Сохранить',
     },
 };
