@@ -10,8 +10,8 @@ export default () => {
     let multiplier2: string = useProps((props): string => String(props.smart_weather));
     let counter1: number = useProps((props): number => Number(props.countdown));
     let counter2: number = useProps((props): number => Number(props.minihum_set));
-    let [valueCounter1, setCounter1] = React.useState('0');
-    let [valueCounter2, setCounter2] = React.useState('0');
+    let [valueCounter1, setCounter1] = React.useState('');
+    let [valueCounter2, setCounter2] = React.useState('');
 
     function handleInput1(event: any): void
     {
@@ -53,7 +53,7 @@ export default () => {
     {
         let counter = getCounter(valueCounter1);
 
-        setCounter1('0');
+        setCounter1('');
         ACTIONS.countdown.set(counter);
     }
 
@@ -61,7 +61,7 @@ export default () => {
     {
         let counter = getCounter(valueCounter2);
 
-        setCounter2('0');
+        setCounter2('');
         ACTIONS.minihum_set.set(counter);
     }
 
@@ -79,12 +79,14 @@ export default () => {
 
     /**
      * Показать счетчик
-     * 
+     * @param counter - показатель счетчика
+     * @param multiplier - импульс счетчика
      * @returns object
      */
-    function viewCounter(counter: number): object
+    function viewCounter(counter: number, multiplier: string): object
     {
-        let arr: string[] = String(counter).split('');
+        let counterMultiplier = counter * Number(multiplier);
+        let arr: string[] = String(counterMultiplier).split('');
         let str1: string, str2: string;
 
         if (arr.length < 8) {
@@ -123,27 +125,27 @@ export default () => {
                     </Label>
                 </React.Fragment>
             )
+        } else if (multiplier === '10') {
+            return (
+                <React.Fragment>
+                    <Label>
+                        <Radio value="1" color="#00BFFF">1 импульс на 1 литр воды</Radio>
+                    </Label>
+                    <Label>
+                        <Radio value="10" color="#00BFFF" checked>1 импульс на 10 литров воды</Radio>
+                    </Label>
+                </React.Fragment>
+            )
         }
-
-        return (
-            <React.Fragment>
-                <Label>
-                    <Radio value="1" color="#00BFFF">1 импульс на 1 литр воды</Radio>
-                </Label>
-                <Label>
-                    <Radio value="10" color="#00BFFF" checked>1 импульс на 10 литров воды</Radio>
-                </Label>
-            </React.Fragment>
-        )
     }
 
     return (
         <View>
             <View>
                 <Text className={styles.title}>Показатель счетчика 1:</Text>
-                { viewCounter(counter1) }
+                { viewCounter(counter1, multiplier1) }
                 <Text className={styles.title}>Настройки счетчика 1:</Text>
-                <RadioGroup onChange={changeRadio1} className={styles.radioGroup} options={[]}>
+                <RadioGroup onChange={changeRadio1} options={[]} className={styles.radioGroup}>
                     {viewImpuls(multiplier1)}
                 </RadioGroup>
                 <View className={styles.editCounter}>
@@ -153,12 +155,14 @@ export default () => {
                         className={styles.inputNumber}
                         onInput={handleInput1}
                     ></Input>
-                    <Button className={styles.buttonSave} onClick={ () => saveCounter1() }>Сохранить</Button>
+                    <Button className={styles.buttonSave} onClick={ () => {
+                        saveCounter1();
+                    }}>Сохранить</Button>
                 </View>
             </View>
             <View className={styles.counter2}>
                 <Text className={styles.title}>Показатель счетчика 2:</Text>
-                { viewCounter(counter2) }
+                { viewCounter(counter2, multiplier2) }
                 <Text className={styles.title}>Настройки счетчика 2:</Text>
                 <RadioGroup onChange={changeRadio2} options={[]} className={styles.radioGroup}>
                     {viewImpuls(multiplier2)}
@@ -170,7 +174,9 @@ export default () => {
                         className={styles.inputNumber}
                         onInput={handleInput2}
                     ></Input>
-                    <Button className={styles.buttonSave} onClick={ () => saveCounter2() }>Сохранить</Button>
+                    <Button className={styles.buttonSave} onClick={ () => {
+                        saveCounter2();
+                    }}>Сохранить</Button>
                 </View>
             </View>
         </View>
