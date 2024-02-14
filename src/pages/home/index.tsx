@@ -15,6 +15,10 @@ export function Home() {
     
     let sensor_1: number = useProps((props): number => Number(props.sensor_1));
     let battery: number = useProps((props): number => Number(props.battery));
+    let multiplier1: string = useProps((props): string => String(props.weather_delay));
+    let multiplier2: string = useProps((props): string => String(props.smart_weather));
+    let counter1: number = useProps((props): number => Number(props.countdown));
+    let counter2: number = useProps((props): number => Number(props.minihum_set));
     let statusManualControl = Boolean(sensor_1 & maskManualControl);
     let sensorsLeak = [];
     let sensorsSecurityMode = [];
@@ -38,7 +42,8 @@ export function Home() {
         textCancel: string = Strings.getLang('cancel'),
         textConfirm: string = Strings.getLang('confirm'),
         textContentAlarm: string = Strings.getLang('text_content_alarm'),
-        textCounters: string = Strings.getLang('counters');
+        textCounters: string = Strings.getLang('counters'),
+        textCounter: string = Strings.getLang('counter');
 
     if (arrSensors.length !== undefined) {
         arrSensors.map((item) => {
@@ -50,6 +55,29 @@ export function Home() {
                 sensorsSecurityMode.push(item.sensorNumber);
             }
         });
+    }
+
+    /**
+     * Параметры счетчика
+     * 
+     * @param counter - показатель счетчика
+     * @param multiplier - импульс счетчика
+     * @returns 
+     */
+    function viewCounter(counter: number, multiplier: string): string
+    {
+        let counterMultiplier = counter * Number(multiplier);
+        let arr: string[] = String(counterMultiplier).split('');
+
+        if (arr.length - 1 < 3) {
+            for (let i = arr.length - 1; arr.length <= 3; i++) {
+                arr.unshift('0');
+            }
+        }
+
+        arr.splice(-3, 0, '.');
+
+        return arr.join('');
     }
 
     /**
@@ -283,6 +311,36 @@ export function Home() {
         <View className={styles.view}>
             <View className={styles.logo}>
                 <Text className={styles.logoText}>{useDevInfo().name}</Text>
+            </View>
+            <View className={styles.counters}>
+                <View className={styles.displayFlex}>
+                    <View className={styles.displayFlex}>
+                        <Icon type="icon-a-dropfill" color="#00BFFF" size={30}/>
+                        <Text className={styles.counterText}>{textCounter}</Text>
+                        <Text>1</Text>
+                    </View>
+                    <View>
+                        <Text>{viewCounter(counter1, multiplier1)}</Text>
+                        <View className={styles.meterCube}>
+                            <Text>м</Text>
+                            <Text className={styles.cube}>3</Text>
+                        </View>
+                    </View>
+                </View>
+                <View className={styles.displayFlex}>
+                    <View className={styles.displayFlex}>
+                        <Icon type="icon-a-dropfill" color="#00BFFF" size={30}/>
+                        <Text className={styles.counterText}>{textCounter}</Text>
+                        <Text>2</Text>
+                    </View>
+                    <View>
+                        <Text>{viewCounter(counter2, multiplier2)}</Text>
+                        <View className={styles.meterCube}>
+                            <Text>м</Text>
+                            <Text className={styles.cube}>3</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
             <View>
                 {notifyDevice()}

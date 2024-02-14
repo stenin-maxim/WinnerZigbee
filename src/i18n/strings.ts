@@ -37,6 +37,8 @@ export default {
         text_low_charge: 'Low charge - close the tap',
         // instructions
         instruction: 'User Manual',
+        // counters
+        counter: 'Counter',
     },
     zh: {
         // home
@@ -76,6 +78,8 @@ export default {
         text_low_charge: '电量不足- 请关闭水龙头',
         // instruction
         instruction: '用户手册',
+        // counters
+        counter: '柜台',
     },
     ru: {
         // home
@@ -115,5 +119,7 @@ export default {
         text_low_charge: 'При низком заряде - закрыть кран',
         // instruction
         instruction: 'Инструкция пользователя',
+        // counters
+        counter: 'Счетчик',
     },
 };
