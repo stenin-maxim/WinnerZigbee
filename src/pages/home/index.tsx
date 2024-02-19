@@ -38,11 +38,10 @@ export function Home() {
         textCleaningModeOff: string = Strings.getLang('text_cleaning_mode_off'),
         textButtonCleaning: string = Strings.getLang('text_cleaning'),
         textSensors: string = Strings.getLang('sensors'),
-        // textButtonManual: string = Strings.getLang('manual'),
         textCancel: string = Strings.getLang('cancel'),
         textConfirm: string = Strings.getLang('confirm'),
         textContentAlarm: string = Strings.getLang('text_content_alarm'),
-        textCounters: string = Strings.getLang('counters'),
+        textSettings: string = Strings.getLang('settings'),
         textCounter: string = Strings.getLang('counter');
 
     if (arrSensors.length !== undefined) {
@@ -315,7 +314,7 @@ export function Home() {
             <View className={styles.counters}>
                 <View className={styles.displayFlex}>
                     <View className={styles.displayFlex}>
-                        <Icon type="icon-a-dropfill" color="#00BFFF" size={30}/>
+                        <Icon type="icon-timer" color="#00BFFF" size={30}/>
                         <Text className={styles.counterText}>{textCounter}</Text>
                         <Text>1</Text>
                     </View>
@@ -329,7 +328,7 @@ export function Home() {
                 </View>
                 <View className={styles.displayFlex}>
                     <View className={styles.displayFlex}>
-                        <Icon type="icon-a-dropfill" color="#00BFFF" size={30}/>
+                        <Icon type="icon-timer" color="#00BFFF" size={30}/>
                         <Text className={styles.counterText}>{textCounter}</Text>
                         <Text>2</Text>
                     </View>
@@ -378,18 +377,11 @@ export function Home() {
                     </Button>
                     <Button
                         className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/counters/index'})}
+                        onClick={() => navigateTo({ url: '/pages/settings/index'})}
                     >
-                        <Icon type="icon-timer" size={40}/>
-                        <Text className={styles.textButton}>{textCounters}</Text>
+                        <Icon type="icon-a-wrenchandscrewdriverfill" size={40}/>
+                        <Text className={styles.textButton}>{textSettings}</Text>
                     </Button>
-                    {/* <Button
-                        className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/instruction/index'})}
-                    >
-                        <Icon type="icon-a-exclamationmarkbubblefill" size={40}/>
-                        <Text className={styles.textButton}>{textButtonManual}</Text>
-                    </Button> */}
                 </View>
             </View>
         </View>
