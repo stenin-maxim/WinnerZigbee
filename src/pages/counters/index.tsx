@@ -12,13 +12,11 @@ export default () => {
     let counter2: number = useProps((props): number => Number(props.minihum_set));
     let [valueCounter1, setCounter1] = React.useState('');
     let [valueCounter2, setCounter2] = React.useState('');
-
     let textIndicatorCounter: string = Strings.getLang('text_indicator_counter'),
         textSettingCounter: string = Strings.getLang('text_setting_counter'),
         textImpulsLiter: string = Strings.getLang('text_impuls_liter'),
         textImpuls10Liter: string = Strings.getLang('text_impuls_10_liter'),
         textSave: string = Strings.getLang('text_save');
-
 
     function handleInput1(event: any): void
     {
@@ -42,12 +40,12 @@ export default () => {
         return str;
     }
 
-    function getCounter(valueCounter: string): number
+    function getCounter(valueCounter: string, multiplier: string): number
     {
         let value = valueCounter.replace(".", "");
         let counter: number;
 
-        if (multiplier1 === '10') {
+        if (multiplier === '10') {
             counter = Math.round(Number(value) / 10);
         } else {
             counter = Number(value);
@@ -56,17 +54,17 @@ export default () => {
         return counter;
     } 
 
-    function saveCounter1(): void
+    function saveCounter1(): void // TODO
     {
-        let counter = getCounter(valueCounter1);
+        let counter = getCounter(valueCounter1, multiplier1);
 
         setCounter1('');
         ACTIONS.countdown.set(counter);
     }
 
-    function saveCounter2(): void
+    function saveCounter2(): void // TODO
     {
-        let counter = getCounter(valueCounter2);
+        let counter = getCounter(valueCounter2, multiplier2);
 
         setCounter2('');
         ACTIONS.minihum_set.set(counter);
@@ -158,7 +156,7 @@ export default () => {
                     {viewImpuls(multiplier1)}
                 </RadioGroup>
                 <View className={styles.editCounter}>
-                    <Input type="digit" 
+                    <Input type="digit"
                         value={valueCounter1}
                         maxLength={9}
                         placeholder="00000.000"
@@ -180,7 +178,7 @@ export default () => {
                     {viewImpuls(multiplier2)}
                 </RadioGroup>
                 <View className={styles.editCounter}>
-                    <Input type="digit" 
+                    <Input type="digit"
                         value={valueCounter2}
                         maxLength={9}
                         placeholder="00000.000"
