@@ -45,29 +45,6 @@ function getCounter(valueCounter: string, multiplier: string): number
     return counter;
 }
 
-/**
- * Показать счетчик
- * @param counter - показатель счетчика
- * @param multiplier - импульс счетчика
- * @returns object
- */
-function viewCounter(counter: number, multiplier: string): object
-{
-    let counterMultiplier = counter * Number(multiplier);
-    let arr: string[] = String(counterMultiplier).split('');
-    let str1: string, str2: string;
-
-    if (arr.length < 8) {
-        for (let i = arr.length; i < 8; i++) {
-            arr.unshift('0');
-        }
-    }
-    str1 = arr.slice(0, 5).join('');
-    str2 = arr.slice(5, 8).join('');
-    
-    return [str1, str2];
-}
-
 export {
     textIndicatorCounter, 
     textSettingCounter,
@@ -76,5 +53,4 @@ export {
     textSave,
     addPoint, 
     getCounter,
-    viewCounter,
 };

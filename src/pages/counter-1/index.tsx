@@ -9,7 +9,6 @@ export default () => {
     let multiplier1: string = useProps((props): string => String(props.weather_delay));
     let counter1: number = useProps((props): number => Number(props.countdown));
     let [valueCounter1, setCounter1] = React.useState('');
-    let viewCounter = counter.viewCounter(counter1, multiplier1);
 
     function handleInput1(event: any): void
     {
@@ -29,6 +28,41 @@ export default () => {
             ACTIONS.weather_delay.set(e.detail.value);
         }
 	};
+
+    /**
+     * Показать счетчик
+     * @param counter - показатель счетчика
+     * @param multiplier - импульс счетчика
+     * @returns object
+     */
+    function viewCounter(counter: number, multiplier: string): object
+    {
+        let counterMultiplier = counter * Number(multiplier);
+        let arr: string[] = String(counterMultiplier).split('');
+        let str1: string, str2: string;
+
+        if (arr.length < 8) {
+            for (let i = arr.length; i < 8; i++) {
+                arr.unshift('0');
+            }
+        }
+        str1 = arr.slice(0, 5).join('');
+        str2 = arr.slice(5, 8).join('');
+
+        return (
+            <View className={styles.indicatorCounter}>
+                <View className={styles.indicatorCounterBlock}>
+                    <Text>{str1}</Text>
+                    <Text>.</Text>
+                    <Text className={styles.threeNumber}>{str2}</Text>
+                </View>
+                <View className={styles.meterCube}>
+                    <Text>м</Text>
+                    <Text className={styles.cube}>3</Text>
+                </View>
+            </View>
+        );
+    }
 
     function viewImpuls(multiplier: string): object
     {
@@ -61,17 +95,7 @@ export default () => {
         <View>
             <Text className={styles.title}>{counter.textIndicatorCounter}</Text>
             <Text>1:</Text>
-            <View className={styles.indicatorCounter}>
-                <View className={styles.indicatorCounterBlock}>
-                    <Text>{viewCounter[0]}</Text>
-                    <Text>.</Text>
-                    <Text className={styles.threeNumber}>{viewCounter[1]}</Text>
-                </View>
-                <View className={styles.meterCube}>
-                    <Text>м</Text>
-                    <Text className={styles.cube}>3</Text>
-                </View>
-            </View>
+            { viewCounter(counter1, multiplier1) }
             <Text className={styles.title}>{counter.textSettingCounter}</Text>
             <Text>1:</Text>
             <RadioGroup onChange={changeRadio1} options={[]} className={styles.radioGroup}>
