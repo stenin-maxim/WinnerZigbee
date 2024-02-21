@@ -74,6 +74,10 @@ export function Home() {
             }
         }
 
+        if (arr.length > 8) {
+            arr.splice(0, 1);
+        }
+
         arr.splice(-3, 0, '.');
 
         return arr.join('');

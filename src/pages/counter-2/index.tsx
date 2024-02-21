@@ -46,8 +46,8 @@ export default () => {
                 arr.unshift('0');
             }
         }
-        str1 = arr.slice(0, 5).join('');
-        str2 = arr.slice(5, 8).join('');
+        str1 = arr.slice(-8, -3).join('');
+        str2 = arr.slice(-3).join('');
 
         return (
             <View className={styles.indicatorCounter}>
