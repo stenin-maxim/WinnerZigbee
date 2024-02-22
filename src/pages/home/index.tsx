@@ -325,7 +325,7 @@ export function Home() {
                     <View>
                         <Text>{viewCounter(counter1, multiplier1)}</Text>
                         <View className={styles.meterCube}>
-                            <Text>м</Text>
+                            <Text>m</Text>
                             <Text className={styles.cube}>3</Text>
                         </View>
                     </View>
@@ -339,7 +339,7 @@ export function Home() {
                     <View>
                         <Text>{viewCounter(counter2, multiplier2)}</Text>
                         <View className={styles.meterCube}>
-                            <Text>м</Text>
+                            <Text>m</Text>
                             <Text className={styles.cube}>3</Text>
                         </View>
                     </View>
