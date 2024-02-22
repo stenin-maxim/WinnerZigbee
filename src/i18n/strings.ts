@@ -275,7 +275,7 @@ export default {
         text_impuls_10_liter: '1 impulso per 10 litri di acqua',
         text_save: 'Mantenere',
     },
-    sp: {
+    es: {
         // home
         device: '¡El dispositivo no está en línea!',
         battery: 'Carga de la batería',
@@ -367,7 +367,7 @@ export default {
         text_impuls_10_liter: "1 impulsion par 10 litres d'eau",
         text_save: 'Enregistrer',
     },
-    bu: {
+    bg: {
         // home
         device: 'Устройството е офлайн!',
         battery: 'Батерия',
