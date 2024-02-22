@@ -39,10 +39,10 @@
 .button {
     display: flex;
     flex-direction: column;
-    height: 70px;
+    height: 80px;
+    width: 90px;
     background-color: transparent;
     justify-content: center;
-    width: 80px;
     padding: 0px;
     color: @colorDeepSkyBlue;
 }
@@ -123,11 +123,14 @@
 }
 
 .textButton {
-    font-size: 13px;
+    font-size: 14px;
     position: relative;
     bottom: 7px;
     font-weight: 500;
     color: @colorBlack;
+    text-overflow: ellipsis; /* Добавляем многоточие */
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow: hidden; /* Обрезаем все, что не помещается в область */
 }
 
 .textRight {
@@ -149,7 +152,7 @@
     margin: 15px;
     padding: 10px 0 0;
     position: absolute;
-    bottom: 75px;
+    bottom: 85px;
     right: 0;
     left: 0;
     display: flex;
@@ -219,6 +222,33 @@
     }
 }
 
+.counters {
+    background-color: @colorWhite;
+    margin: 10px 10px 0px 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.displayFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.meterCube {
+    padding-left: 5px;
+    display: inline-block;
+}
+
+.cube {
+    font-size: 12px;
+    position: relative;
+    bottom: 7px;
+}
+
+.counterText{
+    padding: 0 5px;
+}
 
 
 

@@ -1,7 +1,7 @@
 /**
  * MiniKit
  *
- * @version 3.1.0
+ * @version 3.2.2
  */
 declare namespace ty {
   /**

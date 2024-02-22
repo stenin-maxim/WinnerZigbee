@@ -1,7 +1,7 @@
 /**
  * BaseKit
  *
- * @version 3.3.13
+ * @version 3.4.1
  */
 declare namespace ty {
   /**
@@ -1530,6 +1530,9 @@ declare namespace ty {
 
     /** 居顶展示 */
     top = "top",
+
+    /** 居中展示 */
+    center = "center",
   }
 
   export type Profile = {

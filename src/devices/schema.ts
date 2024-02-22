@@ -40,22 +40,26 @@ export const defaultSchema = [
   {
     "attr": 1216,
     "canTrigger": true,
-    "code": "water_total",
+    "code": "fault",
     "defaultRecommend": false,
     "editPermission": true,
     "executable": false,
     "extContent": "",
-    "iconname": "icon-dp_mode",
-    "id": 6,
+    "iconname": "icon-baojing",
+    "id": 4,
     "mode": "ro",
-    "name": "Pulse counter",
+    "name": "故障上报",
     "property": {
-      "unit": "Impuls",
-      "min": 0,
-      "max": 2147483647,
-      "scale": 0,
-      "step": 1,
-      "type": "value"
+      "label": [
+        "low_battery",
+        "fault",
+        "lack_water",
+        "sensor_fault",
+        "motor_fault",
+        "low_temp"
+      ],
+      "type": "bitmap",
+      "maxlen": 6
     },
     "type": "obj"
   },
@@ -70,11 +74,11 @@ export const defaultSchema = [
     "iconname": "icon-dp_light2",
     "id": 10,
     "mode": "rw",
-    "name": "Multiplier",
+    "name": "Multiplier 1",
     "property": {
       "range": [
-        "0",
-        "1"
+        "1",
+        "10"
       ],
       "type": "enum"
     },
@@ -91,9 +95,52 @@ export const defaultSchema = [
     "iconname": "icon-dp_time2",
     "id": 11,
     "mode": "rw",
-    "name": "Limit counter",
+    "name": "Counter 1",
     "property": {
       "unit": "Impuls",
+      "min": 0,
+      "max": 2147483647,
+      "scale": 0,
+      "step": 1,
+      "type": "value"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 1216,
+    "canTrigger": true,
+    "code": "smart_weather",
+    "defaultRecommend": false,
+    "editPermission": true,
+    "executable": false,
+    "extContent": "",
+    "iconname": "icon-dp_smart",
+    "id": 13,
+    "mode": "rw",
+    "name": "Multiplier 2",
+    "property": {
+      "range": [
+        "1",
+        "10"
+      ],
+      "type": "enum"
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 1248,
+    "canTrigger": false,
+    "code": "minihum_set",
+    "defaultRecommend": false,
+    "editPermission": true,
+    "executable": false,
+    "extContent": "",
+    "iconname": "icon-setting",
+    "id": 21,
+    "mode": "rw",
+    "name": "Counter 2",
+    "property": {
+      "unit": "",
       "min": 0,
       "max": 2147483647,
       "scale": 0,
