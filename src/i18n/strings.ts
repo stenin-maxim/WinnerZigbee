@@ -137,7 +137,7 @@ export default {
         text_impuls_10_liter: '1 импульс на 10 литров воды',
         text_save: 'Сохранить',
     },
-    ar: {
+    ar: { // Арабский
         // home
         device: 'الجهاز غير متصل!',
         battery: 'شحن البطارية',
@@ -183,7 +183,7 @@ export default {
         text_impuls_10_liter: '1 نبضة لكل 10 لترات من الماء',
         text_save: 'حفظ',
     },
-    de: {
+    de: { // Немецкий
         // home
         device: 'Das Gerät ist offline!',
         battery: 'Akkuladung',
@@ -229,7 +229,7 @@ export default {
         text_impuls_10_liter: '1 impuls pro 10 Liter Wasser',
         text_save: 'Speichern',
     },
-    it: {
+    it: { // Итальянский
         // home
         device: 'Il dispositivo è offline!',
         battery: 'Carica della batteria',
@@ -275,7 +275,7 @@ export default {
         text_impuls_10_liter: '1 impulso per 10 litri di acqua',
         text_save: 'Mantenere',
     },
-    es: {
+    es: { // Испанский
         // home
         device: '¡El dispositivo no está en línea!',
         battery: 'Carga de la batería',
@@ -321,7 +321,7 @@ export default {
         text_impuls_10_liter: '1 impulso por 10 litros de agua',
         text_save: 'Guardar',
     },
-    fr: {
+    fr: { // Французский
         // home
         device: "L'appareil n'est pas en ligne!",
         battery: 'Charge de la batterie',
@@ -367,7 +367,7 @@ export default {
         text_impuls_10_liter: "1 impulsion par 10 litres d'eau",
         text_save: 'Enregistrer',
     },
-    bg: {
+    bg: { // Болгарский
         // home
         device: 'Устройството е офлайн!',
         battery: 'Батерия',
@@ -413,4 +413,96 @@ export default {
         text_impuls_10_liter: '1 импулс на 10 литра вода',
         text_save: 'Запазя',
     },
+    fi: { // Финский
+        // home
+        device: 'Laite on pois päältä!',
+        battery: 'Akun',
+        charging: 'Verkkovirta',
+        text_alarm: 'Vuoto on havaittu!',
+        notify: 'Ilmoitus',
+        low_battery_or_signal: 'Akun tai anturin menetys vähissä!',
+        manual_control: 'Nosturia käytetään manuaalisesti',
+        disable_alarm: 'Poista kaatuminen käytöstä',
+        switch_on: 'On auki',
+        switch_off: 'Suljettu',
+        text_notify_cleaning: 'Lattianpuhdistustila on päällä!',
+        text_cleaning_mode_on: 'Puhdistustila on päällä 60 minuuttia.',
+        text_cleaning_mode_off: 'Puhdistustila on pois päältä.',
+        text_cleaning: 'Puhdistus',
+        sensors: 'Anturi',
+        settings: 'Asetus',
+        counters: 'Laskuri',
+        manual: 'Opas',
+        // sensors
+        number_of_sensors: 'Antureiden lukumäärä:',
+        add: 'Lisätä',
+        add_sensors: 'Antureiden lisääminen',
+        text_delete_sensor: 'Poista anturi',
+        text_replace_sensor: 'Vaihda anturi',
+        text_name_sensor: 'Anturin Nimi:',
+        text_settings: 'Asetus:',
+        text_content_delete: 'Haluatko varmasti poistaa anturin?',
+        text_content_replace: 'Haluatko varmasti vaihtaa anturin?',
+        text_content_alarm: 'Haluatko varmasti kuvata onnettomuuden?',
+        cancel: 'Peruuttaa',
+        confirm: 'Vahvistaa',
+        text_ignore: 'Ohita anturin kaatuminen',
+        text_security_mode: 'Korkea suojaustila',
+        text_low_charge: 'Kun akku on vähissä, sammuta hana',
+        // instruction
+        instruction: 'Käyttöohjeet',
+        // counters
+        counter: 'Laskuri',
+        text_indicator_counter: 'Laskurin ilmaisin',
+        text_setting_counter: 'Laskurin Asetukset',
+        text_impuls_liter: '1 pulssi / 1 litra vettä',
+        text_impuls_10_liter: '1 pulssi 10 litraa vettä kohti',
+        text_save: 'Tallentaa',
+    },
+    tr: { // Турецкий
+        // home
+        device: 'Cihaz çevrimdışıyken!',
+        battery: 'Pil şarjı',
+        charging: 'Şebeke gücü',
+        text_alarm: 'Sızıntı tespit edildi!',
+        notify: 'Bildirme',
+        low_battery_or_signal: 'Düşük pil veya sensör kaybı!',
+        manual_control: 'Vinç manuel kontrol altındadır',
+        disable_alarm: 'Kazayı devre dışı bırak',
+        switch_on: 'Açık',
+        switch_off: 'Kapalı',
+        text_notify_cleaning: 'Zemin temizleme modu açık!',
+        text_cleaning_mode_on: 'Temizleme modu 60 dakika boyunca açıktır.',
+        text_cleaning_mode_off: 'Temizlik modu kapalı.',
+        text_cleaning: 'Temizlik',
+        sensors: 'Vericiler',
+        settings: 'Ayarlar',
+        counters: 'Sayaçlar',
+        manual: 'Yönetim',
+        // sensors
+        number_of_sensors: 'Sensör sayısı:',
+        add: 'Eklemek',
+        add_sensors: 'Sensör ekleme',
+        text_delete_sensor: 'Sensörü kaldır',
+        text_replace_sensor: 'Sensörü değiştir',
+        text_name_sensor: 'Sensör adı:',
+        text_settings: 'Ayarlar:',
+        text_content_delete: 'Sensörü çıkarmak istediğinizden emin misiniz?',
+        text_content_replace: 'Sensörü değiştirmek istediğinizden emin misiniz?',
+        text_content_alarm: 'Kazayı kaldırmak istediğinizden emin misiniz?',
+        cancel: 'İptal',
+        confirm: 'Doğrulamak',
+        text_ignore: 'Sensördeki kazayı görmezden gelin',
+        text_security_mode: 'Gelişmiş güvenlik modu',
+        text_low_charge: 'Düşük şarj durumunda - musluğu kapatın',
+        // instruction
+        instruction: 'Kullanıcı talimatı',
+        // counters
+        counter: 'Sayaç',
+        text_indicator_counter: 'Sayaç kaydı',
+        text_setting_counter: 'Sayaç ayarları',
+        text_impuls_liter: '1 litre suya 1 darbe',
+        text_impuls_10_liter: '10 litre suya 1 darbe',
+        text_save: 'Kaydetmek',
+    }
 };
