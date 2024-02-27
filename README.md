@@ -1,6 +1,7 @@
 Author: Стенин Максим
 
 Contacts:
+  Site: https://stenin.site
   Telegram: @SteninMaxim
   email: stenin.dev@gmail.com
 
