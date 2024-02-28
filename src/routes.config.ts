@@ -29,7 +29,12 @@ export const routes: Routes = [
     {
         route: '/journal',
         path: '/pages/journal/index',
-        name: 'History',
+        name: 'Journal',
+    },
+    {
+        route: '/info',
+        path: '/pages/info/index',
+        name: 'Info',
     },
 ];
 

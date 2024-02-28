@@ -1,5 +1,5 @@
 export default {
-    en: {
+    en: { // Английский
         // home
         device: 'The device is offline!',
         battery: 'Battery charge',
@@ -52,8 +52,10 @@ export default {
         alarm_off: 'Off',
         condition_crane: 'The condition of the crane:',
         no_events: 'There are no events',
+        // info
+        info: 'Info',
     },
-    zh: {
+    zh: { // Китайский упрощенный
         // home
         device: '設備離線！',
         battery: '电池',
@@ -106,8 +108,10 @@ export default {
         alarm_off: '已关闭',
         condition_crane: '起重机的状况:',
         no_events: '没有活动',
+        // info
+        info: '资料',
     },
-    ru: {
+    ru: { // Русский
         // home
         device: 'Устройство не в сети!',
         battery: 'Заряд батареи',
@@ -160,6 +164,8 @@ export default {
         alarm_off: 'Выключена',
         condition_crane: 'Состояние крана:',
         no_events: 'Нет событий',
+        // info
+        info: 'Инфо',
     },
     ar: { // Арабский
         // home
@@ -214,6 +220,8 @@ export default {
         alarm_off: 'إيقاف',
         condition_crane: 'حالة الرافعة:',
         no_events: 'لا توجد أحداث',
+        // info
+        info: 'معلومات',
     },
     de: { // Немецкий
         // home
@@ -268,6 +276,8 @@ export default {
         alarm_off: 'Abgeschaltet',
         condition_crane: 'Zustand des Krans:',
         no_events: 'Keine Ereignisse',
+        // info
+        info: 'Info',
     },
     it: { // Итальянский
         // home
@@ -322,6 +332,8 @@ export default {
         alarm_off: 'Spento',
         condition_crane: 'Stato della gru:',
         no_events: 'Nessun evento',
+        // info
+        info: 'Info',
     },
     es: { // Испанский
         // home
@@ -376,6 +388,8 @@ export default {
         alarm_off: 'Apagado',
         condition_crane: 'Estado de la grúa:',
         no_events: 'Sin eventos',
+        // info
+        info: 'Info',
     },
     fr: { // Французский
         // home
@@ -538,6 +552,8 @@ export default {
         alarm_off: 'Sammuttaa',
         condition_crane: 'Nosturin kunto:',
         no_events: 'Ei ole tapahtumia',
+        // info
+        info: 'Info',
     },
     tr: { // Турецкий
         // home
@@ -592,5 +608,7 @@ export default {
         alarm_off: 'Kapalı',
         condition_crane: 'Vincin durumu:',
         no_events: 'Olay yok',
+        // info
+        info: 'Bilgi',
     }
 };
