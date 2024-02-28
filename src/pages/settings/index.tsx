@@ -24,12 +24,12 @@ export default () => {
                 <Text className={styles.linkText}>{textСounter2}</Text>
                 <Icon type="icon-right" size={18}></Icon>
             </View>
-            <View className={styles.info} 
+            {/* <View className={styles.info} 
                 onClick={() => navigateTo({ url: '/pages/info/index'})}
             >
                 <Icon type="icon-a-exclamationmarkbubblefill" size={40} color="#00BFFF"></Icon>
                 <Text className={styles.textInfo}>Info</Text>
-            </View>
+            </View> */}
         </View>
     );
 

@@ -8,9 +8,6 @@ export default () => {
             <View className={styles.info}>
                 <Text>Author application: Стенин Максим</Text>
             </View>
-            <View className={styles.info}>
-                <Text>Site: https://stenin.site</Text>
-            </View>
         </View>
     );
 
