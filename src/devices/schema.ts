@@ -234,6 +234,23 @@ export const defaultSchema = [
   {
     "attr": 0,
     "canTrigger": true,
+    "code": "journal",
+    "defaultRecommend": false,
+    "editPermission": false,
+    "executable": true,
+    "extContent": "",
+    "id": 105,
+    "mode": "rw",
+    "name": "Journal",
+    "property": {
+      "type": "string",
+      "maxlen": 255
+    },
+    "type": "obj"
+  },
+  {
+    "attr": 0,
+    "canTrigger": true,
     "code": "channel_2",
     "defaultRecommend": false,
     "editPermission": false,

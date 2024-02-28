@@ -1,5 +1,5 @@
 export default {
-    en: {
+    en: { // Английский
         // home
         device: 'The device is offline!',
         battery: 'Battery charge',
@@ -44,8 +44,18 @@ export default {
         text_impuls_liter: '1 pulse per 1 liter of water',
         text_impuls_10_liter: '1 pulse per 10 liters of water',
         text_save: 'Save',
+        // journal
+        journal: 'Journal',
+        journal_events: 'Event Log:',
+        alarm: 'Alarm:',
+        alarm_on: 'On',
+        alarm_off: 'Off',
+        condition_crane: 'The condition of the crane:',
+        no_events: 'There are no events',
+        // info
+        info: 'Info',
     },
-    zh: {
+    zh: { // Китайский упрощенный
         // home
         device: '設備離線！',
         battery: '电池',
@@ -90,8 +100,18 @@ export default {
         text_impuls_liter: '每 1 升水 1 个脉冲',
         text_impuls_10_liter: '每 10 升水 1 次脉冲',
         text_save: '节省',
+        // journal
+        journal: '起重机的状况',
+        journal_events: '事件日志:',
+        alarm: '崩溃:',
+        alarm_on: '已启用',
+        alarm_off: '已关闭',
+        condition_crane: '起重机的状况:',
+        no_events: '没有活动',
+        // info
+        info: '资料',
     },
-    ru: {
+    ru: { // Русский
         // home
         device: 'Устройство не в сети!',
         battery: 'Заряд батареи',
@@ -136,6 +156,16 @@ export default {
         text_impuls_liter: '1 импульс на 1 литр воды',
         text_impuls_10_liter: '1 импульс на 10 литров воды',
         text_save: 'Сохранить',
+        // journal
+        journal: 'Журнал',
+        journal_events: 'Журнал событий:',
+        alarm: 'Авария:',
+        alarm_on: 'Включена',
+        alarm_off: 'Выключена',
+        condition_crane: 'Состояние крана:',
+        no_events: 'Нет событий',
+        // info
+        info: 'Инфо',
     },
     ar: { // Арабский
         // home
@@ -182,6 +212,16 @@ export default {
         text_impuls_liter: '1 نبضة لكل 1 لتر ماء',
         text_impuls_10_liter: '1 نبضة لكل 10 لترات من الماء',
         text_save: 'حفظ',
+        // journal
+        journal: 'مجلة',
+        journal_events: 'سجل الأحداث:',
+        alarm: 'تحطم:',
+        alarm_on: 'ممكن',
+        alarm_off: 'إيقاف',
+        condition_crane: 'حالة الرافعة:',
+        no_events: 'لا توجد أحداث',
+        // info
+        info: 'معلومات',
     },
     de: { // Немецкий
         // home
@@ -228,6 +268,16 @@ export default {
         text_impuls_liter: '1 impuls pro 1 Liter Wasser',
         text_impuls_10_liter: '1 impuls pro 10 Liter Wasser',
         text_save: 'Speichern',
+        // journal
+        journal: 'Zeitschrift',
+        journal_events: 'Ereignisprotokoll:',
+        alarm: 'Unfall:',
+        alarm_on: 'Eingeschaltet',
+        alarm_off: 'Abgeschaltet',
+        condition_crane: 'Zustand des Krans:',
+        no_events: 'Keine Ereignisse',
+        // info
+        info: 'Info',
     },
     it: { // Итальянский
         // home
@@ -274,6 +324,16 @@ export default {
         text_impuls_liter: "1 impulso per 1 litro d'acqua",
         text_impuls_10_liter: '1 impulso per 10 litri di acqua',
         text_save: 'Mantenere',
+        // journal
+        journal: 'Rivista',
+        journal_events: 'Registro eventi:',
+        alarm: 'Incidente:',
+        alarm_on: 'Incluso',
+        alarm_off: 'Spento',
+        condition_crane: 'Stato della gru:',
+        no_events: 'Nessun evento',
+        // info
+        info: 'Info',
     },
     es: { // Испанский
         // home
@@ -320,6 +380,16 @@ export default {
         text_impuls_liter: '1 impulso por 1 litro de agua',
         text_impuls_10_liter: '1 impulso por 10 litros de agua',
         text_save: 'Guardar',
+        // journal
+        journal: 'Registro',
+        journal_events: 'Registro de eventos:',
+        alarm: 'Accidente:',
+        alarm_on: 'Incorporado',
+        alarm_off: 'Apagado',
+        condition_crane: 'Estado de la grúa:',
+        no_events: 'Sin eventos',
+        // info
+        info: 'Info',
     },
     fr: { // Французский
         // home
@@ -366,6 +436,14 @@ export default {
         text_impuls_liter: "1 impulsion par 1 litre d'eau",
         text_impuls_10_liter: "1 impulsion par 10 litres d'eau",
         text_save: 'Enregistrer',
+        // journal
+        journal: 'Journal',
+        journal_events: 'Journal des événements:',
+        alarm: 'Accident:',
+        alarm_on: 'Inclu',
+        alarm_off: 'Interrompu',
+        condition_crane: 'État du robinet:',
+        no_events: 'Aucun événement',
     },
     bg: { // Болгарский
         // home
@@ -412,6 +490,14 @@ export default {
         text_impuls_liter: '1 импулс на 1 литър вода',
         text_impuls_10_liter: '1 импулс на 10 литра вода',
         text_save: 'Запазя',
+        // journal
+        journal: 'Списание',
+        journal_events: 'Дневник на събитията:',
+        alarm: 'Катастрофа:',
+        alarm_on: 'Включа',
+        alarm_off: 'Изключен',
+        condition_crane: 'Състояние на крана:',
+        no_events: 'Няма събития',
     },
     fi: { // Финский
         // home
@@ -458,6 +544,16 @@ export default {
         text_impuls_liter: '1 pulssi / 1 litra vettä',
         text_impuls_10_liter: '1 pulssi 10 litraa vettä kohti',
         text_save: 'Tallentaa',
+        // journal
+        journal: 'Lehti',
+        journal_events: 'tapahtumaloki:',
+        alarm: 'Kaatuu:',
+        alarm_on: 'Käyttöön',
+        alarm_off: 'Sammuttaa',
+        condition_crane: 'Nosturin kunto:',
+        no_events: 'Ei ole tapahtumia',
+        // info
+        info: 'Info',
     },
     tr: { // Турецкий
         // home
@@ -504,5 +600,15 @@ export default {
         text_impuls_liter: '1 litre suya 1 darbe',
         text_impuls_10_liter: '10 litre suya 1 darbe',
         text_save: 'Kaydetmek',
+        // journal
+        journal: 'Dergi',
+        journal_events: 'Olay günlüğü:',
+        alarm: 'Kaza:',
+        alarm_on: 'Etkinleştirilmiş',
+        alarm_off: 'Kapalı',
+        condition_crane: 'Vincin durumu:',
+        no_events: 'Olay yok',
+        // info
+        info: 'Bilgi',
     }
 };
