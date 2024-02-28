@@ -42,7 +42,8 @@ export function Home() {
         textConfirm: string = Strings.getLang('confirm'),
         textContentAlarm: string = Strings.getLang('text_content_alarm'),
         textSettings: string = Strings.getLang('settings'),
-        textCounter: string = Strings.getLang('counter');
+        textCounter: string = Strings.getLang('counter'),
+        textJournal: string = Strings.getLang('journal');
 
     if (arrSensors.length !== undefined) {
         arrSensors.map((item) => {
@@ -371,6 +372,13 @@ export function Home() {
                     >
                         { colorIconCleaning() }
                         <Text className={styles.textButton}>{textButtonCleaning}</Text>
+                    </Button>
+                    <Button
+                        className={styles.button}
+                        onClick={() => navigateTo({ url: '/pages/journal/index'})}
+                    >
+                        <Icon type="icon-a-scrollfill" size={40}/>
+                        <Text className={styles.textButton}>{textJournal}</Text>
                     </Button>
                     <Button
                         className={styles.button}
