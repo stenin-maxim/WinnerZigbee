@@ -7,6 +7,7 @@ import Strings from '../../i18n';
 
 export default () => {
     const ACTIONS: any = useActions();
+    let limit = (useDevInfo().productId === "yltivvzb") ? 1 : 2; 
     let journal = useProps((props): Array<object> => {
         return (props.journal === null || props.journal === '') ? [] : JSON.parse(props.journal)
     });
@@ -23,36 +24,43 @@ export default () => {
         devId: useDevInfo().devId,
         dpIds: '1,101',
         offset: 1,
-        limit: 7,
+        limit: limit,
         sortType: 'DESC',
       })
     .then((response) => {
         let str = JSON.stringify(response.dps);
+        let arr = [];
+
+        response.dps.forEach((item) => {
+            arr.push([item.dpId, item.timeStr, item.value]);
+        });
+        
+        str = JSON.stringify(arr);
         ACTIONS.journal.set(str);
     })
     .catch();
 
-    function showHistory()
+    function showHistory(): object
     {
         let result: object|string = textNoEvents;
 
         if (journal.length) {
             return journal.map((item: any, index: number) => {
-                if (item.dpId === 1) {
+                if (item[0] === 1) {
                     result = <React.Fragment>
                         <Text>{textConditinalCrane}</Text>
-                        <Text className={styles.text}>{ (item.value === 'true') ? textSwitchOn : textSwitchOff }</Text>
+                        <Text className={styles.text}>{ (item[2] === 'true') ? textSwitchOn : textSwitchOff }</Text>
                     </React.Fragment>
-                } else if (item.dpId === 101) {
+                } else if (item[0] === 101) {
                     result = <React.Fragment>
                         <Text>{textAlarm}</Text>
-                        <Text className={styles.text}>{ (item.value === 'true') ? textAlarmOn : textAlarmOff }</Text>
+                        <Text className={styles.text}>{ (item[2] === 'true') ? textAlarmOn : textAlarmOff }</Text>
                     </React.Fragment>
                 }
 
                 return (
                     <View key={index} className={styles.journal}>
-                        <View className={styles.time}>{item.timeStr}</View>
+                        <View className={styles.time}>{item[1]}</View>
                         <View className={styles.state}>
                             {result}
                         </View>
@@ -70,6 +78,5 @@ export default () => {
             {showHistory()}
         </View>
     );
-
 }
 
