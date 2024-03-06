@@ -32,9 +32,9 @@ export default () => {
         let arr = [];
 
         response.dps.forEach((item) => {
-            let timeStr = item.timeStr.replace(/\W/g, '').replace(/\d\d$/, '');
+            let timeStamp = item.timeStamp;
             let value = (item.value === 'true') ? 1 : 0;
-            arr.push([item.dpId, timeStr, value]);
+            arr.push([item.dpId, timeStamp, value]);
         });
         
         str = JSON.stringify(arr);
@@ -42,15 +42,17 @@ export default () => {
     })
     .catch();
 
-    function converter(time: string)
+    function converter(timeStamp: number)
     {
-        let arr = time.split('');
-        arr.splice(4, 0, "-");
-        arr.splice(7, 0, "-");
-        arr.splice(10, 0, " ");
-        arr.splice(13, 0, ":");
+        let date = new Date(timeStamp * 1000);
+        let year = date.getFullYear(),
+            month = '0' + (date.getMonth() + 1),
+            day = '0' + date.getDate(),
+            hours = '0' + date.getHours(),
+            minutes = '0' + date.getMinutes(),
+            seconds = '0' + date.getSeconds();
 
-        return arr.join('');
+        return year + '-' + month.substr(-2) + '-' + day.substr(-2) + ' ' + hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
     }
 
     function showHistory(): object
@@ -73,7 +75,7 @@ export default () => {
 
                 return (
                     <View key={index} className={styles.journal}>
-                        <View className={styles.time}>{converter(item[1])}</View>
+                        <View className={styles.timeStamp}>{converter(item[1])}</View>
                         <View className={styles.state}>
                             {result}
                         </View>
