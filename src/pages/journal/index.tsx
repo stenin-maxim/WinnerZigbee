@@ -42,7 +42,7 @@ export default () => {
     })
     .catch();
 
-    function converter(timeStamp: number)
+    function converter(timeStamp: number): string
     {
         let date = new Date(timeStamp * 1000);
         let year = date.getFullYear(),
