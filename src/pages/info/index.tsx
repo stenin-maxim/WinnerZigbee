@@ -6,10 +6,9 @@ export default () => {
     return (
         <View className={styles.info}>
             <View className={styles.info}>
-                <Text>Author application: Стенин Максим</Text>
+                <Text>Author application: Стенин Максим (stenin.site)</Text>
             </View>
         </View>
     );
-
 }
 
