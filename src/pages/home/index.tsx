@@ -10,7 +10,8 @@ export function Home() {
     const alarm: boolean = useProps((props): boolean => Boolean(props.alarm));
     const craneCondition: boolean = useProps((props): boolean => Boolean(props.switch));
     const cleaning: boolean = useProps((props): boolean => Boolean(props.cleaning));
-    const maskManualControl = 0b00000000_10000000_00000000_00000000; // Если этот флаг стоит. Кран находится под ручным управлением
+    const maskManualControl: number = 0b00000000_10000000_00000000_00000000; // Если этот флаг стоит. Кран находится под ручным управлением
+    const disableCounter: number = 0b01000000_00000000_00000000_00000000; // Запрещает отрисовывать счетчики
     
     let sensor_1: number = useProps((props): number => Number(props.sensor_1));
     let battery: number = useProps((props): number => Number(props.battery));
@@ -19,6 +20,8 @@ export function Home() {
     let counter1: number = useProps((props): number => Number(props.countdown));
     let counter2: number = useProps((props): number => Number(props.minihum_set));
     let statusManualControl = Boolean(sensor_1 & maskManualControl);
+    let statusCounter1 = Boolean(counter1 & disableCounter); // если false то отрисовываем счетчик!!!
+    let statusCounter2 = Boolean(counter2 & disableCounter);
     let sensorsLeak = [];
     let sensorsSecurityMode = [];
     let arrSensors: Array<any> = sensors();
@@ -56,14 +59,65 @@ export function Home() {
         });
     }
 
+    function counter(counter: number, multiplier: string, numb: string): object
+    {
+        return (
+            <View className={styles.displayFlex}>
+                <View className={styles.displayFlex}>
+                    <Icon type="icon-timer" color="#00BFFF" size={30}/>
+                    <Text className={styles.counterText}>{textCounter}</Text>
+                    <Text>{numb}</Text>
+                </View>
+                <View>
+                    <Text>{indicatorCounter(counter, multiplier)}</Text>
+                    <View className={styles.meterCube}>
+                        <Text>m</Text>
+                        <Text className={styles.cube}>3</Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+
     /**
-     * Параметры счетчика
+     * Вывести счетчики
+     * 
+     * @returns object|boolean
+     */
+    function viewCounter(): object|boolean
+    {
+        if (statusCounter1 === false && statusCounter2 === false) {
+            return (
+                <View className={styles.counters}>
+                    {counter(counter1, multiplier1, '1')}
+                    {counter(counter2, multiplier2, '2')}
+                </View>
+            )
+        } else if (statusCounter1 === false) {
+            return (
+                <View className={styles.counters}>
+                    {counter(counter1, multiplier1, '1')}
+                </View>
+            )
+        } else if (statusCounter2 === false) {
+            return (
+                <View className={styles.counters}>
+                    {counter(counter2, multiplier2, '2')}
+                </View>
+            )
+        }
+
+        return false;
+    }
+
+    /**
+     * Показатель счетчика
      * 
      * @param counter - показатель счетчика
      * @param multiplier - импульс счетчика
      * @returns 
      */
-    function viewCounter(counter: number, multiplier: string): string
+    function indicatorCounter(counter: number, multiplier: string): string
     {
         let counterMultiplier = counter * Number(multiplier);
         let arr: string[] = String(counterMultiplier).split('');
@@ -276,6 +330,11 @@ export function Home() {
         }
     }
 
+    /**
+     * Отк/закр крана
+     * 
+     * @returns object
+     */
     function blockCraneCondition(): object
     {
         if (craneCondition) {
@@ -310,41 +369,29 @@ export function Home() {
         )
     }
 
+    function buttonSettings(): object|boolean
+    {
+        if (statusCounter1 === false || statusCounter2 === false) {
+            return (
+                <Button
+                    className={styles.button}
+                    onClick={() => navigateTo({ url: '/pages/settings/index'})}
+                >
+                    <Icon type="icon-a-wrenchandscrewdriverfill" size={40}/>
+                    <Text className={styles.textButton}>{textSettings}</Text>
+                </Button> 
+            )
+        }
+
+        return false;
+    }
+
     return (
         <View className={styles.view}>
             <View className={styles.logo}>
                 <Text className={styles.logoText}>{useDevInfo().name}</Text>
             </View>
-            <View className={styles.counters}>
-                <View className={styles.displayFlex}>
-                    <View className={styles.displayFlex}>
-                        <Icon type="icon-timer" color="#00BFFF" size={30}/>
-                        <Text className={styles.counterText}>{textCounter}</Text>
-                        <Text>1</Text>
-                    </View>
-                    <View>
-                        <Text>{viewCounter(counter1, multiplier1)}</Text>
-                        <View className={styles.meterCube}>
-                            <Text>m</Text>
-                            <Text className={styles.cube}>3</Text>
-                        </View>
-                    </View>
-                </View>
-                <View className={styles.displayFlex}>
-                    <View className={styles.displayFlex}>
-                        <Icon type="icon-timer" color="#00BFFF" size={30}/>
-                        <Text className={styles.counterText}>{textCounter}</Text>
-                        <Text>2</Text>
-                    </View>
-                    <View>
-                        <Text>{viewCounter(counter2, multiplier2)}</Text>
-                        <View className={styles.meterCube}>
-                            <Text>m</Text>
-                            <Text className={styles.cube}>3</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
+            {viewCounter()}
             <View>
                 {notifyDevice()}
                 {notifyLeak()}
@@ -386,13 +433,7 @@ export function Home() {
                         <Icon type="icon-a-dotradiowavesleftandright" size={40}/>
                         <Text className={styles.textButton}>{textSensors}</Text>
                     </Button>
-                    <Button
-                        className={styles.button}
-                        onClick={() => navigateTo({ url: '/pages/settings/index'})}
-                    >
-                        <Icon type="icon-a-wrenchandscrewdriverfill" size={40}/>
-                        <Text className={styles.textButton}>{textSettings}</Text>
-                    </Button>
+                    {buttonSettings()}
                 </View>
             </View>
         </View>
