@@ -7,7 +7,7 @@ import Strings from '../../i18n';
 
 export default () => {
     const ACTIONS: any = useActions();
-    let limit = (useDevInfo().productId === "yltivvzb") ? 2 : 3; 
+    let limit = (useDevInfo().productId === "yltivvzb") ? 2 : 7;
     let journal = useProps((props): Array<object> => {
         return (props.journal == null || props.journal == '') ? [] : JSON.parse(props.journal)
     });
