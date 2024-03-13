@@ -6,8 +6,9 @@ import * as counter from '@/components/counter';
 
 export default () => {
     const ACTIONS: any = useActions();
+    const mask: number = 0b00000111_11111111_11111111_11111111; // сброс лишних битов 
     let multiplier1: string = useProps((props): string => String(props.weather_delay));
-    let counter1: number = useProps((props): number => Number(props.countdown));
+    let counter1: number = useProps((props): number => Number(props.countdown) & mask);
     let [valueCounter1, setCounter1] = React.useState('');
     let viewCounter = counter.viewCounter(counter1, multiplier1);
 

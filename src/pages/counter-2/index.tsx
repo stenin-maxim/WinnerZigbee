@@ -6,8 +6,9 @@ import * as counter from '@/components/counter';
 
 export default () => {
     const ACTIONS: any = useActions();
+    const mask: number = 0b00000111_11111111_11111111_11111111;
     let multiplier2: string = useProps((props): string => String(props.smart_weather));
-    let counter2: number = useProps((props): number => Number(props.minihum_set));
+    let counter2: number = useProps((props): number => Number(props.minihum_set) & mask);
     let [valueCounter2, setCounter2] = React.useState('');
     let viewCounter = counter.viewCounter(counter2, multiplier2);
 
