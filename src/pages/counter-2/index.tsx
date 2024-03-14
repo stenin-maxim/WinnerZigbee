@@ -6,26 +6,25 @@ import * as counter from '@/components/counter';
 
 export default () => {
     const ACTIONS: any = useActions();
-    const mask: number = 0b00000111_11111111_11111111_11111111;
     let multiplier2: string = useProps((props): string => String(props.smart_weather));
-    let counter2: number = useProps((props): number => Number(props.minihum_set) & mask);
-    let [valueCounter2, setCounter2] = React.useState('');
+    let counter2: number = useProps((props): number => Number(props.minihum_set) & counter.mask);
+    let [valueCounter, setCounter] = React.useState('');
     let viewCounter = counter.viewCounter(counter2, multiplier2);
 
-    function handleInput2(event: any): void
+    function handleInput(event: any): void
     {
-        setCounter2(counter.addPoint(event.value));
+        setCounter(counter.addPoint(event.value));
     }
 
     function saveCounter(): void|false
     {
-        if (!valueCounter2) {
+        if (!valueCounter) {
             return false;
         }
 
-        let value = counter.getCounter(valueCounter2, multiplier2);
+        let value = counter.getCounter(valueCounter, multiplier2);
 
-        setCounter2('');
+        setCounter('');
         ACTIONS.minihum_set.set(value);
     }
 
@@ -84,11 +83,11 @@ export default () => {
             </RadioGroup>
             <View className={styles.editCounter}>
                 <Input type="digit"
-                    value={valueCounter2}
+                    value={valueCounter}
                     maxLength={9}
                     placeholder="00000.000"
                     className={styles.inputNumber}
-                    onInput={handleInput2}
+                    onInput={handleInput}
                 ></Input>
                 <Button className={styles.buttonSave} onClick={ () => {
                     saveCounter();
