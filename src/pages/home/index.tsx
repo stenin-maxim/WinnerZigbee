@@ -321,11 +321,11 @@ export function Home() {
     }
 
     /**
-     * При аварии или когда установленно ручное управление краном в состоянии закрыт, команда на вкл/выкл крана не отправлается
+     * При аварии команда на вкл/выкл крана не отправлается
      */
     function clickCraneCondition(): void
     {
-        if (!(alarm || (statusManualControl && !craneCondition))) {
+        if (!alarm) {
             actions.switch.toggle();
         }
     }
