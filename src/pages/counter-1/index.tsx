@@ -17,8 +17,12 @@ export default () => {
         setCounter1(counter.addPoint(event.value));
     }
 
-    function saveCounter(): void
+    function saveCounter(): void|false
     {
+        if (!valueCounter1) {
+            return false;
+        }
+
         let value = counter.getCounter(valueCounter1, multiplier1);
 
         setCounter1('');
