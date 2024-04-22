@@ -6,7 +6,10 @@ export default () => {
     return (
         <View className={styles.info}>
             <View className={styles.info}>
-                <Text>Author application: Стенин Максим (stenin.site)</Text>
+                <Text>The author of the application: Stenin Maxim (stenin.site)</Text>
+            </View>
+            <View className={styles.infoText}>
+                <Text>The application has been translated into: Russian, English, Chinese, Arabic, German, Italian, Spanish, French, Bulgarian, Finnish, Turkish.</Text>
             </View>
             <View className={styles.info}>
                 <Text>Year: 2023</Text>
