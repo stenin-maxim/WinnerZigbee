@@ -45,7 +45,8 @@ export default () => {
         textConfirm: string = Strings.getLang('confirm'),
         textIgnore: string = Strings.getLang('text_ignore'),
         textSecurityMode: string = Strings.getLang('text_security_mode'),
-        textLowCharge: string = Strings.getLang('text_low_charge');
+        textLowCharge: string = Strings.getLang('text_low_charge'),
+        textOk: string = Strings.getLang('ok');
     let sensorsObj = sensors();
     let countSensors: number = sensorsObj.length;
 
@@ -342,7 +343,7 @@ export default () => {
                             onClick={() => {
                                 toggleIsShow();
                                 editNameSensor(item.id, value);
-                            }}>ОК
+                            }}>{textOk}
                         </Button>
                     </View>
                 </View>

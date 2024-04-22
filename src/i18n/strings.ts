@@ -35,6 +35,7 @@ export default {
         text_ignore: 'Ignore sensor alarm',
         text_security_mode: 'Enhanced Security Mode',
         text_low_charge: 'Low charge - close the tap',
+        ok: 'OK',
         // instructions
         instruction: 'User Manual',
         // counters
@@ -91,6 +92,7 @@ export default {
         text_ignore: '忽略传感器警报',
         text_security_mode: '增强安全模式',
         text_low_charge: '电量不足- 请关闭水龙头',
+        ok: '好的',
         // instruction
         instruction: '用户手册',
         // counters
@@ -147,6 +149,7 @@ export default {
         text_ignore: 'Игнорировать аварию на датчике',
         text_security_mode: 'Режим повышенной безопасности',
         text_low_charge: 'При низком заряде - закрыть кран',
+        ok: 'OK',
         // instruction
         instruction: 'Инструкция пользователя',
         // counters
@@ -203,6 +206,7 @@ export default {
         text_ignore: 'تجاهل تحطم المستشعر',
         text_security_mode: 'وضع الأمان العالي',
         text_low_charge: 'عندما تكون البطارية منخفضة ، قم بإيقاف تشغيل الصنبور',
+        ok: 'حسنا',
         // instruction
         instruction: 'تعليمات المستخدم',
         // counters
@@ -259,6 +263,7 @@ export default {
         text_ignore: 'Störung am Sensor ignorieren',
         text_security_mode: 'Erweiterter Sicherheitsmodus',
         text_low_charge: 'Bei niedriger Ladung - Wasserhahn schließen',
+        ok: 'OK',
         // instruction
         instruction: 'Bedienungsanleitung',
         // counters
@@ -315,6 +320,7 @@ export default {
         text_ignore: "Ignora l'incidente del sensore",
         text_security_mode: 'Modalità di sicurezza avanzata',
         text_low_charge: 'Quando la carica è bassa-chiudere il rubinetto',
+        ok: 'OK',
         // instruction
         instruction: "Istruzioni per l'utente",
         // counters
@@ -371,6 +377,7 @@ export default {
         text_ignore: 'Ignorar el accidente en el Sensor',
         text_security_mode: 'Modo de seguridad avanzada',
         text_low_charge: 'Cuando la carga es baja - cerrar el grifo',
+        ok: 'OK',
         // instruction
         instruction: 'Instrucciones del usuario',
         // counters
@@ -427,6 +434,7 @@ export default {
         text_ignore: "Ignorer l'accident sur le capteur",
         text_security_mode: 'Sécurité renforcée',
         text_low_charge: 'Lorsque la charge est faible-fermer le robinet',
+        ok: "d'accord",
         // instruction
         instruction: "Mode d'emploi",
         // counters
@@ -481,6 +489,7 @@ export default {
         text_ignore: 'Игнорирайте катастрофата на сензора',
         text_security_mode: 'Режим на повишена сигурност',
         text_low_charge: 'При ниско зареждане - затворете крана',
+        ok: 'OK',
         // instruction
         instruction: 'Инструкции за потребителя',
         // counters
@@ -535,6 +544,7 @@ export default {
         text_ignore: 'Ohita anturin kaatuminen',
         text_security_mode: 'Korkea suojaustila',
         text_low_charge: 'Kun akku on vähissä, sammuta hana',
+        ok: 'OK',
         // instruction
         instruction: 'Käyttöohjeet',
         // counters
@@ -591,6 +601,7 @@ export default {
         text_ignore: 'Sensördeki kazayı görmezden gelin',
         text_security_mode: 'Gelişmiş güvenlik modu',
         text_low_charge: 'Düşük şarj durumunda - musluğu kapatın',
+        ok: 'OK',
         // instruction
         instruction: 'Kullanıcı talimatı',
         // counters
