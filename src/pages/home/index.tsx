@@ -226,7 +226,7 @@ export function Home() {
     function notifyLowBatteryOrSignal(): object
     {
         if (alarm && (sensorsSecurityMode.length > 0)) {
-            return notify(textLowBatteryOrSignal + ' ' + textSensors + ': ' + sensorsLeak.join(', '));
+            return notify(textLowBatteryOrSignal + ' ' + textSensors + ': ' + sensorsSecurityMode.join(', '));
         }
     }
 
@@ -241,7 +241,7 @@ export function Home() {
     }
 
     /**
-     * Уведомление о включение уборки
+     * Уведомление о включении уборки
      * 
      * @returns object|false
      */
