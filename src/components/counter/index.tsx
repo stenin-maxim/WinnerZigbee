@@ -1,5 +1,6 @@
 import Strings from '../../i18n';
 
+const mask: number = 0b00000111_11111111_11111111_11111111; // сброс лишних битов
 let textIndicatorCounter: string = Strings.getLang('text_indicator_counter'),
     textSettingCounter: string = Strings.getLang('text_setting_counter'),
     textImpulsLiter: string = Strings.getLang('text_impuls_liter'),
@@ -69,6 +70,7 @@ function viewCounter(counter: number, multiplier: string): object
 }
 
 export {
+    mask,
     textIndicatorCounter, 
     textSettingCounter,
     textImpulsLiter,
