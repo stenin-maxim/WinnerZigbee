@@ -62,7 +62,7 @@ export default () => {
     }
 
     return (
-        <View>
+        <View className={styles.counter}>
             <Text className={styles.title}>{counter.textIndicatorCounter}</Text>
             <Text>1:</Text>
             <View className={styles.indicatorCounter}>

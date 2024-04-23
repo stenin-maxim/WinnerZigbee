@@ -274,7 +274,7 @@ export default () => {
     }
 
     return (
-        <View>
+        <View className={styles.sensors}>
             <View>
                 <Text className={styles.title}>{ numberOfSensors }</Text>
                 <Text className={styles.countSensors}>{ countSensors }</Text>
