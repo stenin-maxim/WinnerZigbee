@@ -1,7 +1,7 @@
 /**
  * TYKit
  *
- * @version 2.0.6
+ * @version 2.3.4
  */
 declare namespace ty {
   /**
@@ -16,7 +16,9 @@ declare namespace ty {
     /** version api版本号 */
     version?: string
     /** postData 入参结构体 */
-    postData: any
+    postData: Record<string, any>
+    /** extData 额外参数：{"GID":"xxxx"} */
+    extData?: Record<string, any>
     complete?: () => void
     success?: (success?: Record<string, any>) => void
     fail?: (params: {
@@ -36,10 +38,17 @@ declare namespace ty {
     /** 事件id */
     eventId: string
     /** 事件点对象 */
-    event: any
+    event: Record<string, {}>
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -52,12 +61,19 @@ declare namespace ty {
     /** 事件唯一ID （在同一条链路上，begin,track,end 的标识） */
     identifier: string
     /** 所有事件(begin,track,end)公有字段（该链路上，后面打点的数据会覆盖前面点数据，如下example中非data中的字段，ps：beginTime，endTime默认会打上） */
-    attributes: any
+    attributes: Record<string, {}>
     /** (begin,track,end)独有字段（会按照打点顺序组装成数组） */
-    infos: any
+    infos: Record<string, {}>
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -70,12 +86,19 @@ declare namespace ty {
     /** 事件唯一ID （在同一条链路上，begin,track,end 的标识） */
     identifier: string
     /** 所有事件(begin,track,end)公有字段（该链路上，后面打点的数据会覆盖前面点数据，如下example中非data中的字段，ps：beginTime，endTime默认会打上） */
-    attributes: any
+    attributes: Record<string, {}>
     /** (begin,track,end)独有字段（会按照打点顺序组装成数组） */
-    infos: any
+    infos: Record<string, {}>
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -88,12 +111,19 @@ declare namespace ty {
     /** 事件唯一ID （在同一条链路上，begin,track,end 的标识） */
     identifier: string
     /** 所有事件(begin,track,end)公有字段（该链路上，后面打点的数据会覆盖前面点数据，如下example中非data中的字段，ps：beginTime，endTime默认会打上） */
-    attributes: any
+    attributes: Record<string, {}>
     /** (begin,track,end)独有字段（会按照打点顺序组装成数组） */
-    infos: any
+    infos: Record<string, {}>
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -119,6 +149,17 @@ declare namespace ty {
       appName: string
       /** appIcon app图标 */
       appIcon: string
+      /**
+       * app环境
+       * 0: 日常
+       * 1: 预发
+       * 2: 线上
+       */
+      appEnv?: number
+      /** app包名 */
+      appBundleId: string
+      /** app scheme */
+      appScheme: string
     }) => void
     fail?: (params: {
       errorMsg: string
@@ -150,6 +191,22 @@ declare namespace ty {
   }): void
 
   /**
+   * 进入选择国家页面
+   */
+  export function openCountrySelectPage(params?: {
+    complete?: () => void
+    success?: (params: null) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
    * 获取iconfont信息
    */
   export function getIconfontInfo(params?: {
@@ -161,7 +218,43 @@ declare namespace ty {
        */
       nameMap: string
     }) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 图片上传
+   */
+  export function uploadImage(params: {
+    /** the file path */
+    filePath: string
+    /** business type, config via backend ng */
+    bizType: string
+    /** file type */
+    contentType?: string
+    /** polling interval of big file in second, default is 2 second */
+    delayTime?: number
+    /** max polling count, default is 5 */
+    pollMaxCount?: number
+    complete?: () => void
+    success?: (params: {
+      /** The json string returned by the request */
+      result: string
+    }) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -173,7 +266,14 @@ declare namespace ty {
       /** 手机当前地区语言 */
       langKey: string
     }) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -185,11 +285,18 @@ declare namespace ty {
       /** 多语言 */
       langContent: {}
     }) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
-   * 打开RN面板
+   * 打开RN面板 (该方法已被废弃, 请使用openPanel替代)
    */
   export function openRNPanel(params: {
     /**
@@ -208,7 +315,56 @@ declare namespace ty {
      * 面板初始化参数
      * initialProps 初始化参数
      */
-    initialProps?: any
+    initialProps?: Record<string, {}>
+    complete?: () => void
+    success?: (params: null) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 跳转打开面板
+   *不关心是跳转RN面板还是面板小程序
+   */
+  export function openPanel(params: {
+    /** 设备信息Id */
+    deviceId: string
+    /**
+     * 额外面板信息
+     * 当跳转的是二级面板时, 需要传递的额外信息
+     */
+    extraInfo?: PanelExtraParams
+    /** 面板携带业务启动参数 */
+    initialProps?: Record<string, {}>
+    complete?: () => void
+    success?: (params: null) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 面板预下载
+   */
+  export function preloadPanel(params: {
+    /** 设备id */
+    deviceId: string
+    /**
+     * 额外面板信息
+     * 当预下载的是二级面板时, 需要传递的额外信息
+     */
+    extraInfo?: PanelExtraParams
     complete?: () => void
     success?: (params: null) => void
     fail?: (params: {
@@ -242,19 +398,23 @@ declare namespace ty {
   }): void
 
   /**
-   * 打开系统设置中当前应用信息界面
+   * 根据不同scope值，打开当前应用对应的设置界面
+   *"App-Settings" -> App应用设置界面
+   *"App-Settings-Permission" -> App应用权限设置界面 (Android 独有)
+   *"App-Settings-Notification" -> App应用通知设置界面 (Android 独有)
    */
   export function openAppSystemSettingPage(params: {
     /**
-     * 设置项名称
-     * “Settings” -> 手机设置主界面
-     * “Settings-Bluetooth” -> 手机蓝牙设置界面
-     * “Settings-Notification” -> 手机通知设置界面
-     * “Settings-WiFi” -> 手机设置WiFi界面
-     * “App-Settings” -> App设置界面
-     * “App-Settings-Permission” -> App权限设置界面
-     * “App-Settings-Permission” -> App权限设置界面
-     * “App-Settings-Notification” -> App通知设置界面
+     * 跳转系统-设置项名称
+     * "Settings"-> 手机设置主界面
+     * "Settings-Bluetooth" -> 手机蓝牙设置界面
+     * "Settings-WiFi" -> 手机WiFi设置界面
+     * "Settings-Location" -> 手机定位设置界面
+     * "Settings-Notification" -> 手机通知设置界面
+     * 跳转系统-应用-设置项名称
+     * "App-Settings" -> App应用设置界面
+     * "App-Settings-Permission" -> App应用权限设置界面 (Android 独有)
+     * "App-Settings-Notification" -> App应用通知设置界面 (Android 独有)
      */
     scope: string
     /** 请求code,Android特有 */
@@ -272,23 +432,49 @@ declare namespace ty {
   }): void
 
   /**
-   * 打开手机系统设置界面
+   * 根据不同scope值，打开对应的手机系统设置界面
+   *"Settings"-> 手机设置主界面
+   *"Settings-Bluetooth" -> 手机蓝牙设置界面
+   *"Settings-WiFi" -> 手机Wifi设置界面
+   *"Settings-Location" -> 手机定位设置界面
+   *"Settings-Notification" -> 手机通知设置界面
    */
   export function openSystemSettingPage(params: {
     /**
-     * 设置项名称
-     * “Settings” -> 手机设置主界面
-     * “Settings-Bluetooth” -> 手机蓝牙设置界面
-     * “Settings-Notification” -> 手机通知设置界面
-     * “Settings-WiFi” -> 手机设置WiFi界面
-     * “App-Settings” -> App设置界面
-     * “App-Settings-Permission” -> App权限设置界面
-     * “App-Settings-Permission” -> App权限设置界面
-     * “App-Settings-Notification” -> App通知设置界面
+     * 跳转系统-设置项名称
+     * "Settings"-> 手机设置主界面
+     * "Settings-Bluetooth" -> 手机蓝牙设置界面
+     * "Settings-WiFi" -> 手机WiFi设置界面
+     * "Settings-Location" -> 手机定位设置界面
+     * "Settings-Notification" -> 手机通知设置界面
+     * 跳转系统-应用-设置项名称
+     * "App-Settings" -> App应用设置界面
+     * "App-Settings-Permission" -> App应用权限设置界面 (Android 独有)
+     * "App-Settings-Notification" -> App应用通知设置界面 (Android 独有)
      */
     scope: string
     /** 请求code,Android特有 */
     requestCode?: number
+    complete?: () => void
+    success?: (params: null) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 事件发送
+   */
+  export function emitChannel(params: {
+    /** 事件名称 */
+    eventName: string
+    /** 传递事件对象 */
+    event?: {}
     complete?: () => void
     success?: (params: null) => void
     fail?: (params: {
@@ -303,17 +489,50 @@ declare namespace ty {
 
   /**
    * 路由跳转原生页面
+   *当传递的路由url带协议头, 则直接跳转; 若不带协议头, 则补充对应APP协议头进行跳转
+   *1. 在使用万能路由跳转前, 需要在app.json中声明使用到的路由, 如果没有声明相关路由, 则该路由无法执行该方法
+   *e.g. "routers":['deviceDetail', 'tuyasmart://device']
+   *2. 在使用router方法前, 建议使用canIUseRouter来做兼容, 处理当APP没有对应路由时执行业务兜底
+   *errorCode 10014 当前路由不存在当前APP中, 不可用
    */
   export function router(params: {
     /** 路由链接 */
     url: string
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
-   * 跳转设备详情页面
+   * 判断该路由host是否存在在当前APP中
+   */
+  export function canIUseRouter(params: {
+    /** 路由链接 */
+    url: string
+    complete?: () => void
+    success?: (params: {
+      /** 路由是否可用 */
+      result: boolean
+    }) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 跳转设备详情页面, 已废弃, 推荐使用ty.device
    */
   export function goDeviceDetail(params: {
     /** 设备Id */
@@ -322,11 +541,18 @@ declare namespace ty {
     groupId?: string
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
-   * 跳转设备定时页面
+   * 跳转设备定时页面, 已废弃, 推荐使用ty.device
    */
   export function goDeviceAlarm(params: {
     /** 设备Id */
@@ -345,7 +571,82 @@ declare namespace ty {
     enableFilter?: boolean
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 分享
+   */
+  export function share(params: {
+    /**
+     * 分享渠道，可选值如下：
+     * WeChat：微信
+     * Message：短信
+     * Email：邮件
+     * More：系统更多分享渠道（调用系统分享）
+     */
+    type: string
+    /** title 标题 */
+    title: string
+    /** message 文本内容 */
+    message: string
+    /**
+     * contentType 内容类型
+     * 空值默认为text
+     * 可选值如下：
+     * text：文本
+     * image：图片
+     * file：文件
+     * web：网页地址
+     * miniProgram：微信小程序分享内容
+     */
+    contentType: string
+    /** recipients 邮件收件人 */
+    recipients?: string[]
+    /** imagePath 图片路径 */
+    imagePath?: string
+    /** filePath 当 contentType == file 时候使用 */
+    filePath?: string
+    /** web 当 contentType == file 时候使用 */
+    webPageUrl?: string
+    /** miniProgramInfo 当 contentType == miniProgram 时候使用，且分享渠道必须是微信。 */
+    miniProgramInfo?: MiniProgramInfo
+    complete?: () => void
+    success?: (params: null) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): void
+
+  /**
+   * 获取可分享的渠道列表
+   */
+  export function getShareChannelList(params?: {
+    complete?: () => void
+    success?: (params: {
+      /** 可分享的渠道列表 */
+      shareChannelList: string[]
+    }) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -371,7 +672,14 @@ declare namespace ty {
        */
       path: string
     }) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -390,7 +698,14 @@ declare namespace ty {
     orientation: number
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
 
   /**
@@ -410,8 +725,57 @@ declare namespace ty {
     orientation: number
     complete?: () => void
     success?: (params: null) => void
-    fail?: (params: {}) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
   }): void
+
+  /**
+   * 国家列表界面选择的国家信息
+   */
+  export function onCountrySelectResult(
+    listener: (params: CountrySelectResultResponse) => void
+  ): void
+
+  /**
+   * 取消监听：国家列表界面选择的国家信息
+   */
+  export function offCountrySelectResult(
+    listener: (params: CountrySelectResultResponse) => void
+  ): void
+
+  /**
+   * 上传进度回调
+   */
+  export function onUploadProgressUpdate(
+    listener: (params: ProgressEvent) => void
+  ): void
+
+  /**
+   * 取消监听：上传进度回调
+   */
+  export function offUploadProgressUpdate(
+    listener: (params: ProgressEvent) => void
+  ): void
+
+  /**
+   * 事件通道响应
+   */
+  export function onReceiveMessage(
+    listener: (params: EventChannelMessageParams) => void
+  ): void
+
+  /**
+   * 取消监听：事件通道响应
+   */
+  export function offReceiveMessage(
+    listener: (params: EventChannelMessageParams) => void
+  ): void
 
   /**
    * 统一路由事件通知
@@ -419,9 +783,23 @@ declare namespace ty {
   export function onRouterEvent(listener: (params: RouterEvent) => void): void
 
   /**
-   * 统一路由事件通知
+   * 取消监听：统一路由事件通知
    */
   export function offRouterEvent(listener: (params: RouterEvent) => void): void
+
+  /**
+   * 万能路由界面返回的数据
+   */
+  export function onRouterResult(
+    listener: (params: RouterResultResponse) => void
+  ): void
+
+  /**
+   * 取消监听：万能路由界面返回的数据
+   */
+  export function offRouterResult(
+    listener: (params: RouterResultResponse) => void
+  ): void
 
   export type PanelUiInfoBean = {
     /** phase 面板phase */
@@ -437,7 +815,7 @@ declare namespace ty {
     /** name 面板名称 */
     name?: string
     /** uiConfig 面板配置项 */
-    uiConfig?: any
+    uiConfig?: Record<string, {}>
     /** rnFind 面板Find */
     rnFind?: boolean
     /** pid 产品id */
@@ -446,9 +824,69 @@ declare namespace ty {
     i18nTime?: number
   }
 
+  export type PanelExtraParams = {
+    /** 产品id */
+    productId: string
+    /** 产品版本 */
+    productVersion: string
+    /** 面板多语言时间戳 */
+    i18nTime: string
+    /**
+     * 容器ID
+     * 可能是uiid的值也可能是miniAppId的值
+     */
+    bizClientId: string
+    /**
+     * 包类型
+     * RN RN类型
+     * SMART_MINIPG 小程序类型
+     */
+    uiType?: string
+    /** 包发布状态 */
+    uiPhase?: string
+  }
+
   export type TimeConfig = {
     /** background */
     background: string
+  }
+
+  export type MiniProgramInfo = {
+    /** 用户名称 */
+    userName: string
+    /** 路径 */
+    path: string
+    /** 图片地址 */
+    hdImagePath: string
+    /** ticket */
+    withShareTicket: boolean
+    /** 类型 */
+    miniProgramType: number
+    /** 小程序地址 */
+    webPageUrl: string
+  }
+
+  export type CountrySelectResultResponse = {
+    /** 国家码 */
+    countryCode?: string
+    /** 国家编码 */
+    countryAbb?: string
+    /** 国家名称 */
+    countryName?: string
+  }
+
+  export type ProgressEvent = {
+    /** the file path */
+    filePath: string
+    /** progress */
+    progress: number
+  }
+
+  export type EventChannelMessageParams = {
+    /** 事件id */
+    eventId: string
+    /** 传递事件对象 */
+    event?: {}
   }
 
   export type RouterEvent = {
@@ -458,11 +896,18 @@ declare namespace ty {
     bizEventData: Object
   }
 
+  export type RouterResultResponse = {
+    /** 路由链接 */
+    url: string
+    /** 路由调整之后返回的数据 */
+    data?: string
+  }
+
   export type EventBean = {
     /** 事件id */
     eventId: string
     /** 事件点对象 */
-    event: any
+    event: Record<string, {}>
   }
 
   export type TrackEventBean = {
@@ -471,9 +916,9 @@ declare namespace ty {
     /** 事件唯一ID （在同一条链路上，begin,track,end 的标识） */
     identifier: string
     /** 所有事件(begin,track,end)公有字段（该链路上，后面打点的数据会覆盖前面点数据，如下example中非data中的字段，ps：beginTime，endTime默认会打上） */
-    attributes: any
+    attributes: Record<string, {}>
     /** (begin,track,end)独有字段（会按照打点顺序组装成数组） */
-    infos: any
+    infos: Record<string, {}>
   }
 
   export type AppInfoBean = {
@@ -494,6 +939,17 @@ declare namespace ty {
     appName: string
     /** appIcon app图标 */
     appIcon: string
+    /**
+     * app环境
+     * 0: 日常
+     * 1: 预发
+     * 2: 线上
+     */
+    appEnv?: number
+    /** app包名 */
+    appBundleId: string
+    /** app scheme */
+    appScheme: string
   }
 
   export type SystemWirelessInfoBean = {
@@ -507,6 +963,24 @@ declare namespace ty {
      * nameMap iconfont信息载体
      */
     nameMap: string
+  }
+
+  export type UploadParams = {
+    /** the file path */
+    filePath: string
+    /** business type, config via backend ng */
+    bizType: string
+    /** file type */
+    contentType?: string
+    /** polling interval of big file in second, default is 2 second */
+    delayTime?: number
+    /** max polling count, default is 5 */
+    pollMaxCount?: number
+  }
+
+  export type UploadResponse = {
+    /** The json string returned by the request */
+    result: string
   }
 
   export type LocalConstants = {
@@ -543,7 +1017,29 @@ declare namespace ty {
      * 面板初始化参数
      * initialProps 初始化参数
      */
-    initialProps?: any
+    initialProps?: Record<string, {}>
+  }
+
+  export type PanelParams = {
+    /** 设备信息Id */
+    deviceId: string
+    /**
+     * 额外面板信息
+     * 当跳转的是二级面板时, 需要传递的额外信息
+     */
+    extraInfo?: PanelExtraParams
+    /** 面板携带业务启动参数 */
+    initialProps?: Record<string, {}>
+  }
+
+  export type PreloadPanelParams = {
+    /** 设备id */
+    deviceId: string
+    /**
+     * 额外面板信息
+     * 当预下载的是二级面板时, 需要传递的额外信息
+     */
+    extraInfo?: PanelExtraParams
   }
 
   export type WebViewBean = {
@@ -555,19 +1051,39 @@ declare namespace ty {
 
   export type SettingPageBean = {
     /**
-     * 设置项名称
-     * “Settings” -> 手机设置主界面
-     * “Settings-Bluetooth” -> 手机蓝牙设置界面
-     * “Settings-Notification” -> 手机通知设置界面
-     * “Settings-WiFi” -> 手机设置WiFi界面
-     * “App-Settings” -> App设置界面
-     * “App-Settings-Permission” -> App权限设置界面
-     * “App-Settings-Permission” -> App权限设置界面
-     * “App-Settings-Notification” -> App通知设置界面
+     * 跳转系统-设置项名称
+     * "Settings"-> 手机设置主界面
+     * "Settings-Bluetooth" -> 手机蓝牙设置界面
+     * "Settings-WiFi" -> 手机WiFi设置界面
+     * "Settings-Location" -> 手机定位设置界面
+     * "Settings-Notification" -> 手机通知设置界面
+     * 跳转系统-应用-设置项名称
+     * "App-Settings" -> App应用设置界面
+     * "App-Settings-Permission" -> App应用权限设置界面 (Android 独有)
+     * "App-Settings-Notification" -> App应用通知设置界面 (Android 独有)
      */
     scope: string
     /** 请求code,Android特有 */
     requestCode?: number
+  }
+
+  export type EventEmitChannelParams = {
+    /** 事件名称 */
+    eventName: string
+    /** 传递事件对象 */
+    event?: {}
+  }
+
+  export type EventChannelParams = {
+    /** 事件id */
+    eventId: string
+    /** 事件名称 */
+    eventName: string
+  }
+
+  export type EventOffChannelParams = {
+    /** 事件id */
+    eventId: string
   }
 
   export type Object = {}
@@ -575,6 +1091,11 @@ declare namespace ty {
   export type RouterBean = {
     /** 路由链接 */
     url: string
+  }
+
+  export type RouteUsageResult = {
+    /** 路由是否可用 */
+    result: boolean
   }
 
   export type DeviceDetailBean = {
@@ -599,6 +1120,47 @@ declare namespace ty {
     data: {}[]
     /** enableFilter */
     enableFilter?: boolean
+  }
+
+  export type ShareInformationBean = {
+    /**
+     * 分享渠道，可选值如下：
+     * WeChat：微信
+     * Message：短信
+     * Email：邮件
+     * More：系统更多分享渠道（调用系统分享）
+     */
+    type: string
+    /** title 标题 */
+    title: string
+    /** message 文本内容 */
+    message: string
+    /**
+     * contentType 内容类型
+     * 空值默认为text
+     * 可选值如下：
+     * text：文本
+     * image：图片
+     * file：文件
+     * web：网页地址
+     * miniProgram：微信小程序分享内容
+     */
+    contentType: string
+    /** recipients 邮件收件人 */
+    recipients?: string[]
+    /** imagePath 图片路径 */
+    imagePath?: string
+    /** filePath 当 contentType == file 时候使用 */
+    filePath?: string
+    /** web 当 contentType == file 时候使用 */
+    webPageUrl?: string
+    /** miniProgramInfo 当 contentType == miniProgram 时候使用，且分享渠道必须是微信。 */
+    miniProgramInfo?: MiniProgramInfo
+  }
+
+  export type ShareChannelResponse = {
+    /** 可分享的渠道列表 */
+    shareChannelList: string[]
   }
 
   export type ImageResizeBean = {
@@ -649,4 +1211,39 @@ declare namespace ty {
      */
     orientation: number
   }
+
+  /**
+   * EventChannel
+   */
+  interface RegisterChannelTask {
+    /**
+     * 相关事件关闭订阅
+     */
+    unRegisterChannel(params: {
+      complete?: () => void
+      success?: (params: null) => void
+      fail?: (params: {
+        errorMsg: string
+        errorCode: string | number
+        innerError: {
+          errorCode: string | number
+          errorMsg: string
+        }
+      }) => void
+    }): void
+  }
+  export function registerChannel(params: {
+    /** 事件名称 */
+    eventName: string
+    complete?: () => void
+    success?: (params: null) => void
+    fail?: (params: {
+      errorMsg: string
+      errorCode: string | number
+      innerError: {
+        errorCode: string | number
+        errorMsg: string
+      }
+    }) => void
+  }): RegisterChannelTask
 }
