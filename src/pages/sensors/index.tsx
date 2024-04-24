@@ -38,6 +38,7 @@ export default () => {
         textDeleteSensor: string = Strings.getLang('text_delete_sensor'),
         textReplaceSensor: string = Strings.getLang('text_replace_sensor'),
         textNameSensor: string = Strings.getLang('text_name_sensor'),
+        textPlaceholderNameSensor: string = Strings.getLang('placeholder_name_sensor'),
         textSettings: string = Strings.getLang('text_settings'),
         textContentDelete: string = Strings.getLang('text_content_delete'),
         textContentReplace: string = Strings.getLang('text_content_replace'),
@@ -182,6 +183,7 @@ export default () => {
             title: title,
             content: content,
             cancelText: textCancel,
+            cancelColor: '#787878',
             confirmText: textConfirm,
             confirmColor: '#ff0000',
             success: (param: any): void => {
@@ -328,7 +330,8 @@ export default () => {
                             <Text className={styles.textModalWindow}>{textNameSensor}</Text>
                             <Input
                                 className={styles.inputModalWindow}
-                                placeholder="Name Sensor"
+                                placeholder={textPlaceholderNameSensor}
+                                placeholderStyle={{color: '#808080'}}
                                 maxLength={24}
                                 type="text"
                                 value={value}

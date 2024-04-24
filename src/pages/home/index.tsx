@@ -208,6 +208,7 @@ export function Home() {
             title: textDisableAlarm,
             content: textContentAlarm,
             cancelText: textCancel,
+            cancelColor: '#787878',
             confirmText: textConfirm,
             confirmColor: '#ff0000',
             success: (param: any): void => {
