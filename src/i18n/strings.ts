@@ -460,6 +460,8 @@ export default {
         alarm_off: 'Interrompu',
         condition_crane: 'État du robinet:',
         no_events: 'Aucun événement',
+        // info
+        info: 'Info',
     },
     bg: { // Болгарский
         // home
@@ -516,6 +518,8 @@ export default {
         alarm_off: 'Изключен',
         condition_crane: 'Състояние на крана:',
         no_events: 'Няма събития',
+        // info
+        info: 'Info',
     },
     fi: { // Финский
         // home
